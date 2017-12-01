@@ -11,7 +11,7 @@
             width: 50px;
             height: 50px;
             position: absolute;
-            top: 214px;
+            top: 250px;
             left: 274px;
             /*z-index: -1;*/
         }
@@ -33,7 +33,7 @@
 </head>
 
 <body>
-    <div id="main" style="width: 600px;height:400px;"></div>
+    <div id="main" style="width: 600px;height:440px;"></div>
     <!--<canvas id="inner-circle" width="150px" height="100px">您的浏览器不支持canvas</canvas>-->
     <img class="dian" src="./center.png" alt="">
     <!--<div class="imgs"></div>-->
@@ -56,11 +56,11 @@
                 //字体风格,'normal','italic','oblique'
                 fontStyle: 'normal',
                 //字体粗细 'normal','bold','bolder','lighter',100 | 200 | 300 | 400...
-                fontWeight: 'bold',
+                // fontWeight: 'bold',
                 //字体系列
                 fontFamily: 'sans-serif',
                 //字体大小
-                fontSize: 18,
+                fontSize: 28,
                 // textAlign: 'center'
             }
         },
@@ -70,15 +70,14 @@
         },
         toolbox: {
             show: true,
-            padding: 50,
             feature: {
                 mark: {
                     show: true
                 },
                 restore: {
-                    show: true
+                    show: true //重置
                 },
-                saveAsImage: {
+                saveAsImage: { //保存图片
                     show: true
                 }
             }
@@ -86,7 +85,7 @@
 
         series: [{
             name: 'MPH',
-            center: ['50%', '60%'],
+            center: ['50%', '63%'],
             //类型
             type: 'gauge',
             //半径
@@ -236,10 +235,44 @@
             axisLabel: { // 坐标轴小标记
                 // show: false,
                 textStyle: { // 属性lineStyle控制线条样式
-                    fontWeight: 'solid',
+                    // fontWeight: 'solid',
                     color: '#B3232D',
-                    // fontSize: 40,
-                    shadowColor: '#fff', //默认透明
+                    fontSize: 20,
+                    fontWeight: 'bolder',
+                    // shadowColor: '#fff', //默认透明
+                },
+                formatter: function(v) {
+                    switch (v + '') {
+                        case '10':
+                            return '10';
+                        case '20':
+                            return '20';
+                        case '30':
+                            return '30';
+                        case '40':
+                            return '40';
+                        case '50':
+                            return '50';
+                        case '60':
+                            return '60';
+                        case '70':
+                            return '70';
+                        case '80':
+                            return '80';
+                        case '90':
+                            return '90';
+                        case '100':
+                            return '100';
+                        case '110':
+                            return '110';
+                        case '120':
+                            return '120';
+                        case '130':
+                            return '130';
+                        case '140':
+                            return '140';
+                    }
+
                 }
             },
 
