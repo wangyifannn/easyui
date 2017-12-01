@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/imgyibiao.css" rel="stylesheet">
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="box">
+            <h1>MPH</h1>
+            <div class="table">
+                <div class="circle"></div>
+                <img class="big" src="./img/pointbg.png" alt="">
+                <img class="point" src="./point.png" alt="">
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    var point = document.getElementsByClassName("point")[0];
+
+    function show1() {
+        // trace("每隔1秒显示一次");
+        var rad = Math.random() * (120) - 30;
+        point.style.transform = "rotate(" + rad + "deg)";
+        point.style.transition = "1s";
+    }
+    setInterval(show1, 1000);
+</script>
+
+</html>
