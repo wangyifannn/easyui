@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+
+<style>
+    .pathSusceptible {
+        fill: none;
+        stroke: #1FBAD6;
+        stroke-width: 2;
+    }
+    
+    .pathDeath {
+        fill: none;
+        stroke: #F25754;
+        stroke-width: 2;
+    }
+    
+    .pathInfection {
+        fill: none;
+        stroke: #66FF00;
+        stroke-width: 2;
+    }
+    
+    .daysCount {
+        position: absolute;
+        left: 380px;
+        top: 20px;
+        font-size: 1.5em;
+        color: white;
+    }
+    
+    .instructionText {
+        width: 200px;
+        position: absolute;
+        left: 600px;
+        top: 10px;
+        font-size: 1.5em;
+        color: black;
+    }
+    
+    text {
+        font-family: sans-serif;
+    }
+</style>
+
+<canvas style="position: absolute; left: 0; top: 0" onclick="storeGuess(event)"></canvas>
+<svg id="infectionGraph" style="position: absolute; left: 545; top: 80"></svg>
+<svg id="deathGraph" style="position: absolute; left: 545; top: 280"></svg>
+<div class="instructionText">Click on the map to add more Zombies</div>
+<div class="daysCount">
+    Days: <span id="daysCounter"></span>
+</div>
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js"></script>
+<script>
+    const margin = {
+            top: 10,
+            right: 10,
+            bottom: 10,
+            left: 75
+        },
+        width = 400 - margin.left - margin.right,
+        height = 200 - margin.top - margin.bottom
+        //two svg for the real time data
+    const svgInfection = d3.select("#infectionGraph")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", `translate(${margin.left}, ${margin.top})`)
+        .attr("width", width)
+        .attr("height", height)
+    const svgDeadAlive = d3.select("#deathGraph")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", `translate(${margin.left}, ${margin.top})`)
+        .attr("width", width)
+        .attr("height", height)
+
+    const pathInfection = svgInfection
+        .append('path')
+        .attr("class", "pathInfection")
+
+    const pathDeath = svgDeadAlive
+        .append('path')
+        .attr("class", "pathDeath")
+
+    const pathSusceptible = svgDeadAlive
+        .append('path')
+        .attr("class", "pathSusceptible")
+
+    const infectionAxis = svgInfection
+        .append("g")
+        .attr("class", "yAxis")
+        .attr("transform", `translate(${-3}, 0)`)
+
+    const deadAliveAxis = svgDeadAlive
+        .append("g")
+        .attr("class", "yAxis")
+        .attr("transform", `translate(${-3}, 0)`)
+
+    //svg for days counter text
+    const svgCounter = d3.select("#daysCounter")
+        .attr("width", 50)
+        .attr("height", 50)
+
+    const line = d3.line()
+        .curve(d3.curveCatmullRom.alpha(0.5))
+
+    const yScaleInfection = d3.scaleLinear()
+        .range([+svgInfection.attr("height"), 0])
+
+    const yScaleDeadAlive = d3.scaleLinear()
+        .range([+svgDeadAlive.attr("height"), 0])
+
+    let dataGrid;
+    const imWidth = 538;
+    const imHeight = 553;
+
+    d3.text("france-dataGrid.json", (error, data) => {
+            if (error) console.log(error)
+
+            const dataRaw = data.split(",").map(d => parseInt(d))
+
+            //create dataGrid that will be used to create an image
+            dataGrid = new Uint8ClampedArray(imWidth * imHeight * 4); //reserving enough bytes
+
+            dataRaw.map((d, i) => {
+                dataGrid[i * 4] = 0; // red layer [0, 255]
+                dataGrid[i * 4 + 1] = 0; // green layer
+                dataGrid[i * 4 + 2] = d; // blue layer
+                dataGrid[i * 4 + 3] = 255; // alpha layer
+
+            })
+
+            //initial image
+            let imageData = createImageURL(dataGrid, imWidth, imHeight)
+            loadImage(imageData, imWidth, imHeight);
+
+
+            //SIR Model parameters
+            const beta = 0.01 //how transmittable the disease is. One bite is all it takes!
+            const gamma = 3 //how fast you go from zombie to dead. Sort of average of how fast our zombie hunters are working and natural death ... 3 time iterations in this case
+
+            //Let's put patient 0 somewhere between Lyon and Nimes
+            const posI_0 = 410205
+            dataGrid[posI_0] = 1
+
+            //Initial state of susceptibles/infected/dead people
+            let nInfected = [],
+                nRemoved = [],
+                nSusceptible = [],
+                ct = 0; //for rolling window if too much iterations
+
+            let [pInfected, pRemoved, pSusceptible] = storeState(dataGrid, imWidth, imHeight)
+                //pInfected as percentage of living population
+            pInfected = pInfected / (pSusceptible + pInfected)
+
+            nInfected.push(pInfected)
+            nRemoved.push(pRemoved)
+            nSusceptible.push(pSusceptible)
+
+            const deadAliveAxisLeft = d3.axisLeft()
+                .scale(yScaleDeadAlive)
+                .tickFormat(d3.format(".0%"))
+
+            const infectionAxisLeft = d3.axisLeft()
+                .scale(yScaleInfection)
+                .tickFormat(d3.format(".2%"))
+
+
+            svgInfection
+                .append("g")
+                .attr("transform", `translate(${-63}, ${height/2})`)
+                .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("text-anchor", "middle")
+                .html("Current")
+            svgInfection
+                .append("g")
+                .attr("transform", `translate(${-50}, ${height/2})`)
+                .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("text-anchor", "middle")
+                .html("infected population")
+
+            svgDeadAlive
+                .append("g")
+                .attr("transform", `translate(${-40}, ${height/2})`)
+                .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("text-anchor", "middle")
+                .html("Dead/Alive")
+
+            deadAliveAxis
+                .call(deadAliveAxisLeft)
+
+            infectionAxis
+                .call(infectionAxisLeft)
+
+            //Run the simulation for iterMax iterations
+            let iter = 0;
+            const iterMax = 500;
+
+            let daysCount = d3.select("#daysCounter")
+                .html(iter)
+
+            const timer = d3.timer(function() {
+                //euler method to calculate new state
+                dataGrid = euler(dataGrid, beta, gamma, imWidth, imHeight);
+
+                //generate new image from the latest simulation data
+                imageData = createImageURL(dataGrid, imWidth, imHeight)
+                updateImageData(imageData, imWidth, imHeight)
+
+                //store current susceptibles/infected/dead state
+                let [pInfected, pRemoved, pSusceptible] = storeState(dataGrid, imWidth, imHeight)
+                    //pInfected as percentage of living population
+                pInfected = pInfected / (pSusceptible + pInfected)
+
+                if (ct++ > width) { //rolling window
+                    nInfected.shift();
+                    nRemoved.shift();
+                    nSusceptible.shift();
+                }
+                nInfected.push(pInfected)
+                nRemoved.push(pRemoved)
+                nSusceptible.push(pSusceptible)
+
+                yScaleInfection
+                    .domain([0, d3.max(nInfected)]);
+                yScaleDeadAlive
+                    .domain([0, d3.max(d3.merge([nRemoved, nSusceptible]))])
+
+                infectionAxisLeft
+                    .scale(yScaleInfection)
+
+                infectionAxis
+                    .transition()
+                    .duration(100)
+                    .call(infectionAxisLeft)
+
+
+                pathInfection
+                    .attr('d', line(nInfected.map((d, i) => {
+                        return [i, yScaleInfection(d)];
+                    })));
+
+                pathDeath
+                    .attr('d', line(nRemoved.map((d, i) => {
+                        return [i, yScaleDeadAlive(d)];
+                    })));
+
+                pathSusceptible
+                    .attr('d', line(nSusceptible.map((d, i) => {
+                        return [i, yScaleDeadAlive(d)];
+                    })));
+
+                iter += 1
+
+                daysCount
+                    .html(iter)
+
+                if (iter >= iterMax) timer.stop()
+
+            }); //d3.timer
+
+        }) //d3.text
+
+    function storeState(dataGrid, imWidth, imHeight) {
+
+        let pI = 0,
+            pR = 0,
+            pS = 0
+
+        for (let y = 0; y < imHeight; y++) {
+            for (let x = 0; x < imWidth; x++) {
+                let pos = (y * imWidth + x) * 4 + 0; // position in buffer based
+                pI += dataGrid[pos + 1]
+                pR += dataGrid[pos]
+                pS += dataGrid[pos + 2]
+            }
+        }
+        return [pI, pR, pS]
+    } //storeState
+
+
+    function createImageURL(dataBuffer, imWidth, imHeight) {
+        // create off-screen canvas element to create image
+        const canvas = document.createElement('canvas'),
+            ctx = canvas.getContext('2d');
+
+        canvas.width = imWidth;
+        canvas.height = imHeight;
+
+        // create imageData object
+        let imData = ctx.createImageData(imWidth, imHeight);
+
+        // set our data as source
+        imData.data.set(dataBuffer);
+
+        // update off-screen canvas with new data
+        ctx.putImageData(imData, 0, 0);
+
+        const dataURL = canvas.toDataURL(); //produces a PNG file
+
+        return dataURL
+    } //createImageURL
+
+
+    function loadImage(dataImage, imWidth, imHeight) {
+
+        const img = new Image()
+        const canvas = d3.select('canvas')
+            .attr("width", imWidth)
+            .attr("height", imHeight)
+
+        const ctx = canvas.node().getContext('2d')
+
+        img.src = dataImage
+
+        img.onload = function() {
+
+            //flip image vertically
+            ctx.scale(1, -1);
+            ctx.translate(0, -imHeight);
+
+            ctx.drawImage(img, 0, 0, imWidth, imHeight)
+        }
+    } //loadImage
+
+
+    function updateImageData(dataImage, imWidth, imHeight) {
+
+        const img = new Image()
+        const canvas = d3.select('canvas')
+        const ctx = canvas.node().getContext('2d')
+        img.src = dataImage
+
+        img.onload = function() {
+            ctx.drawImage(img, 0, 0, imWidth, imHeight)
+        }
+    } //updateImageData
+
+
+    function euler(imData, beta, gamma, imWidth, imHeight) {
+
+        let newData = []
+            //start by y since data grouped by latitude first
+        for (let y = 0; y < imHeight; y++) {
+            for (let x = 0; x < imWidth; x++) {
+                const posS = (y * imWidth + x) * 4 + 2; //blue layer
+                const posI = (y * imWidth + x) * 4 + 1;
+                const posR = (y * imWidth + x) * 4 + 0; // position in buffer based on x and y
+
+                const posAlpha = (y * imWidth + x) * 4 + 3; // position in buffer based on x and y
+                newData[posAlpha] = 255 //alpha channel
+
+                const posS_a = ((y - 1) * imWidth + x) * 4 + 2;
+                const posI_a = ((y - 1) * imWidth + x) * 4 + 1;
+
+                const posS_b = ((y + 1) * imWidth + x) * 4 + 2;
+                const posI_b = ((y + 1) * imWidth + x) * 4 + 1;
+
+
+                //new infection
+                let newInfection = (beta * (
+
+                        //line above
+                        imData[posS_a] * imData[posI_a] * 0.75 +
+                        imData[posS_a - 4] * imData[posI_a - 4] * 0.25 + //less influcenced by diagonales corners
+                        imData[posS_a + 4] * imData[posI_a + 4] * 0.25 + //less influcenced by diagonales 
+
+                        //same line
+                        imData[posS] * imData[posI] +
+                        imData[posS - 4] * imData[posI - 4] * 0.75 +
+                        imData[posS + 4] * imData[posI + 4] * 0.75 +
+
+                        //line below
+                        imData[posS_b] * imData[posI_b] * 0.75 +
+                        imData[posS_b - 4] * imData[posI_b - 4] * 0.25 + //less influcenced by diagonales 
+                        imData[posS_b + 4] * imData[posI_b + 4] * 0.25 //less influcenced by diagonales 
+
+                    )
+
+                ) | 0
+
+                //infected people dying
+                let newDead = gamma * imData[posI] | 0
+
+
+                //if infection is not greater than people in cell
+                if (newInfection <= imData[posS]) {
+                    newData[posS] = imData[posS] - newInfection
+
+                    //if not all the infected people are dead
+                    if (imData[posI] + newInfection >= newDead) {
+                        newData[posI] = imData[posI] + newInfection - newDead
+                        newData[posR] = imData[posR] + newDead
+                    } else {
+                        newData[posI] = 0
+                        newData[posR] = imData[posR] + imData[posI]
+                    }
+
+                }
+                //if more infection than susceptible
+                else {
+
+                    //if possible new death is possible
+                    if (imData[posI] + imData[posS] >= newDead) {
+                        newData[posS] = 0 //no susceptible left
+                        newData[posI] = imData[posI] + imData[posS] - newDead
+                        newData[posR] = imData[posR] + newDead
+                    } else {
+                        newData[posS] = 0
+                        newData[posI] = 0
+                        newData[posR] = imData[posR] + imData[posS] + imData[posI]
+                    }
+                }
+
+            }
+        }
+        return newData
+    } //euler
+
+    function storeGuess(event) {
+        const x = event.offsetX;
+        const y = event.offsetY;
+
+        const posI = ((imHeight - y) * imWidth + x) * 4 + 1;
+        dataGrid[posI] = 1
+    }
+</script>

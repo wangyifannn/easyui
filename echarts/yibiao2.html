@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <!-- 引入 echarts.js -->
+    <script src="./js/echarts.js"></script>
+</head>
+
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 800px;height:600px;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例  
+        var myChart = echarts.init(document.getElementById('main'));
+
+        option = {
+            backgroundColor: '#1b1b1b', //仪表盘的背景色
+
+            tooltip: {
+                formatter: "{a} <br/>{c}{b}"
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    restore: {
+                        show: true
+                    },
+                    saveAsImage: {
+                        show: true
+                    }
+                }
+            },
+            series: [{
+                name: '东部地区',
+                type: 'gauge',
+                z: 3,
+                min: 10,
+                max: 140,
+
+                splitNumber: 27,
+                radius: '50%',
+                axisLine: { // 坐标轴线  
+                    lineStyle: { // 属性lineStyle控制线条样式  
+                        width: 10
+
+                    }
+                },
+                axisTick: { // 坐标轴小标记  
+                    length: 15, // 属性length控制线长  
+                    splitNumber: 3, //每一份分为3份
+
+                    lineStyle: { // 属性lineStyle控制线条样式  
+                        color: 'auto'
+                    }
+                },
+                splitLine: { // 分隔线  
+                    length: 20, // 属性length控制线长  
+                    lineStyle: { // 属性lineStyle（详见lineStyle）控制线条样式  
+                        color: 'auto'
+                    }
+                },
+                title: {
+                    textStyle: { // 其余属性默认使用全局文本样式，详见TEXTSTYLE  
+                        fontWeight: 'bolder',
+                        fontSize: 20,
+                        fontStyle: 'italic',
+                        color: "#25c36c"
+                    }
+                },
+                // detail: {
+                //     textStyle: { // 其余属性默认使用全局文本样式，详见TEXTSTYLE  
+                //         fontWeight: 'bolder'
+                //     }
+                // },
+                pointer: { // 分隔线
+                    length: '80%',
+                    width: 1.5,
+                    color: 'auto'
+                },
+                data: [{
+                    value: 109.2,
+                    textStyle: {
+                        color: "#25c36c"
+                    },
+                    name: 'km/h'
+                }]
+            }]
+        };
+
+        /*  
+        app.timeTicket = setInterval(function (){  
+            myChart.setOption(option,true);  
+        },2000);  
+        */
+
+        myChart.setOption(option);
+    </script>
+
+</body>
+
+</html>

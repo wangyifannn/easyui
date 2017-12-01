@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>折线图</title>
+    <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/echarts.js"></script>
+</head>
+
+<body>
+    <div align="center">
+        <div id="main" style="width: 1000px;height:700px"></div>
+    </div>
+    <script src="${pageContext.request.contextPath}/source/echarts/myTheme.js"></script>
+    <script type="text/javascript">
+        // 另外说一下带主题加载，就是这样的，注意“e_macarons”必须是myTheme.js(上面引入的自定义主题js文件,echarts中也附带了不少主题js文件)中函数的名字  
+        var myChart = echarts.init(document.getElementById('main'), e_macarons);
+        option = {
+            title: {···},
+            tooltip: {···},
+            legend: {···},
+            toolbox: {···},
+            grid: {···},
+            xAxis: [···],
+            dataZoom: [···],
+            yAxis: [···],
+            series: []
+        };
+        //加载数据  
+        jQuery.ajax({
+            url: "url",
+            type: 'get',
+            dataType: 'json',
+            success: function(jsons) {
+                var Item = function() {
+                    return {
+                        name: '',
+                        type: 'line',
+                        itemStyle: {
+                            normal: {
+                                areaStyle: {
+                                    type: 'default',
+                                    opacity: isArea
+                                }
+                            }
+                        },
+                        label: {
+                            normal: {
+                                show: isShowAllData,
+                                position: 'top'
+                            }
+                        },
+                        markLine: {
+                            data: [{
+                                type: 'average',
+                                name: '平均值'
+                            }]
+                        },
+                        data: []
+                    }
+                };
+                var legends = [];
+                var Series = [];
+                var json = jsons.data;
+                for (var i = 0; i < json.length; i++) {
+                    var it = new Item();
+                    it.name = json[i].name;
+                    legends.push(json[i].name);
+                    it.data = json[i].data;
+                    Series.push(it);
+                }
+
+                option.xAxis[0].data = jsons.xcontent;
+                option.legend.data = legends;
+                option.series = Series; // 设置图表  
+                myChart.setOption(option); // 重新加载图表  
+            },
+            error: function() {
+                alert("数据加载失败！请检查数据链接是否正确");
+            }
+        });
+        // 初次加载图表(无数据)   
+        myChart.setOption(option);
+    </script>
+</body>
+
+</html>
