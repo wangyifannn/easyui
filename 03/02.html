@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 在IE运行最新的渲染模式 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 初始化移动浏览显示  -->
+    <meta name="Author" content="Dreamer-1.">
+    <script type="text/javascript" src="./libs/js/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="js/echarts.common.min.js"></script>-->
+    <script type="text/javascript" src="./libs/js/echarts.common.min.js"></script>
+
+    <title>- 观测数据 -</title>
+</head>
+
+<body>
+    <div style="height:410px;min-height:100px;margin:0 auto;" id="main"></div>
+</body>
+<script>
+    var myChart = echarts.init(document.getElementById('main'));
+    // $.get('')
+
+    // $.get('data/asset/data/aqi-beijing.json', function(data) {
+    $.ajax({
+        type: "get",
+        // url: "http://v.juhe.cn/historyWeather/weather?key=3a0bce0a7066762b06fa3c1ec59e6b7a&city_id=1157&weather_date=2017-07-15",
+        url: "./data.json",
+        // url: "../02/data.json",
+        // dataType: "jsonp",
+        jsonp: "callback", //传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(一般默认为:callback)
+        // jsonpCallback: "flightHandler", //自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名，也可以写"?"，jQuery会自动为你处理数据
+        async: false,
+        success: function(data) {
+            console.log(data);
+            data = data.result;
+            myChart.setOption(option = {
+                title: {
+                    text: '示波器数据表'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                xAxis: {
+                    data: data.map(function(item) {
+                        return item[0];
+                    })
+                },
+                yAxis: {
+                    splitLine: {
+                        show: false
+                    }
+                },
+                toolbox: {
+                    left: 'center',
+                    feature: {
+                        dataZoom: {
+                            yAxisIndex: 'none'
+                        },
+                        restore: {},
+                        saveAsImage: {}
+                    }
+                },
+                dataZoom: [{
+                    startValue: '2017-07-15'
+                }, {
+                    type: 'inside'
+                }],
+                visualMap: {
+                    top: 10,
+                    right: 10,
+                    pieces: [{
+                        gt: 0,
+                        lte: 50,
+                        color: '#096'
+                    }, {
+                        gt: 50,
+                        lte: 100,
+                        color: '#ffde33'
+                    }, {
+                        gt: 100,
+                        lte: 150,
+                        color: '#ff9933'
+                    }, {
+                        gt: 150,
+                        lte: 200,
+                        color: '#cc0033'
+                    }, {
+                        gt: 200,
+                        lte: 300,
+                        color: '#660099'
+                    }, {
+                        gt: 300,
+                        color: '#7e0023'
+                    }],
+                    outOfRange: {
+                        color: '#999'
+                    }
+                },
+                series: {
+                    name: 'Beijing AQI',
+                    type: 'line',
+                    data: data.map(function(item) {
+                        return item[1];
+                    }),
+                    markLine: {
+                        silent: true,
+                        data: [{
+                            yAxis: 50
+                        }, {
+                            yAxis: 100
+                        }, {
+                            yAxis: 150
+                        }, {
+                            yAxis: 200
+                        }, {
+                            yAxis: 300
+                        }]
+                    }
+                }
+            });
+        },
+        error: function() {
+            alert('fail');
+        }
+    });
+</script>
+
+</html>

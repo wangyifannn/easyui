@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ss</title>
+    <link href="https://cdn.bootcss.com/Swiper/4.0.6/css/swiper.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+    <style>
+        .swiper-container {
+            width: 500px;
+            height: 300px;
+            margin: 20px auto;
+        }
+        
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+
+    </div>
+</body>
+<script src="./jquery.min.js">
+</script>
+<script src="https://cdn.bootcss.com/Swiper/4.0.5/js/swiper.min.js"></script>
+<!--<script src="path/to/swiper.animate.min.js"></script>-->
+<script>
+    var mySwiper = new Swiper('.container', {
+        autoplay: 2500 //自动轮播
+    });
+    $(".container").mouseenter(function() { //滑过悬停
+        mySwiper.stopAutoplay(); //mySwiper 为上面你swiper实例化的名称
+    }).mouseleave(function() { //离开开启
+        mySwiper.startAutoplay();
+    });
+</script>
+
+</html>
