@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="./bootstrap.min.css" rel="stylesheet">
+    <style>
+        .dian {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            top: 250px;
+            left: 274px;
+            /*z-index: -1;*/
+        }
+        
+        img {
+            /*border: 1px solid red;*/
+            width: 150px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main" style="width: 600px;height:550px;"></div>
+    <!--<canvas id="inner-circle" width="150px" height="100px">您的浏览器不支持canvas</canvas>-->
+    <img class="dian" src="./center.png" alt="">
+    <!--<div class="imgs"></div>-->
+</body>
+<script src="./js/jquery.min.js"></script>
+<script src="./js/echarts.js"></script>
+<script>
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+    var timeTicket = '';
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: "MHP",
+            left: 'center',
+            itemGap: 50,
+            textStyle: {
+                //文字颜色
+                color: '#B3232D',
+                //字体风格,'normal','italic','oblique'
+                fontStyle: 'normal',
+                //字体粗细 'normal','bold','bolder','lighter',100 | 200 | 300 | 400...
+                // fontWeight: 'bold',
+                //字体系列
+                fontFamily: 'sans-serif',
+                //字体大小
+                fontSize: 28
+                    // textAlign: 'center'
+            }
+        },
+        backgroundColor: '#0d0918', //仪表盘的背景色
+        tooltip: {
+            formatter: "{a} <br/>{c} {b}"
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                mark: {
+                    show: true
+                },
+                restore: {
+                    show: true //重置
+                },
+                saveAsImage: { //保存图片
+                    show: true
+                }
+            }
+        },
+
+        series: [{
+            name: 'MPH',
+            center: ['50%', '58%'],
+            //类型
+            type: 'gauge',
+            //半径
+            radius: 230,
+            //起始角度。圆心 正右手侧为0度，正上方为90度，正左手侧为180度。
+            // startAngle: 180,
+            //结束角度。
+            // endAngle: 0,
+            min: 10,
+            max: 140,
+            splitNumber: 26,
+            axisLine: { // 坐标轴线
+                lineStyle: { // 属性lineStyle控制线条样式
+                    color: [
+                        [0.01, 'white'],
+                        [0.02, '#B3232D'],
+                        [0.03, '#B3232D'],
+                        [0.04, 'white'],
+                        [0.05, '#B3232D'],
+                        // [0.055, 'red'],
+                        [0.06, '#B3232D'],
+                        [0.07, '#B3232D'],
+                        [0.08, 'white'],
+                        [0.09, '#B3232D'],
+
+                        [0.1, '#B3232D'],
+                        [0.11, '#B3232D'],
+
+                        [0.12, 'white'],
+                        [0.13, '#B3232D'],
+                        [0.14, '#B3232D'],
+                        [0.15, '#B3232D'],
+                        [0.16, 'white'],
+                        [0.17, '#B3232D'],
+                        [0.18, '#B3232D'],
+                        [0.19, 'white'],
+                        [0.2, 'white'],
+                        [0.21, '#B3232D'],
+                        [0.22, '#B3232D'],
+                        [0.23, 'white'],
+                        [0.24, 'white'],
+                        [0.25, '#B3232D'],
+                        [0.26, '#B3232D'],
+                        [0.27, 'white'],
+                        [0.28, '#B3232D'],
+                        [0.29, '#B3232D'],
+                        [0.3, '#B3232D'],
+                        [0.32, 'white'],
+                        [0.33, '#B3232D'],
+                        [0.34, '#B3232D'],
+                        [0.35, 'white'],
+                        [0.36, '#B3232D'],
+                        [0.37, '#B3232D'],
+                        [0.38, '#B3232D'],
+                        [0.39, 'white'],
+                        [0.4, '#B3232D'],
+                        [0.41, '#B3232D'],
+                        [0.42, '#B3232D'],
+                        [0.43, 'white'],
+                        [0.44, '#B3232D'],
+                        [0.45, '#B3232D'],
+                        [0.46, 'white'],
+                        [0.47, 'white'],
+                        [0.48, '#B3232D'],
+                        [0.49, '#B3232D'],
+                        [0.50, 'white'],
+                        [0.51, '#B3232D'],
+                        [0.52, '#B3232D'],
+                        [0.53, '#B3232D'],
+                        [0.54, 'white'],
+                        [0.55, '#B3232D'],
+                        [0.57, '#B3232D'],
+                        [0.58, 'white'],
+                        [0.59, '#B3232D'],
+                        [0.61, '#B3232D'],
+                        [0.62, 'white'],
+                        [0.63, '#B3232D'],
+                        [0.64, '#B3232D'],
+                        [0.65, '#B3232D'],
+                        [0.66, 'white'],
+                        [0.67, '#B3232D'],
+                        [0.68, '#B3232D'],
+
+                        [0.69, 'white'],
+                        [0.70, 'white'],
+
+                        [0.71, '#B3232D'],
+                        [0.72, '#B3232D'],
+                        [0.73, 'white'],
+
+                        [0.74, 'white'],
+                        [0.75, '#B3232D'],
+                        [0.76, '#B3232D'],
+                        [0.77, 'white'],
+                        [0.78, '#B3232D'],
+                        [0.80, '#B3232D'],
+                        [0.81, 'white'],
+                        [0.82, '#B3232D'],
+                        [0.84, '#B3232D'],
+                        [0.85, 'white'],
+                        [0.86, '#B3232D'],
+                        [0.88, '#B3232D'],
+                        [0.89, 'white'],
+                        [0.90, '#B3232D'],
+                        [0.92, '#B3232D'],
+                        [0.93, 'white'],
+                        [0.94, '#B3232D'],
+                        [0.96, '#B3232D'],
+                        [0.97, 'white'],
+                        [0.98, '#B3232D'],
+                        [0.99, '#B3232D'],
+                        [0.999, 'white'],
+                    ],
+                    // color: 'white',
+                    width: 5, //外圆的轴线的宽度
+                    opacity: 0
+                }
+            },
+            axisTick: { // 坐标轴小标记
+                show: true, //小刻度显示与否
+                splitNumber: 3, //每一份分为3份
+                // width: 3,
+                length: 15, // 属性length控制线长
+                lineStyle: { // 属性lineStyle控制线条样式
+                    // color: '#B3232D',
+                    color: 'auto',
+                    width: 3,
+                    opacity: 1
+                }
+            },
+            splitLine: { // 分隔线
+                show: true,
+                length: 25, // 属性length控制线长
+                lineStyle: { // 属性lineStyle（详见lineStyle）控制线条样式
+                    width: 3,
+                    option: 1,
+                    color: "auto",
+                }
+            },
+            title: {
+                textStyle: { // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                    fontSize: 27,
+                    color: '#B3232D',
+                    shadowColor: '#fff', //默认透明
+                }
+            },
+            axisLabel: { // 坐标轴小标记
+                // show: false,
+                textStyle: { // 属性lineStyle控制线条样式
+                    // fontWeight: 'solid',
+                    color: '#B3232D',
+                    fontSize: 26,
+                },
+                formatter: function(v) {
+                    switch (v + '') {
+                        case '10':
+                            return '10';
+                        case '20':
+                            return '20';
+                        case '30':
+                            return '30';
+                        case '40':
+                            return '40';
+                        case '50':
+                            return '50';
+                        case '60':
+                            return '60';
+                        case '70':
+                            return '70';
+                        case '80':
+                            return '80';
+                        case '90':
+                            return '90';
+                        case '100':
+                            return '100';
+                        case '110':
+                            return '110';
+                        case '120':
+                            return '120';
+                        case '130':
+                            return '130';
+                        case '140':
+                            return '140';
+                    }
+
+                }
+            },
+            pointer: { // 分隔线
+                length: '78%',
+                width: 6,
+                color: 'yellow',
+                z: 22
+            },
+            data: [{
+                value: 20,
+                textStyle: {
+                    color: "#25c36c"
+                },
+                name: 'km/h'
+            }]
+        }]
+    };
+
+    clearInterval(timeTicket);
+    timeTicket = setInterval(function() {
+        option.series[0].data[0].value = parseInt(Math.random() * 130 + 10);
+        myChart.setOption(option, true);
+    }, 2000)
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+
+</html>
