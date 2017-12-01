@@ -5,14 +5,14 @@
     <title></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="./bootstrap.min.css" rel="stylesheet">
+    <!--<link href="./bootstrap.min.css" rel="stylesheet">-->
     <style>
         .dian {
             width: 50px;
             height: 50px;
             position: absolute;
-            top: 250px;
-            left: 274px;
+            top: 300px;
+            left: 282px;
             /*z-index: -1;*/
         }
         
@@ -21,6 +21,17 @@
             width: 150px;
             height: 100px;
         }
+        
+        .imgs {
+            width: 500px;
+            height: 1px;
+            border: 1px solid red;
+            position: absolute;
+            left: 0px;
+            z-index: 3;
+            top: 0px;
+            display: none;
+        }
     </style>
 </head>
 
@@ -28,7 +39,7 @@
     <div id="main" style="width: 600px;height:550px;"></div>
     <!--<canvas id="inner-circle" width="150px" height="100px">您的浏览器不支持canvas</canvas>-->
     <img class="dian" src="./center.png" alt="">
-    <!--<div class="imgs"></div>-->
+    <div class="imgs"></div>
 </body>
 <script src="./js/jquery.min.js"></script>
 <script src="./js/echarts.js"></script>
