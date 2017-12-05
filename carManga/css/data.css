@@ -14,28 +14,29 @@ a {
 }
 
 .content_box {
-    border: 1px solid green;
+    border: 2px solid #074587;
+    box-shadow: 1px 2px 35px #074587;
     width: 80%;
     margin: 0 auto;
     height: 500px;
-    min-width: 500px;
+    min-width: 1000px;
 }
 
 .content_left {
-    width: 20%;
+    width: 18%;
     height: 100%;
     /*display: inline-block;*/
     float: left;
     /*网页超出的部分自动出现滚动条*/
+    border-right: 1px solid chocolate;
 }
 
 .content_right {
-    width: 80%;
+    width: 82%;
     height: 100%;
     float: right;
     overflow: auto;
     color: white;
-    border: 1px solid #1f1f1f;
     /*display: inline-block;*/
 }
 
@@ -69,12 +70,22 @@ a {
 
 ul {
     list-style: none;
+    /*border: 1px solid chocolate;*/
+    margin: 20px 20px 0px;
 }
 
 .ul_box li:hover {
-    background: pink;
+    background: #00aff0;
 }
 
-.tab-pane h2 {
+.tab-pane h3 {
     text-align: center;
+    border-bottom: 1px solid #074587;
+    padding: 0px 0px 20px;
+    margin-bottom: 20px;
+}
+
+.tab_pane_content {
+    width: 90%;
+    margin: 0 auto;
 }
