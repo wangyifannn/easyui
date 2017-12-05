@@ -29,7 +29,7 @@
             position: absolute;
             left: 0px;
             z-index: 3;
-            top: 0px;
+            top: 50%;
             display: none;
         }
     </style>
@@ -273,14 +273,33 @@
                         case '140':
                             return '140';
                     }
-
                 }
             },
             pointer: { // 分隔线
                 length: '78%',
                 width: 6,
                 color: 'yellow',
-                z: 22
+                transition: "1s",
+                z: 22,
+                backgroundColor: {
+                    // image: 'xxx/xxx.png'
+                    // 这里可以是图片的 URL，
+                    // 或者图片的 dataURI，
+                    // 或者 HTMLImageElement 对象，
+                    // 或者 HTMLCanvasElement 对象。
+                }
+            },
+            itemStyle: {
+                normal: {
+                    // 阴影的大小
+                    shadowBlur: 200,
+                    // 阴影水平方向上的偏移
+                    shadowOffsetX: 0,
+                    // 阴影垂直方向上的偏移
+                    shadowOffsetY: 0,
+                    // 阴影颜色
+                    shadowColor: 'rgba(0, 0, 255, 0.5)'
+                }
             },
             data: [{
                 value: 20,

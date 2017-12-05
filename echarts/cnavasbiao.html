@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>使用Canvas绘制钟表</title>
+    <style>
+        body {
+            /*background-color: #0d0918;*/
+        }
+        
+        .clocks {
+            height: 500px;
+            margin: 25px auto;
+            position: relative;
+            width: 500px;
+            border: 1px solid red;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="clocks">
+        <canvas id="canvas" width="500" height="500"></canvas>
+    </div>
+</body>
+<script src="./js/jquery.min.js">
+</script>
+<script>
+    // inner variables
+    var canvas, ctx;
+    var clockRadius = 250;
+    var clockImage;
+
+    // draw functions :
+    function clear() { // clear canvas function
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    }
+
+    function drawScene() { // main drawScene function
+        clear(); // clear canvas
+
+        // get current time
+        var date = new Date();
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var seconds = date.getSeconds();
+        hours = hours > 12 ? hours - 12 : hours;
+        var hour = hours + minutes / 60;
+        var minute = minutes + seconds / 60;
+
+        // save current context
+        ctx.save();
+
+        // draw clock image (as background)
+        ctx.drawImage(clockImage, 0, 0, 500, 500);
+
+        ctx.translate(canvas.width / 2, canvas.height / 2);
+        ctx.beginPath();
+
+        // draw numbers
+        ctx.font = '36px Arial';
+        ctx.fillStyle = 'green';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        for (var n = 1; n <= 12; n++) {
+            var theta = (n - 3) * (Math.PI * 2) / 12; //theta为弧度
+            var x = clockRadius * 0.7 * Math.cos(theta); //clockRadius为圆的半径，乘以0.7是因为画字的那个圆相对原表的半径要小一些。x表示临边，x /r = cos,所以x= cos*r 
+            var y = clockRadius * 0.7 * Math.sin(theta); //
+            ctx.fillText(n, x, y); //第一个参数未要显示的text文本，第二个值为显示在页面的时候的x坐标，第三个为y坐标，
+        }
+
+        // draw hour
+        ctx.save();
+        var theta = (hour - 3) * 2 * Math.PI / 12;
+        ctx.rotate(theta);
+        ctx.beginPath();
+        ctx.moveTo(-15, -5);
+        ctx.lineTo(-15, 5);
+        ctx.lineTo(clockRadius * 0.5, 1);
+        ctx.lineTo(clockRadius * 0.5, -1);
+        ctx.fill();
+        ctx.restore();
+
+        // draw minute
+        ctx.save();
+        var theta = (minute - 15) * 2 * Math.PI / 60;
+        ctx.rotate(theta);
+        ctx.beginPath();
+        ctx.moveTo(-15, -4);
+        ctx.lineTo(-15, 4);
+        ctx.lineTo(clockRadius * 0.8, 1);
+        ctx.lineTo(clockRadius * 0.8, -1);
+
+        ctx.fillStyle = 'purple';
+
+        ctx.fill();
+        ctx.restore();
+
+        // draw second
+        ctx.save();
+        var theta = (seconds - 15) * 2 * Math.PI / 60;
+        ctx.rotate(theta);
+        ctx.beginPath();
+        ctx.moveTo(-15, -3);
+        ctx.lineTo(-15, 3);
+        ctx.lineTo(clockRadius * 0.9, 1);
+        ctx.lineTo(clockRadius * 0.9, -1);
+        ctx.fillStyle = 'red';
+        ctx.fill();
+        ctx.restore();
+
+        ctx.restore();
+        // 一旦我们调用 restore，状态堆中最后的状态会弹出，并恢复所有设置。如果不是之前用 save 保存了状态，
+        // 那么我们就需要手动改变设置来回到前一个状态，这个对于两三个属性的时候还是适用的，一旦多了，我们的代码将会猛涨。 
+        // 简而言之restore方法就可以理解成将其对应的当前save状态下的设置全部恢复为前一个状态
+    }
+
+    // initialization
+    $(function() {
+        canvas = document.getElementById('canvas');
+        ctx = canvas.getContext('2d');
+
+        // var width = canvas.width;
+        // var height = canvas.height;
+
+        clockImage = new Image();
+        clockImage.src = 'https://static.runoob.com/images/mix/125855_nnla_89964.png';
+        // clockImage.src = './img/pointbg.png';
+
+        setInterval(drawScene, 1000); // loop drawScene
+    });
+    // window.onload = function() {
+    //     var drawing = document.getElementById("clock");
+    //     var context = drawing.getContext("2d");
+
+    //     function drawClock() {
+    //         context.clearRect(0, 0, drawing.width, drawing.height);
+
+    //         var circleX = 200; // 圆心X坐标
+    //         var circleY = 200; // 圆心Y坐标
+    //         var radius = 190; // 半径长度
+
+    //         // 获取时间信息
+    //         var date = new Date();
+    //         var hour = date.getHours();
+    //         var min = date.getMinutes();
+    //         var sec = date.getSeconds();
+
+    //         // 分针走一圈60度，时针走30度
+    //         // 度数转化为弧度  度数*Math.PI/180
+    //         var hourValue = (-90 + 30 * hour + min / 2) * Math.PI / 180;
+    //         var minValue = (-90 + 6 * min) * Math.PI / 180;
+    //         var secValue = (-90 + 6 * sec) * Math.PI / 180;
+
+    //         // 绘制表盘
+    //         context.beginPath();
+    //         context.font = "bold 16px Arial blue";
+    //         context.fillStyle = 'pink';
+
+    //         context.lineWidth = '3';
+    //         for (var i = 5; i < 16; i++) {
+    //             context.moveTo(circleX, circleY); //定义线条的开始坐标
+    //             // context.arc(circleX, circleY, radius, 30 * i * Math.PI / 180, 30 * (i + 1) * Math.PI / 180, false);
+    //             context.arc(circleX, circleY, radius, 30 * i * Math.PI / 180, (35 / 360) * (i) * Math.PI / 180, false);
+    //         }
+    //         context.stroke();
+
+    //         // context.fillStyle = 'green';
+    //         // context.beginPath();
+    //         // context.moveTo(circleX, circleY);
+    //         // context.arc(circleX, circleY, radius * 19 / 20, 0, 360 * Math.PI / 180, false);
+    //         // context.closePath();
+    //         // context.fill();
+
+    //         // // 绘制钟表中心
+    //         // context.beginPath();
+    //         // context.arc(200, 200, 6, 0, 360, false);
+    //         // // context.fillStyle = "pink";
+    //         // context.fill(); //画实心圆
+    //         // // context.fillStyle = "green";
+    //         // context.closePath();
+
+    //         // // 绘制时针刻度
+    //         // context.lineWidth = '5';
+    //         // context.beginPath();
+    //         // // context.fillStyle = "pink";
+    //         // context.moveTo(circleX, circleY);
+    //         // context.arc(circleX, circleY, radius * 9 / 20, hourValue, hourValue, false);
+    //         // context.stroke();
+
+    //         // // 绘制分针
+    //         // context.lineWidth = '3';
+    //         // context.beginPath();
+    //         // context.moveTo(circleX, circleY);
+    //         // context.arc(circleX, circleY, radius * 13 / 20, minValue, minValue, false);
+    //         // context.stroke();
+
+    //         // // 绘制秒针
+    //         // context.lineWidth = '1';
+    //         // context.beginPath();
+    //         // context.moveTo(circleX, circleY);
+    //         // context.arc(circleX, circleY, radius * 18 / 20, secValue, secValue, false);
+    //         // context.stroke();
+
+
+    //         // // 绘制钟表的数字
+    //         // context.fillStyle = "#B3232D";
+    //         // context.fillText("12", 190, 34);
+    //         // context.fillText("3", 370, 206);
+    //         // context.fillText("6", 196, 378);
+    //         // context.fillText("9", 22, 206);
+
+    //     }
+    //     // setInterval(drawClock, 1000);
+    //     drawClock();
+    // }
+</script>
+
+</html>

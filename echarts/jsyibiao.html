@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link href="css/style.css" rel="stylesheet">-->
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+        
+        .yibiao {
+            width: 500px;
+            height: 500px;
+            border: 1px solid red;
+            margin: 0 auto;
+        }
+        
+        .biao {
+            width: 100%;
+            height: 100%;
+            background: #0d0918;
+            border: 1px solid green;
+            border-radius: 50%;
+            position: relative;
+        }
+        
+        .little_div {
+            width: 250px;
+            height: 3px;
+            background: white;
+            border: none;
+            /*border: 3px solid white;*/
+            transform-origin: 100% 0%;
+            /*margin: auto;*/
+            /*margin-top: 50%;*/
+            /*border-bottom: none;*/
+            position: absolute;
+            top: 50%;
+            left: 0px;
+        }
+        
+        .big_div {
+            width: 250px;
+            height: 1px;
+            /*border: none;*/
+            background: #B3232D;
+            border-top: 2px solid #B3232D;
+            transform-origin: 100% 0%;
+            /*margin: auto;*/
+            /*margin-top: 50%;*/
+            position: absolute;
+            top: 50%;
+            left: 0px;
+            /*box-shadow: 0 0 10px 20px green inset,*/
+            box-shadow: 1px 0px 0px 1px rgba(20%, 90%, 40%, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="yibiao">
+        <div class="biao" id="biao">
+
+        </div>
+    </div>
+</body>
+<script>
+    var littleDivArr = [];
+    var bigDivArr = [];
+
+    var biao = document.getElementById("biao");
+
+    function creatLine(className) {
+        for (var i = 0; i < 280; i += 10) {
+            var littleDiv = document.createElement("div");
+            littleDiv.className = "little_div"
+            littleDivArr.push(littleDiv);
+            biao.appendChild(littleDiv);
+            var rotate = i - 45;
+            littleDiv.style.transform = "rotate(" + rotate + "deg)";
+
+
+        }
+        for (var i = 0; i < 270; i += 3.333333333333333333) {
+            var bigDiv = document.createElement("div");
+            bigDivArr.push(bigDiv);
+            bigDiv.className = "big_div"
+            biao.appendChild(bigDiv);
+            var rotates = i - 45;
+            console.log(i);
+
+            bigDiv.style.transform = "rotate(" + rotates + "deg)";
+
+        }
+    }
+    creatLine(biao);
+    console.log(bigDivArr);
+    for (i = 0; i < bigDivArr.length; i++) {
+        if (i % 3 == 0) {
+            // bigDivArr[i].style.border = "2px solid pink";
+            bigDivArr[i].style.display = "none";
+        }
+    }
+</script>
+
+</html>
