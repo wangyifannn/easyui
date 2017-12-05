@@ -1,4 +1,80 @@
 body {
     /*background: #0A2257;*/
+    background-color: #092F69 !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+.content {
+    width: 100%;
+    padding-top: 20px;
     background: #092F69;
+}
+
+.content_box {
+    border: 1px solid green;
+    width: 80%;
+    margin: 0 auto;
+    height: 500px;
+    min-width: 500px;
+}
+
+.content_left {
+    width: 20%;
+    height: 100%;
+    /*display: inline-block;*/
+    float: left;
+    /*网页超出的部分自动出现滚动条*/
+}
+
+.content_right {
+    width: 80%;
+    height: 100%;
+    float: right;
+    overflow: auto;
+    color: white;
+    border: 1px solid #1f1f1f;
+    /*display: inline-block;*/
+}
+
+ ::-webkit-scrollbar:vertical {
+    width: 4px;
+}
+
+ ::-webkit-scrollbar-track:vertical {
+    background-color: transparent;
+}
+
+ ::-webkit-scrollbar-thumb:vertical {
+    background-color: #00aff0;
+}
+
+ ::-webkit-scrollbar-thumb:hover {
+    background-color: #9c3
+}
+
+ ::-webkit-scrollbar-thumb:active {
+    background-color: #00aff0
+}
+
+.glyphicon {
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 25px;
+    height: 25px;
+    color: wheat;
+}
+
+ul {
+    list-style: none;
+}
+
+.ul_box li:hover {
+    background: pink;
+}
+
+.tab-pane h2 {
+    text-align: center;
 }
