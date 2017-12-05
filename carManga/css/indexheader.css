@@ -1,0 +1,132 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    /*border: 1px solid red;*/
+}
+
+header {
+    width: 100%;
+    height: 100px;
+    background: #0A2257;
+}
+
+.header {
+    width: 77%;
+    min-width: 1210px;
+    height: 100%;
+    margin: 0 auto;
+    /*border: 1px solid red;*/
+    /*background: #0A2257;*/
+}
+
+.header_left {
+    float: left;
+}
+
+.header_left img {
+    width: 165px;
+    height: 65px;
+    margin-top: 17px;
+    margin-left: 35.5px;
+    margin-right: 255px;
+}
+
+.header_content {
+    /*width: 80%;*/
+    height: 100%;
+    /*margin: 0 auto;*/
+    float: left;
+    /*border: 1px solid yellow;*/
+}
+
+.box {
+    width: 130px;
+    height: 100%;
+    text-align: center;
+    float: left;
+    margin-left: 10px;
+}
+
+.box:hover {
+    cursor: pointer;
+    background: url("../img/index/header_icon_bg.png");
+    background-size: 100% 100%;
+}
+
+.box_icon_active {
+    background: url("../img/index/header_icon_bg.png");
+    background-size: 100% 100%;
+}
+
+.box_icon img {
+    width: 47px;
+    height: 49px;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 13px;
+}
+
+.box_text {
+    color: #F1F1F1;
+    font-size: 18px;
+    font-family: MicrosoftYaHei;
+    text-align: center;
+}
+
+.close,
+.user {
+    display: inline-block;
+}
+
+.close_tags,
+.user_tags {
+    font-size: 12px;
+    color: #F1F1F1;
+    font-family: MicrosoftYaHeiLight;
+    /*border: 1px solid #F1F1F1;*/
+    opacity: 0;
+    text-align: center;
+}
+
+.user {
+    text-align: center;
+}
+
+.close:hover .close_tags {
+    opacity: 1;
+}
+
+.user:hover .user_tags {
+    opacity: 1;
+}
+
+.user_bg {
+    /*background: url("../img/index/user_bg.png") no-repeat;*/
+    background-size: 100% 100%;
+    display: inline-block;
+    margin: 0 auto;
+    margin-bottom: 2px;
+}
+
+.user_bg img {
+    width: 22.5px;
+    height: 24px;
+    vertical-align: middle;
+    text-align: center;
+    cursor: pointer;
+    /*padding-left: 20px;*/
+}
+
+.header_right {
+    /*float: right;*/
+    float: left;
+    /*width: 8%;*/
+    margin-left: 58px;
+    margin-top: 40px;
+}
+
+.clearfloat:after {
+    content: "";
+    clear: both;
+    display: block;
+}
