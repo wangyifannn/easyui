@@ -15,8 +15,6 @@ header {
     min-width: 1210px;
     height: 100%;
     margin: 0 auto;
-    /*border: 1px solid red;*/
-    /*background: #0A2257;*/
 }
 
 .header_left {
@@ -73,13 +71,13 @@ header {
     text-align: center;
 }
 
-.close,
-.user {
+.close_btn,
+.user_btn {
     display: inline-block;
 }
 
-.close_tags,
-.user_tags {
+.close_btn_tags,
+.user_btn_tags {
     font-size: 12px;
     color: #F1F1F1;
     font-family: MicrosoftYaHeiLight;
@@ -88,39 +86,28 @@ header {
     text-align: center;
 }
 
-.user {
+.user_btn {
     text-align: center;
 }
 
-.close:hover .close_tags {
+.close_btn:hover .close_btn_tags {
     opacity: 1;
 }
 
-.user:hover .user_tags {
+.user_btn:hover .user_btn_tags {
     opacity: 1;
 }
 
-.user_bg {
-    /*background: url("../img/index/user_bg.png") no-repeat;*/
-    background-size: 100% 100%;
-    display: inline-block;
-    margin: 0 auto;
-    margin-bottom: 2px;
-}
-
-.user_bg img {
+.user_btn img,
+.close_btn img {
     width: 22.5px;
     height: 24px;
-    vertical-align: middle;
     text-align: center;
     cursor: pointer;
-    /*padding-left: 20px;*/
 }
 
 .header_right {
-    /*float: right;*/
     float: left;
-    /*width: 8%;*/
     margin-left: 58px;
     margin-top: 40px;
 }

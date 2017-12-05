@@ -3,6 +3,10 @@ body {
     background-color: #092F69 !important;
 }
 
+* {
+    /*border: 1px solid red;*/
+}
+
 a {
     text-decoration: none;
 }
@@ -18,7 +22,7 @@ a {
     box-shadow: 1px 2px 35px #074587;
     width: 80%;
     margin: 0 auto;
-    height: 500px;
+    height: 600px;
     min-width: 1000px;
 }
 
@@ -28,7 +32,7 @@ a {
     /*display: inline-block;*/
     float: left;
     /*网页超出的部分自动出现滚动条*/
-    border-right: 1px solid chocolate;
+    border-right: 1px solid #074587;
 }
 
 .content_right {

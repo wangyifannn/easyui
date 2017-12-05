@@ -5,9 +5,9 @@
     <title></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap-3.3.7.min.css">
     <link rel="stylesheet" type="text/css" href="../css/indexheader.css">
-    <link rel="stylesheet" type="text/css" href="../css/index.css">
-    <!--<link href="css/bootstrap-3.3.7.min.css" rel="stylesheet">-->
+    <!--<link rel="stylesheet" type="text/css" href="../css/data.css">-->
 </head>
 
 <body>
@@ -65,64 +65,14 @@
                 </div>
             </div>
         </header>
-
-        <div class="categories">
-            <div class="imgs">
-                <img src="../img/index/categories1.png" alt="">
-                <img src="../img/index/categories2.png" alt="">
-                <img src="../img/index/categories3.png" alt="">
-            </div>
-        </div>
-        <div class="menus">
-            <div class="menus_img">
-                <div class="menus_img_box">
-                    <img src="../img/index/agreement.png" alt="">
-                    <p>协议</p>
-                </div>
-                <div class="menus_img_box">
-                    <img src="../img/index/import.png" alt="">
-                    <p>脚本导入</p>
-                </div>
-                <div class="menus_img_box menus_img_border">
-                    <img src="../img/index/current_data.png" alt="">
-                    <p>实时数据</p>
-                </div>
-                <div class="menus_box_line">
-
-                </div>
-
-                <div class="menus_img_box">
-                    <img src="../img/index/before_data.png" alt="">
-                    <p>历史数据</p>
-                </div>
-                <div class="menus_img_box">
-                    <img src="../img/index/terminal_config.png" alt="">
-                    <p>终端配置</p>
-                </div>
-                <div class="menus_img_box menus_img_border">
-                    <img src="../img/index/terminal_info.png" alt="">
-                    <p>终端信息</p>
-                </div>
-            </div>
-
+        <div class="content">
         </div>
         <div class="munus_footer">
 
         </div>
     </div>
 </body>
-<script src="../js/jquery.min.js">
-</script>
-<script src="../js/index.js">
-</script>
-<script>
-    console.log(window.sessionStorage.LoginStatus);
-    if (window.sessionStorage.LoginStatus != true) {
-        // location.href = "login.html";
-    } else {
-        location.href = "index.html";
-
-    }
-</script>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
 
 </html>
