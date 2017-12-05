@@ -118,5 +118,14 @@
 </script>
 <script src="./js/index.js">
 </script>
+<script>
+    console.log(window.sessionStorage.LoginStatus);
+    if (window.sessionStorage.LoginStatus != true) {
+        // location.href = "login.html";
+    } else {
+        location.href = "index.html";
+
+    }
+</script>
 
 </html>
