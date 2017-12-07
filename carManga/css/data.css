@@ -7,6 +7,11 @@ body {
     /*border: 1px solid red;*/
 }
 
+.wrap {
+    width: 100%;
+    min-width: 1260px;
+}
+
 a {
     text-decoration: none;
 }
@@ -32,7 +37,8 @@ a {
     /*display: inline-block;*/
     float: left;
     /*网页超出的部分自动出现滚动条*/
-    border-right: 1px solid #074587;
+    box-shadow: 1px 2px 15px #074587;
+    border-right: 2px solid #074587;
 }
 
 .content_right {
@@ -64,26 +70,110 @@ a {
     background-color: #00aff0
 }
 
-.glyphicon {
-    margin-left: 10px;
-    margin-right: 10px;
-    width: 25px;
-    height: 25px;
-    color: wheat;
+.glyphicon-chevron-down {
+    font-size: 2px;
 }
 
-ul {
+.ul_box {
     list-style: none;
     /*border: 1px solid chocolate;*/
-    margin: 20px 20px 0px;
+    color: #F1F1F1;
+    /*margin: 20px 20px 0px;*/
+    padding-top: 40px;
 }
 
-.ul_box li:hover {
-    background: #00aff0;
+.ul_box li:hover .menus {
+    background: #074587;
+    cursor: pointer;
+    color: #F1F1F1;
+}
+
+ul li a {
+    /*border: 1px solid red;*/
+    font-size: 15px;
+    color: #F1F1F1;
+    font-family: MicrosoftYaHei;
+    margin-right: 8px;
+    text-decoration: none;
+}
+
+
+/*ul li a:visited {
+    /*color: #F1F1F1;*/
+
+
+/*text-decoration: none;
+}*/
+
+
+/*ul li a:hover {
+    color: #F1F1F1;
+    text-decoration: none;
+}*/
+
+
+/*ul li a:active {
+    color: #F1F1F1;
+    text-decoration: none;
+}*/
+
+a:link {
+    color: #F1F1F1;
+    text-decoration: none;
+}
+
+
+/* 未访问的链接 */
+
+a:visited {
+    color: #F1F1F1;
+    text-decoration: none;
+}
+
+
+/* 已访问的链接 */
+
+.ul_box li img {
+    /*margin-right: 14px;*/
+    margin: 5px 17px 14px 5px;
+    margin-left: 17px;
+}
+
+.icon_left1 {
+    width: 22px;
+    height: 20px;
+}
+
+.icon_left2 {
+    width: 22px;
+    height: 13.5px;
+}
+
+.icon_left3 {
+    width: 19px;
+    height: 16.5px;
+}
+
+.dropdown p {
+    cursor: pointer;
+    line-height: 25px;
+    height: 25px;
+    width: 100%;
+}
+
+.dropdown p a {
+    width: 100%;
+    height: 100%;
+    line-height: 25px;
+    display: inline-block;
 }
 
 .tab-pane h3 {
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 20px;
     text-align: center;
+    /*border: 1px solid red;*/
     border-bottom: 1px solid #074587;
     padding: 0px 0px 20px;
     margin-bottom: 20px;
@@ -92,4 +182,77 @@ ul {
 .tab_pane_content {
     width: 90%;
     margin: 0 auto;
+    /*border: 1px solid red;*/
+}
+
+.dropdown {
+    text-align: center;
+    display: none;
+}
+
+.menu_active {
+    background: #074587;
+}
+
+.drop_active {
+    /*background: #337AB7;*/
+    /*background: rgba(51, 122, 183, 0.5);*/
+}
+
+.footer {
+    width: 100%;
+    height: 1px;
+    border: none;
+    /*position: absolute;*/
+    /*left: 0px;*/
+    /*bottom: 15px;*/
+    margin-top: 30px;
+    border-bottom: 12px solid #074587;
+}
+
+
+/*表格样式*/
+
+.keep-open .dropdown-menu {
+    background: #074587;
+}
+
+.btn {
+    font-size: 10px;
+    padding: 3px 9px;
+}
+
+.table-hover>tbody>tr:hover {
+    background-color: #337AB7;
+    cursor: pointer;
+}
+
+.fixed-table-container tbody .selected td {
+    background-color: #337AB7;
+}
+
+#toolbar {
+    position: relative;
+}
+
+#toolbar .form-control {
+    width: 126%;
+    height: 22px;
+    padding: 3px 0px;
+    font-size: 8px;
+}
+
+.pull-right .form-control {
+    height: 22px;
+}
+
+.import-mdoel_select {
+    position: absolute;
+    left: 70px;
+    top: 5px;
+    /*display: inline-block;*/
+}
+
+.fixed-table-pagination .pagination a {
+    padding: 1px 5px;
 }

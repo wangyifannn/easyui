@@ -7,11 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../css/bootstrap-3.3.7.min.css">
     <link rel="stylesheet" type="text/css" href="../css/indexheader.css">
+    <link href="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../css/data.css">
+
 </head>
 
 <body>
     <div class="wrap">
+        <!--s header-->
         <header>
             <div class="header clearfloat">
                 <div class="header_left">
@@ -65,26 +68,38 @@
                 </div>
             </div>
         </header>
+        <!--e header-->
+        <!--s content-->
         <div class="content">
             <div class="content_box  clearfix">
                 <div class="content_left">
                     <ul id="myTab" class="ul_box">
-                        <li class="active">
-                            <i class="glyphicon glyphicon-asterisk"></i>
-                            <a href="#home" data-toggle="tab">内网设置</a>
+                        <li>
+                            <div class="menus">
+                                <img class="icon_left1" src="../img/index/current_data.png" alt=""><a href="#ios1" data-toggle="tab">实时数据</a>
+                                <i class="glyphicon glyphicon-chevron-down"></i>
+                            </div>
                         </li>
-                        <li><i class="glyphicon glyphicon-asterisk"></i><a href="#ios1" data-toggle="tab">实时数据</a></li>
-                        <li><i class="glyphicon glyphicon-stats"></i><a href="#ios2" data-toggle="tab">历史数据</a></li>
-                        <li><i class="glyphicon glyphicon-flash"></i><a href="#ios3" data-toggle="tab">导出数据</a></li>
-                        <li><i class="glyphicon glyphicon-send"></i><a href="#ios4" data-toggle="tab">家长控制</a></li>
-                        <li class="dropdown">
-                            <i class="glyphicon glyphicon-asterisk"></i>
-                            <a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown">Java</a>
-                            <b class="caret"></b>
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1">
-                                <li><a href="#jmeter" tabindex="-1" data-toggle="tab">jmeter</a></li>
-                                <li><a href="#ejb" tabindex="-1" data-toggle="tab">ejb</a></li>
-                            </ul>
+                        <li>
+                            <div class="menus">
+                                <img class="icon_left2" src="../img/index/before_data.png" alt=""><a href="#ios2" data-toggle="tab">历史数据</a>
+                                <i class="glyphicon glyphicon-chevron-down"></i>
+                            </div>
+
+                        </li>
+                        <!--<li><img src="../img/index/import.png" alt=""><a href="#ios3" data-toggle="tab">导出数据</a></li>-->
+                        <li class="active">
+                            <div class="menus">
+                                <img class="icon_left3" src="../img/index/data_import.png" alt="">
+                                <a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown">导出数据</a>
+                                <!--<b class="caret"></b>-->
+                                <i class="glyphicon glyphicon-chevron-down btndrop"></i>
+                            </div>
+                            <div class="dropdown">
+                                <p class="chart"><a class="drop_active" href="#linechart" tabindex="-1" data-toggle="tab">线图</a></p>
+                                <p class="chart"><a class="drop_active" href="#columnchart" tabindex="-1" data-toggle="tab">柱状图</a></p>
+                                <p class="chart"><a class="drop_active" href="#chart" tabindex="-1" data-toggle="tab">表格</a></p>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -92,95 +107,141 @@
                     <div id="myTabContent" class="tab-content">
                         <div class="tab-pane fade in active" id="home">
                             <div class="tab_pane_content">
-                                <h3>内网设置</h3>
-
-                                <p>菜鸟教程是一个提供最新的web技术站点术文档，帮助广大web技术爱好者快速入门并建立自己的网站。菜鸟先飞早入行——学的不仅是技术，更是梦想。</p>
-                                <p>菜鸟教程是一个提供最新的web技术站点，本站免费提供了建站相关的技术文档，帮助广大web技术爱好者快速入门术，更是梦想。</p>
-                                <p>菜鸟教程是一个提供最新的web技术站点，本站免费提供了建站相关的技术文档，帮助广大web技术爱好者快是技术，更是梦想。</p>
-                                <p>菜鸟教程是一个提供最新的web技关的技术文档，帮助广大web技术爱好者快速入门并建立自己的网站。菜鸟先飞早入行——学的不仅是技术，更是梦想。</p>
-                                <p>菜鸟教程是一个提供最新的web技术站点，本站免费提供了建站相关的技术文档，帮助广大web技术爱好者快速是技术，更是梦想。</p>
-                                <p>菜鸟教程是一个提供最新的web技术站点，本站免费提供了建站相关的技术文档，帮助广大web技术爱好者快更是梦想。</p>
-                                <p>菜鸟教程是一个提供最新的web技术站点，本站免费提供了建站相关的技术文档，帮助广大web技术爱好。菜鸟先飞早入行——学的不仅是技术，更是梦想。</p>
-                                <p>菜鸟教程是一个提供最新的web技术站点，本站免费提供了建站相关的技术文档，帮助广大web技术爱好者快速入门并建立自己的网站。仅是技术，更是梦想。</p>
-                                <p>菜鸟教程是一个提供最新的web技术站点，本站免费提供了建站相关的技术文档，帮助广大web技术爱好行——学的不仅是技术，更是梦想。</p>
-                                <p>菜鸟教程是一个提供最新的web技术站点，本站免费提供了建站相关的技术文档，帮助广大web技术爱好者快</p>
+                                <h3>实时数据</h3>
+                                <p>这是实时数据。</p>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="ios1">
-                            <h3>内网设置</h3>
-
-                            <p>iOS 11是一个由苹果公司开发和发布的手机操作系统。最初是于 2007 年首次发布 iPhone、iPod Touch 和 Apple TV。iOS 派生自 OS X，它们共享 Darwin 基础。OS X 操作系统是用在苹果电脑上，iOS 是苹果的移动版本。</p>
-                        </div>
                         <div class="tab-pane fade" id="ios2">
-                            <h3>内网设置</h3>
+                            <div class="tab_pane_content">
 
-                            <p>iOS 2是一个由苹果公司开发和发布的手机操作系统。最初是于 2007 年首次发布 iPhone、iPod Touch 和 Apple TV。iOS 派生自 OS X，它们共享 Darwin 基础。OS X 操作系统是用在苹果电脑上，iOS 是苹果的移动版本。</p>
-                        </div>
-                        <div class="tab-pane fade" id="ios3">
-                            <h3>内网设置</h3>
+                                <h3>历史数据</h3>
 
-                            <p>iOS 3是一个由苹果公司开发和发布的手机操作系统。最初是于 2007 年首次发布 iPhone、iPod Touch 和 Apple TV。iOS 派生自 OS X，它们共享 Darwin 基础。OS X 操作系统是用在苹果电脑上，iOS 是苹果的移动版本。</p>
+                                <p>iOS 2是一个由苹果公司开发和发布的手机操作系统。最初是于 2007 年首次发布 iPhone、iPod Touch 和 Apple TV。iOS 派生自 OS X，它们共享 Darwin 基础。OS X 操作系统是用在苹果电脑上，iOS 是苹果的移动版本。</p>
+                            </div>
                         </div>
-                        <div class="tab-pane fade" id="ios4">
-                            <h3>内网设置</h3>
+                        <div class="tab-pane fade" id="linechart">
+                            <div class="tab_pane_content">
 
-                            <p>iOS 4是一个由苹果公司开发和发布的手机操作系统。最初是于 2007 年首次发布 iPhone、iPod Touch 和 Apple TV。iOS 派生自 OS X，它们共享 Darwin 基础。OS X 操作系统是用在苹果电脑上，iOS 是苹果的移动版本。</p>
-                        </div>
+                                <h3>线图</h3>
 
-                        <div class="tab-pane fade" id="jmeter">
-                            <h3>内网设置</h3>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
-                            <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
+                                <p>iOS 3是一个由苹果公司开发和发布的手机操作系统。最初是于 2007 年首次发布 iPhone、iPod Touch 和 Apple TV。iOS 派生自 OS X，它们共享 Darwin 基础。OS X 操作系统是用在苹果电脑上，iOS 是苹果的移动版本。</p>
+                            </div>
                         </div>
-                        <div class="tab-pane fade" id="ejb">
-                            <p>Enterprise Java Beans（EJB）是一个创建高度可扩展性和强大企业级应用程序的开发架构，部署在兼容应用程序服务器（比如 JBOSS、Web Logic 等）的 J2EE 上。
-                            </p>
+                        <div class="tab-pane fade" id="columnchart">
+                            <div class="tab_pane_content">
+
+                                <h3>柱状图</h3>
+
+                                <p>iOS 4是一个由苹果公司开发和发布的手机操作系统。最初是于 2007 年首次发布 iPhone、iPod Touch 和 Apple TV。iOS 派生自 OS X，它们共享 Darwin 基础。OS X 操作系统是用在苹果电脑上，iOS 是苹果的移动版本。</p>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="chart">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table id="table" data-toggle="table" data-url="../json/datatable.json" data-show-export="true" data-toolbar="#toolbar" data-checkbox="true" data-show-columns="true" data-search="true" data-data-type="json" data-show-refresh="true" data-show-toggle="true"
+                                        data-show-columns="true" data-sort-name="id" data-page-list="[10, 30, 100, All]" data-page-size="10" data-side-pagination="client" data-pagination="true" data-show-pagination-switch="true">
+                                        <h3>db2表</h3>
+                                        <div id="toolbar" style="display: inline-block">
+                                            <span>导出模式：</span>
+                                            <select class="form-control import-mdoel_select">
+                                                    <option value="">导出当前页数据</option>
+                                                    <option value="all">导出全部数据</option>
+                                                    <option value="selected">导出选中数据</option>
+                                                </select>
+                                        </div>
+                                        <thead>
+                                            <tr>
+                                                <th data-field="state" data-checkbox="true" data-width="5%" data-select-item-name="选中"></th>
+                                                <th data-field="id" data-align="center" data-width="5%" data-height="10">序号</th>
+                                                <th data-field="name" data-align="center" data-width="10%">脚本说明</th>
+                                                <th data-field="price" data-align="center" data-width="20%">更新时间</th>
+                                                <th data-field="price" data-align="center" data-width="30%">说明</th>
+                                                <th data-field="operate" data-align="center" data-width="10%" data-events=operateEvents1 data-formatter=operateFormatter1>操作 </th>
+                                                <!--<th data-field="operate" data-align="center" data-width="10%" data-events=operateEvents2 data-formatter=operateFormatter2>操作 </th>-->
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="munus_footer">
+        <!--e content-->
+        <!--s footer-->
+        <div class="footer">
 
         </div>
+        <!--e footer-->
     </div>
 </body>
-<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery.min.1.js"></script>
 <script src="../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/FileSaver.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.js"></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/bootstrap-table/1.11.1/extensions/export/bootstrap-table-export.js"></script>
+<script src="../js/tableExport.min.js"></script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $(".btndrop").click(function() {
+            $(".dropdown").slideToggle();
+        });
+        $(".ul_box li").click(function() {
+            $(this).addClass("menu_active").siblings().removeClass("menu_active");
+        })
+        $(".dropdown p").click(function() {
+            $(this).addClass("drop_active").siblings().removeClass("drop_active");
+        })
+
+    });
+
+    var $table = $('#table');
+    $(function() {
+        $('#toolbar').find('select').change(function() {
+            $table.bootstrapTable('destroy').bootstrapTable({
+                exportDataType: $(this).val()
+            });
+        });
+    })
+
+    window.operateEvents1 = {
+        "click #btn_myimport": function(e, value, row, index) {
+            var $this = $(this.parentNode.parentNode);
+            // console.log($this.attr("className", "selected"));
+            console.log(row.state);
+            if (row.state == true) {
+                $this.removeClass("selected");
+                // console.log($this.children(".bs-checkbox input").prop("checked"));
+                $this.children(".bs-checkbox input").prop("checked", "checked");
+                row.state = false;
+            } else if (row.state == undefined || row.state == false) {
+                row.state = true;
+                // console.log("row.state不等于true,改为" + row.state)
+                $this.children(".bs-checkbox input").prop("checked", "");
+                $this.addClass("selected");
+            }
+            //编辑详情事件
+            // $(this).parent
+            console.log(this);
+            // console.log($(this));
+            console.log(this.parentNode.parentNode.children[0].children[0]);
+            console.log(this.parentNode.parentNode);
+            // console.log(this.parentNode.parentNode.children[0].children[0].getAttribute("checked"));
+            // detailmodal.open();
+        }
+    }
+
+    function operateFormatter1(value, row, index) {
+        return [
+            '<button id="btn_myimport" type="button" class="RoleOfA btn-default bt-select btn btn-primary">导出</button>',
+        ].join('');
+    }
+    // var btnMyimport = document.getElementsByClassName("btn_myimport");
+    // console.log(btnMyimport);
+</script>
 
 </html>

@@ -3,3 +3,21 @@
     width: 500px;
     height: 200px;
 }
+
+path {
+    /*定义画出的线条无填充，*/
+    fill: none;
+    /* 线颜色*/
+    stroke: brown;
+    /*线条粗细*/
+    stroke-width: 2;
+}
+
+
+/*设置刻度  类 domain用来控制x轴线的样式,.tick line控制每一个小刻度*/
+
+.domain,
+.tick line {
+    stroke: gray;
+    stroke-width: 1;
+}
