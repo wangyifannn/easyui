@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../css/bootstrap-3.3.7.min.css">
     <link rel="stylesheet" type="text/css" href="../css/indexheader.css">
-    <!--<link rel="stylesheet" type="text/css" href="../css/data.css">-->
+    <link rel="stylesheet" type="text/css" href="../css/commoncontent.css">
+    <link rel="stylesheet" type="text/css" href="../css/config.css">
 </head>
 
 <body>
@@ -18,40 +19,46 @@
                     <img src="../img/index/logo.png" alt="">
                 </div>
                 <div class="header_content header_left">
-                    <div class="box">
-                        <div class="box_icon">
-                            <a href="../html/index.html"><img src="../img/index/home.png " alt=""></a>
+                    <a href="../html/index.html">
+                        <div class="box">
+                            <div class="box_icon">
+                                <img src="../img/index/home.png " alt="">
+                            </div>
+                            <p class="box_text">
+                                首页
+                            </p>
                         </div>
-                        <p class="box_text">
-                            首页
-                        </p>
-                    </div>
-                    <div class="box box_icon_active">
-                        <div class="box_icon">
-                            <a href="../html/data.html"><img src="../img/index/data.png " alt=""></a>
+                    </a>
+                    <a href="../html/data.html">
+                        <div class="box">
+                            <div class="box_icon">
+                                <img src="../img/index/data.png " alt="">
+                            </div>
+                            <p class="box_text">
+                                数据
+                            </p>
                         </div>
-                        <p class="box_text">
-                            数据
-                        </p>
-                    </div>
-                    <div class="box">
-                        <div class="box_icon">
-                            <a href="../html/config.html"><img src="../img/index/config.png " alt=""></a>
+                    </a>
+                    <a href="../html/config.html">
+                        <div class="box box_icon_active">
+                            <div class="box_icon">
+                                <img src="../img/index/config.png " alt="">
+                            </div>
+                            <p class="box_text">
+                                配置
+                            </p>
                         </div>
-                        <p class="box_text">
-                            配置
-                        </p>
-                    </div>
-                    <div class="box">
-                        <div class="box_icon">
-                            <a href="../html/config.html">
+                    </a>
+                    <a href="../html/config.html">
+                        <div class="box">
+                            <div class="box_icon">
                                 <img src="../img/index/terminal.png " alt="">
-                            </a>
+                            </div>
+                            <p class="box_text">
+                                终端
+                            </p>
                         </div>
-                        <p class="box_text">
-                            终端
-                        </p>
-                    </div>
+                    </a>
                 </div>
                 <div class="header_right">
                     <div class="close_btn">
@@ -66,13 +73,86 @@
             </div>
         </header>
         <div class="content">
+            <div class="content_box  clearfix">
+                <div class="content_left">
+                    <ul id="myTab" class="ul_box">
+                        <li class="active menu_active">
+                            <div class="menus btndrop">
+                                <img class="icon_left1" src="../img/index/agreement.png" alt="">
+                                <a href="#argumeet" data-toggle="tab">协议配置</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="menus btndrop">
+                                <img class="icon_left2" src="../img/index/config.png" alt="">
+                                <a href="#networkconfig" data-toggle="tab">网络配置</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="content_right">
+                    <div id="myTabContent" class="tab-content">
+                        <div class="tab-pane active" id="argumeet">
+                            <div class="tab_pane_content">
+                                <!--<h3>协议配置</h3>-->
+                                <div class="tab_pane_content_top">
+                                    <img src="../img/index/config_icon.png" alt="">
+                                    <img src="../img/index/config_icon.png" alt="">
+                                    <img src="../img/index/config_icon.png" alt="">
+                                    <img src="../img/index/config_icon.png" alt="">
+                                    <img src="../img/index/config_icon.png" alt="">
+                                    <img src="../img/index/config_icon.png" alt="">
+                                    <img src="../img/index/config_icon.png" alt="">
+                                    <img src="../img/index/config_icon.png" alt="">
+                                    <img src="../img/index/config_icon.png" alt="">
+                                    <img src="../img/index/config_icon.png" alt="">
+                                </div>
+                                <div class="tab_pane_content_bottom">
+
+                                </div>
+                                <button class="config_btn" type="button">确定</button>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="networkconfig">
+                            <div class="tab_pane_content">
+                                <!--<h3>协议配置</h3>-->
+                                <div class="tab_pane_content_top">
+                                    网络配置
+                                </div>
+                                <div class="tab_pane_content_bottom">
+                                    <div class="table-responsive">
+                                        <table id="table" data-toggle="table" data-url="../json/datatable.json" data-toolbar="#toolbar" data-show-columns="true" data-search="true" data-data-type="json" data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-sort-name="id"
+                                            data-pagination="false">
+                                            <thead>
+                                                <tr>
+                                                    <th data-field="id" data-align="center" data-width="20%" data-height="10">设备名称</th>
+                                                    <th data-field="name" data-align="center" data-width="10%">端口</th>
+                                                    <th data-field="price" data-align="center" data-width="20%">IP地址</th>
+                                                    <th data-field="price" data-align="center" data-width="30%">上传速率</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!--<button class="config_btn" type="button">确定</button>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="munus_footer">
+        <!--e content-->
+        <!--s footer-->
+        <div class="footer">
 
         </div>
     </div>
 </body>
 <script src="../js/jquery.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
+<script src="../js/dropdown.js"></script>
+<script type="text/javascript" src="../js/FileSaver.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.js"></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/bootstrap-table/1.11.1/extensions/export/bootstrap-table-export.js"></script>
 
 </html>

@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="../css/bootstrap-3.3.7.min.css">
     <link rel="stylesheet" type="text/css" href="../css/indexheader.css">
     <link href="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../css/commoncontent.css">
     <link rel="stylesheet" type="text/css" href="../css/data.css">
 
 </head>
@@ -80,43 +81,42 @@
             <div class="content_box  clearfix">
                 <div class="content_left">
                     <ul id="myTab" class="ul_box">
-                        <li>
-                            <div class="menus btndrop">
+                        <li class="menu_active active">
+                            <div class="menus btndrop ">
                                 <img class="icon_left1" src="../img/index/current_data.png" alt="">
-                                <a href="#ios1" data-toggle="tab">实时数据</a>
-                                <img class="down_icon" src="../img/index/down_icon.png" alt="">
+                                <a href="#ios1" data-toggle="tab">实时数据<i class="glyphicon glyphicon-menu-down"></i></a>
+
                             </div>
                             <div class="dropdown">
-                                <p class="chart"><a class="drop_active" href="#currentlinechart" tabindex="-1" data-toggle="tab">线图</a></p>
-                                <p class="chart"><a class="drop_active" href="#currentcolumnchart" tabindex="-1" data-toggle="tab">柱状图</a></p>
-                                <p class="chart"><a class="drop_active" href="#currentchart" tabindex="-1" data-toggle="tab">表格</a></p>
+                                <p class="chart drop_active"><a class="" href="#currentlinechart" tabindex="-1" data-toggle="tab">线图</a></p>
+                                <p class="chart"><a class="" href="#currentcolumnchart" tabindex="-1" data-toggle="tab">柱状图</a></p>
+                                <p class="chart"><a class="" href="#currentchart" tabindex="-1" data-toggle="tab">表格</a></p>
                             </div>
                         </li>
                         <li>
                             <div class="menus btndrop">
                                 <img class="icon_left2" src="../img/index/before_data.png" alt="">
-                                <a href="#ios2" data-toggle="tab">历史数据</a>
-                                <img class="down_icon" src="../img/index/down_icon.png" alt="">
+                                <a href="#ios2" data-toggle="tab">历史数据<i class="glyphicon glyphicon-menu-down"></i></a>
                             </div>
                             <div class="dropdown">
-                                <p class="chart"><a class="drop_active" href="#linechart" tabindex="-1" data-toggle="tab">线图</a></p>
-                                <p class="chart"><a class="drop_active" href="#columnchart" tabindex="-1" data-toggle="tab">柱状图</a></p>
-                                <p class="chart"><a class="drop_active" href="#chart" tabindex="-1" data-toggle="tab">表格</a></p>
+                                <p class="chart"><a class="" href="#linechart" tabindex="-1" data-toggle="tab">线图</a></p>
+                                <p class="chart"><a class="" href="#columnchart" tabindex="-1" data-toggle="tab">柱状图</a></p>
+                                <p class="chart"><a class="" href="#chart" tabindex="-1" data-toggle="tab">表格</a></p>
                             </div>
                         </li>
                         <!--<li><img src="../img/index/import.png" alt=""><a href="#ios3" data-toggle="tab">导出数据</a></li>-->
                         <li class="active">
                             <div class="menus btndrop">
                                 <img class="icon_left3" src="../img/index/data_import.png" alt="">
-                                <a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown">导出数据</a>
+                                <a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown">导出数据<i class="glyphicon glyphicon-menu-down"></i></a>
                                 <!--<b class="caret"></b>-->
-                                <img class="down_icon" src="../img/index/down_icon.png" alt="">
-                                <!--<i class="glyphicon glyphicon-chevron-down btndrop"></i>-->
+                                <!--<img class="down_icon" src="../img/index/down_icon.png" alt="">-->
+                                <!---->
                             </div>
                             <div class="dropdown">
-                                <p class="chart"><a class="drop_active" href="#linechart" tabindex="-1" data-toggle="tab">线图</a></p>
-                                <p class="chart"><a class="drop_active" href="#columnchart" tabindex="-1" data-toggle="tab">柱状图</a></p>
-                                <p class="chart"><a class="drop_active" href="#chart" tabindex="-1" data-toggle="tab">表格</a></p>
+                                <p class="chart"><a class="" href="#linechart" tabindex="-1" data-toggle="tab">线图</a></p>
+                                <p class="chart"><a class="" href="#columnchart" tabindex="-1" data-toggle="tab">柱状图</a></p>
+                                <p class="chart"><a class="" href="#chart" tabindex="-1" data-toggle="tab">表格</a></p>
                             </div>
                         </li>
                     </ul>
@@ -203,28 +203,9 @@
 
 <script type="text/javascript" src="https://cdn.bootcss.com/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.js"></script>
 <script src="https://cdn.bootcss.com/echarts/2.2.7/echarts-all.js"></script>
+<script src="../js/dropdown.js"></script>
 
 <script>
-    $(document).ready(function() {
-        // var 
-        // var btnDrop = document.getElementsByClassName("btndrop");
-        // var dropDown = document.getElementsByClassName("dropdown");
-        // console.log(btnDrop);
-        // console.log(dropDown);
-        // 循环遍历每一个btndrop标签让相应的 dropdown出现和隐藏
-        $(".btndrop").each(function() {}).on("click", function() {
-            console.log(this.parentNode.children[1])
-            var $dropdown = $(this.parentNode.children[1]);
-            $dropdown.slideToggle();
-        });
-        $(".ul_box li").click(function() {
-            $(this).addClass("menu_active").siblings().removeClass("menu_active");
-        })
-        $(".dropdown p").click(function() {
-            $(this).addClass("drop_active").siblings().removeClass("drop_active");
-        })
-
-    });
     // table相关
     var $table = $('#table');
     $(function() {
