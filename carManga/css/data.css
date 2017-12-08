@@ -213,6 +213,10 @@ a:visited {
 
 /*表格样式*/
 
+.fixed-table-body {
+    height: 433px;
+}
+
 .keep-open .dropdown-menu {
     background: #074587;
 }
