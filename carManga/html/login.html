@@ -7,7 +7,7 @@
     <!--在IE浏览器中运行最新的渲染模式-->
     <meta http-equiv="X-UA-Compatible" content="IE-Edge">
     <!--初始化移动浏览器显示-->
-    <link href="css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../css/bootstrap-3.3.7.min.css" type="text/css" rel="stylesheet">
     <style>
         * {
             /*border: 1px solid red;*/
@@ -82,19 +82,24 @@
             width: 33%;
             height: 60px;
             margin: 198px auto 0px;
-            background: url("./img/login/input_box.png") no-repeat;
+            background: url("../img/login/input_box.png") no-repeat;
             background-size: 100% 100%;
+            z-index: 3;
+            /*border: 1px solid red;*/
         }
         
         .input_box input {
             width: 78%;
-            height: 99%;
+            height: 90%;
             background: transparent;
             /*background: #0A2257;*/
             border: none;
             outline: none;
             margin-left: 3%;
+            vertical-align: middle;
+            margin-top: 3px;
             font-size: 24px;
+            /*border: 1px solid green;*/
             font-family: Microsoft YaHei;
             color: #c1c1c1;
         }
@@ -121,19 +126,19 @@
             width: 33%;
             margin-left: 33.3333%;
             margin-top: 24px;
-            height: 70px;
+            height: 65px;
             line-height: 70px;
             font-size: 36px;
             font-family: Microsoft YaHei;
             color: #c1c1c1;
             text-align: center;
             border: none;
-            background: url("./img/login/login_bg.png") no-repeat;
+            background: url("../img/login/login_bg.png") no-repeat;
             background-size: 100% 100%;
         }
         
         .login_btn:hover {
-            background: url("./img/login/bogin_bg_hover.png") no-repeat;
+            background: url("../img/login/bogin_bg_hover.png") no-repeat;
         }
         /*设置placeholder的颜色*/
         
@@ -156,27 +161,32 @@
             /* Internet Explorer 10+ */
             color: #c1c1c1;
         }
+        /*input框自动填充为黄色的解决方法*/
+        
+        input:-webkit-autofill {
+            box-shadow: 0 0 0px 1000px #0A2257 inset;
+        }
     </style>
 
 </head>
 
 <body>
     <div class="wrap">
-        <img class="bg" src="./img/login/bg.png" alt="">
+        <img class="bg" src="../img/login/bg.png" alt="">
 
-        <img class="logo_img" src="./img/login/logo.png" alt="">
+        <img class="logo_img" src="../img/login/logo.png" alt="">
         <div class="containers">
             <div class="nav">
-                <img class="icon_left" src="./img/login/icon_left.png" alt="">
+                <img class="icon_left" src="../img/login/icon_left.png" alt="">
                 <span class="subject">HPDT-1200G</span>
-                <img class="icon_right" src="./img/login/icon_right.png" alt="">
+                <img class="icon_right" src="../img/login/icon_right.png" alt="">
             </div>
             <div class="content">
                 <div class="input_box">
-                    <input class="pass" type="password" name="" value="" minlength="6" maxlength="16" placeholder="请输入管理员密码">
+                    <input autocomplete="off" class="pass" type="password" name="" value="" minlength="6" maxlength="16" placeholder="请输入管理员密码">
                     <i class="eye_logo glyphicon glyphicon-eye-close"></i>
 
-                    <!--<img src="./img/login/eye.png" alt="">-->
+                    <!--<img src="../img/login/eye.png" alt="">-->
                 </div>
                 <p class="tips">密码由大小写字母或数字组成且为6-20位</p>
                 <input class="login_btn" type="button" value="登录">
@@ -184,8 +194,8 @@
         </div>
     </div>
 </body>
-<script src="./js/jquery.min.js"></script>
-<script src="./js/bootstrap.min.js"></script>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
 <script type="text/javascript">
     var pass = document.getElementsByClassName("pass")[0];
     // console.log(pass);
@@ -229,9 +239,11 @@
         });
 
         // 点击登录按钮进行判断
+        // window.sessionStorage.LoginStatus = "false";
+        sessionStorage.setItem("LoginStatus", false);
         $(".login_btn").click(function() {
                 $.ajax({
-                    url: "./json/userLogin.json",
+                    url: "../json/userLogin.json",
                     type: "get",
                     success: function(res) {
                         console.log(res);
@@ -240,17 +252,19 @@
                             // if (res.userInfo.passWord == pass.value) {
                             if ("w88888888" == pass.value) {
                                 alert("登录成功");
-                                window.location.href = "./index.html";
-                                window.sessionStorage.LoginStatus = true;
+                                window.location.href = "../html/index.html";
+                                sessionStorage.setItem("LoginStatus", true);
                             } else {
                                 alert("登录失败");
-                                window.sessionStorage.LoginStatus = false;
+                                sessionStorage.setItem("LoginStatus", false);
                             }
+                            console.log(sessionStorage.getItem("LoginStatus"));
                         }
                     }
                 })
             })
             // 登录判断结束
+
     })
 </script>
 

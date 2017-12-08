@@ -48,7 +48,7 @@
                             </p>
                         </div>
                     </a>
-                    <a href="../html/config.html">
+                    <a href="../html/terminal.html">
                         <div class="box">
                             <div class="box_icon">
                                 <img src="../img/index/terminal.png " alt="">
@@ -122,12 +122,15 @@
 <script src="../js/index.js">
 </script>
 <script>
-    console.log(window.sessionStorage.LoginStatus);
-    if (window.sessionStorage.LoginStatus != true) {
-        // location.href = "login.html";
+    console.log(sessionStorage.getItem("LoginStatus"));
+    var islogin = sessionStorage.getItem("LoginStatus");
+    if (islogin == "true") {
+        console.log("已经登录成功");
+        //     location.href = "login.html";
     } else {
-        location.href = "index.html";
-
+        console.log(islogin);
+        console.log("没有登录");
+        location.href = "../html/login.html";
     }
 </script>
 
