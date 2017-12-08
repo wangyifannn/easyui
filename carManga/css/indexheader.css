@@ -18,6 +18,7 @@ header {
 }
 
 .header_left {
+    width: 37%;
     float: left;
 }
 
@@ -30,11 +31,16 @@ header {
 }
 
 .header_content {
-    /*width: 80%;*/
+    width: 50%;
     height: 100%;
-    /*margin: 0 auto;*/
     float: left;
     /*border: 1px solid yellow;*/
+}
+
+.header_right {
+    float: right;
+    /*margin-left: 58px;*/
+    margin-top: 40px;
 }
 
 .box {
@@ -104,12 +110,6 @@ header {
     height: 24px;
     text-align: center;
     cursor: pointer;
-}
-
-.header_right {
-    float: left;
-    margin-left: 58px;
-    margin-top: 40px;
 }
 
 .clearfloat:after {
