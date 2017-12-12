@@ -96,14 +96,14 @@
 
                       bigBtn[i].onclick = function() {
                           j += 10;
-                          if (j >= 80) {
-                              j = 80;
+                          if (j >= 120) {
+                              j = 120;
                           }
                           console.log(this);
                           console.log(this.parentNode.parentNode);
                           var obj = this.parentNode.parentNode;
                           obj.style.width = 250 + j + "px";
-                          obj.style.height = 2 + j + "px";
+                          obj.style.height = 25 + j + "px";
                           // removeByValue(jsonProgressArr, i);
                           // jsonProgressArr.splice(i - 1, i);
                           // this.
@@ -118,7 +118,7 @@
                           console.log(this.parentNode.parentNode);
                           var obj = this.parentNode.parentNode;
                           obj.style.width = 250 + j + "px";
-                          obj.style.height = 2 + j + "px";
+                          obj.style.height = 25 + j + "px";
                           // removeByValue(jsonProgressArr, i);
                           // jsonProgressArr.splice(i - 1, i);
                           // this.
