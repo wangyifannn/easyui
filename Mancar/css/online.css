@@ -21,8 +21,8 @@ body {
 }
 
 .content {
-    width: 75%;
-    min-width: 880px;
+    width: 70%;
+    min-width: 1110px;
     height: 600px;
     margin: 0 auto;
     text-align: center;
@@ -38,11 +38,30 @@ button {
     font-size: 18px;
     font-family: SimHei;
     background: #00A0E9;
-    /*background-size: 100% 100%;*/
     outline: none;
     border: none;
     cursor: pointer;
-    /*background: url("../img/-bg.png")*/
+    color: white;
+}
+
+::-webkit-input-placeholder {
+    /* WebKit browsers */
+    color: #4B7893;
+}
+
+:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #4B7893;
+}
+
+::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #4B7893;
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    color: #4B7893;
 }
 
 .clear_float::after {
@@ -51,15 +70,25 @@ button {
     display: block;
 }
 
-.login_text {
+.user_text {
+    margin-top: 200px;
+}
+
+.user_text,
+.pass_text {
     width: 330px;
     height: 44px;
-    background: url("../img/input-border.png") no-repeat;
-    background-size: 100% 100%;
+    /*background: url("../img/input-border.png") no-repeat;*/
+    /*background-size: 100% 100%;*/
+    background: transparent;
     border: none;
-    margin-top: 280px;
+    color: #4B7893;
     outline: none;
     text-indent: 10px;
+    border-bottom: 1px solid #4B7893;
+}
+
+.pass_text {
     margin-bottom: 20px;
 }
 
