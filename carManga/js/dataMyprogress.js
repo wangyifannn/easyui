@@ -7,55 +7,69 @@
           var htmlpro = '';
           for (var i = 0; i < res.length; i++) {
               if (res[i].id > 10) {
-                  htmlpro += `
-                               <div class="progress_box progress_box${i}">
-                               <div class="progress_menu clearfix">
-                                    <span class="big_btn">放大</span>
-                                    <span class="little_btn">缩小</span>
-                                    <span class="remove_btn glyphicon glyphicon-remove"></span>
-                                </div>
-                                <div class="progress_con">
-                                <div class="progress_top pro_com">
-                                    <span>${res[i].id}</span>
-                                    <span>${res[i].price}</span>
-                                </div>
-                                <div class="progress progress-striped active">
-                                    <div id="prog" class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width:${res[i].id }%;">
-                                        <span id="proglabel">正在启动，请稍后......</span>
-                                    </div>
-                                </div>
-                                <div class="progress_bottom pro_com">
-                                    <span>${res[i].id}</span>
-                                    <span>${res[i].id}</span>
-                                </div>
-                                </div>                                
-                                </div>
-                                    `;
+                  htmlpro += '<div class="progress_box progress_box' + i + ' clear_float"><div class="progress_menu clearfix"><span class="big_btn">放大</span><span class="little_btn">缩小</span><span class="remove_btn glyphicon glyphicon-remove"></span></div>' +
+                      '<div class="progress_con"><div class = "progress_top pro_com"><span> DTC - CNT </span> <span > ' + res[i].price +
+                      ' </span >' +
+                      '</div> <div class = "progress progress-striped active" >' +
+                      '<div id = "prog" class = "progress-bar" role = "progressbar"  aria-valuemin = "0" aria - valuemax = "100" style = "width:' + res[i].id + '%;" >' +
+                      '<span id="proglabel">' + res[i].id + '%</span> </div> </div> <div class = "progress_bottom pro_com">' +
+                      '<span> 0 </span> <span> 100 </span> </div> </div></div>';
+                  //   htmlpro += `
+                  //                <div class="progress_box progress_box${i}">
+                  //                <div class="progress_menu clearfix">
+                  //                     <span class="big_btn">放大</span>
+                  //                     <span class="little_btn">缩小</span>
+                  //                     <span class="remove_btn glyphicon glyphicon-remove"></span>
+                  //                 </div>
+                  //                 <div class="progress_con">
+                  //                 <div class="progress_top pro_com">
+                  //                     <span>${res[i].id}</span>
+                  //                     <span>${res[i].price}</span>
+                  //                 </div>
+                  //                 <div class="progress progress-striped active">
+                  //                     <div id="prog" class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width:${res[i].id }%;">
+                  //                         <span id="proglabel">正在启动，请稍后......</span>
+                  //                     </div>
+                  //                 </div>
+                  //                 <div class="progress_bottom pro_com">
+                  //                     <span>${res[i].id}</span>
+                  //                     <span>${res[i].id}</span>
+                  //                 </div>
+                  //                 </div>                                
+                  //                 </div>
+                  //                     `;
               } else {
-                  htmlpro += `
-                                <div class="progress_box progress_box${i}">
-                                <div class="progress_menu clearfix">
-                                    <span class="big_btn">放大</span>
-                                    <span class="little_btn">缩小</span>
-                                    <span class="remove_btn glyphicon glyphicon-remove"></span>
-                                </div>
-                                <div class="progress_con">                                
-                                <div class="progress_top pro_com">
-                                    <span>DTC-CNT</span>
-                                    <span>${res[i].price}</span>
-                                </div>
-                                <div class="progress progress-striped active">
-                                    <div id="prog" class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width:${res[i].id }%;">
-                                        <span id="proglabel">正在启动，请稍后......</span>
-                                    </div>
-                                </div>
-                                <div class="progress_bottom pro_com">
-                                    <span>${res[i].id}</span>
-                                    <span>${res[i].id}</span>
-                                </div>
-                                </div>
-                                </div>
-                                    `;
+                  htmlpro += '<div class="progress_box progress_box' + i + ' clear_float"><div class="progress_menu clearfix"><span class="big_btn">放大</span><span class="little_btn">缩小</span><span class="remove_btn glyphicon glyphicon-remove"></span></div>' +
+                      '<div class="progress_con"><div class = "progress_top pro_com"><span> DTC - CNT </span> <span > ' + res[i].price +
+                      ' </span >' +
+                      '</div> <div class = "progress progress-striped active" >' +
+                      '<div id = "prog" class = "progress-bar progress-bar-green" role = "progressbar"  aria-valuemin = "0" aria - valuemax = "100" style = "width:' + res[i].id + '%;" >' +
+                      '<span id="proglabel">' + res[i].id + '%</span> </div> </div> <div class = "progress_bottom pro_com">' +
+                      '<span> 0 </span> <span> 100 </span> </div> </div></div>';
+                  //   htmlpro += `
+                  //                 <div class="progress_box progress_box${i}">
+                  //                 <div class="progress_menu clearfix">
+                  //                     <span class="big_btn">放大</span>
+                  //                     <span class="little_btn">缩小</span>
+                  //                     <span class="remove_btn glyphicon glyphicon-remove"></span>
+                  //                 </div>
+                  //                 <div class="progress_con">                                
+                  //                 <div class="progress_top pro_com">
+                  //                     <span>DTC-CNT</span>
+                  //                     <span>${res[i].price}</span>
+                  //                 </div>
+                  //                 <div class="progress progress-striped active">
+                  //                     <div id="prog" class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width:${res[i].id }%;">
+                  //                         <span id="proglabel">正在启动，请稍后......</span>
+                  //                     </div>
+                  //                 </div>
+                  //                 <div class="progress_bottom pro_com">
+                  //                     <span>${res[i].id}</span>
+                  //                     <span>${res[i].id}</span>
+                  //                 </div>
+                  //                 </div>
+                  //                 </div>
+                  //                     `;
 
               }
           }
