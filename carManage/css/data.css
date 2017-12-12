@@ -1,0 +1,79 @@
+.tab-pane h3 {
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 20px;
+    text-align: center;
+    /*border: 1px solid red;*/
+    border-bottom: 1px solid #074587;
+    padding: 0px 0px 20px;
+    margin-bottom: 20px;
+}
+
+.tab_pane_content {
+    width: 90%;
+    margin: 0 auto;
+    /*border: 1px solid red;*/
+}
+
+
+/*表格样式*/
+
+.fixed-table-body {
+    height: 433px;
+}
+
+.keep-open .dropdown-menu {
+    background: #074587;
+}
+
+.btn {
+    font-size: 10px;
+    padding: 3px 9px;
+}
+
+.table-hover>tbody>tr:hover {
+    background-color: #337AB7;
+    cursor: pointer;
+}
+
+.fixed-table-container tbody .selected td {
+    background-color: #337AB7;
+}
+
+#toolbar {
+    position: relative;
+}
+
+#toolbar .form-control {
+    width: 126%;
+    height: 22px;
+    padding: 3px 0px;
+    font-size: 8px;
+}
+
+.pull-right .form-control {
+    height: 22px;
+}
+
+.import-mdoel_select {
+    position: absolute;
+    left: 70px;
+    top: 5px;
+    /*display: inline-block;*/
+}
+
+.fixed-table-pagination .pagination a {
+    padding: 1px 5px;
+}
+
+
+/*折线图样式*/
+
+.echarts-dataview {
+    background: #074587 !important;
+}
+
+
+/*.zr-element {
+    color: white;
+}*/

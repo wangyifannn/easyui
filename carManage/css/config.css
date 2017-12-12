@@ -1,0 +1,111 @@
+.icon_left2 {
+    height: 20px;
+}
+
+
+/*content_right右边*/
+
+#myTabContent {
+    width: 100%;
+    height: 100%;
+    /*border: 1px solid red;*/
+}
+
+.tab_pane_content {
+    width: 100%;
+    height: 100%;
+    /*border: 1px solid red;*/
+}
+
+.tab_pane_content_top {
+    font-size: 18px;
+    width: 100%;
+    height: 26px;
+    /*margin: 20px 0px 20px;*/
+    text-align: center;
+    margin-top: 15px;
+    padding-bottom: 40px;
+    /*border: 1px solid yellow;*/
+    border-bottom: 2px solid #074587;
+    /*box-shadow: 1px 2px 35px #074587;*/
+}
+
+.tab_pane_content_top img {
+    margin: 0px 25px 20px;
+    width: 26px;
+    /*height: 100%;*/
+    height: 26px;
+}
+
+.tab_pane_content_bottom {
+    width: 90%;
+    height: 80%;
+    min-height: 450px;
+    margin: 0 auto;
+    margin-top: 20px;
+    border: 2px solid #074587;
+}
+
+.config_btn {
+    width: 65px;
+    height: 31px;
+    background: #074587;
+    color: white;
+    float: right;
+    margin-top: 20px;
+    margin-right: 5%;
+    border: 2px solid #1D5CAC;
+    box-shadow: 1px 2px 35px #1D5CAC;
+}
+
+
+/*网络配置表格*/
+
+.table-hover>tbody>tr:hover {
+    background-color: #337AB7;
+    cursor: pointer;
+}
+
+.table>tbody>tr>td,
+.table>tbody>tr>th,
+.table>tfoot>tr>td,
+.table>tfoot>tr>th,
+.table>thead>tr>td,
+.table>thead>tr>th {
+    border-top: 1px solid #074587;
+    border-bottom: 1px solid #074587;
+    border-right: 1px solid #074587;
+}
+
+thead {
+    border: 1px solid #074587;
+}
+
+.table>thead>tr>th {
+    border-bottom: 1px solid #074587;
+}
+
+.pull-right {
+    /*position: relative;*/
+    /*top: -30px;*/
+    /*z-index: 33;*/
+}
+
+.table {
+    margin-bottom: 0px;
+}
+
+.keep-open .dropdown-menu {
+    background: #074587;
+    font-size: 10px;
+    margin-left: -25px;
+}
+
+.btn {
+    font-size: 10px;
+    padding: 3px 9px;
+}
+
+.pull-right .form-control {
+    height: 22px;
+}

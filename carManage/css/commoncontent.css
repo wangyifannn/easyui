@@ -1,0 +1,203 @@
+body {
+    /*background: #0A2257;*/
+    background-color: #092F69 !important;
+}
+
+* {
+    /*border: 1px solid red;*/
+}
+
+.wrap {
+    width: 100%;
+    min-width: 1260px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.content {
+    width: 100%;
+    padding-top: 20px;
+    background: #092F69;
+}
+
+.content_box {
+    border: 2px solid #074587;
+    box-shadow: 1px 2px 35px #074587;
+    width: 80%;
+    margin: 0 auto;
+    height: 600px;
+    min-width: 1000px;
+}
+
+.content_left {
+    width: 18%;
+    height: 100%;
+    /*display: inline-block;*/
+    float: left;
+    /*网页超出的部分自动出现滚动条*/
+    box-shadow: 1px 2px 15px #074587;
+    border-right: 2px solid #074587;
+}
+
+.content_right {
+    width: 82%;
+    height: 100%;
+    float: right;
+    overflow: auto;
+    color: white;
+    /*display: inline-block;*/
+}
+
+ ::-webkit-scrollbar:vertical {
+    width: 4px;
+}
+
+ ::-webkit-scrollbar-track:vertical {
+    background-color: transparent;
+}
+
+ ::-webkit-scrollbar-thumb:vertical {
+    background-color: #00aff0;
+}
+
+ ::-webkit-scrollbar-thumb:hover {
+    background-color: #9c3
+}
+
+ ::-webkit-scrollbar-thumb:active {
+    background-color: #00aff0
+}
+
+.glyphicon-chevron-down {
+    font-size: 2px;
+}
+
+.ul_box {
+    list-style: none;
+    /*border: 1px solid chocolate;*/
+    color: #F1F1F1;
+    /*margin: 20px 20px 0px;*/
+    padding-top: 40px;
+}
+
+.ul_box li:hover .menus {
+    background: #074587;
+    cursor: pointer;
+    color: #F1F1F1;
+}
+
+.ul_box li a {
+    border: none;
+    display: inline-block;
+    width: 60%;
+    /*border: 1px solid red;*/
+    font-size: 16px;
+    color: #F1F1F1;
+    font-family: MicrosoftYaHei;
+    margin-right: 8px;
+    text-decoration: none;
+}
+
+a {
+    border: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    box-shadow: none;
+}
+
+a:link {
+    color: #F1F1F1;
+    text-decoration: none;
+    border: none;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    box-shadow: none;
+}
+
+
+/* 未访问的链接 */
+
+a:visited {
+    color: #F1F1F1;
+    text-decoration: none;
+    border: none;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    box-shadow: none;
+}
+
+
+/* 已访问的链接 */
+
+.ul_box li img:first-child {
+    /*margin-right: 14px;*/
+    margin: 7px 20px 14px 5px;
+    margin-left: 13px;
+}
+
+.icon_left1 {
+    width: 22px;
+    height: 20px;
+    margin-left: 5px;
+}
+
+.icon_left2 {
+    width: 22px;
+    height: 13.5px;
+}
+
+.icon_left3 {
+    width: 22px;
+    height: 16.5px;
+}
+
+.drop_active {
+    border: 2px solid #055FAB;
+}
+
+.menu_active {
+    background: #074587;
+}
+
+.dropdown p {
+    cursor: pointer;
+    line-height: 30px;
+    height: 30px;
+    width: 100%;
+}
+
+.dropdown p a {
+    width: 100%;
+    height: 100%;
+    line-height: 25px;
+    display: inline-block;
+}
+
+.dropdown {
+    text-align: left;
+    text-indent: 28px;
+    display: none;
+}
+
+.dropdown:first-child {
+    display: block;
+}
+
+.glyphicon-menu-down {
+    margin-left: 10px;
+}
+
+.footer {
+    width: 100%;
+    height: 1px;
+    border: none;
+    position: fixed;
+    left: 0px;
+    bottom: 10px;
+    /*margin-top: 30px;*/
+    border-bottom: 3px solid #074587;
+    /*border-bottom: 12px solid red;*/
+}

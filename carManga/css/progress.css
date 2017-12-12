@@ -1,0 +1,142 @@
+   .tab-pane-bottom {
+       width: 100%;
+       height: 550px;
+       position: relative;
+       border: 2px solid green;
+   }
+   /*@media screen and (max-width: 1980px) and (min-width: 1180px) {
+       .progress_box {
+           width: 25%;
+       }
+   }
+   
+   @media screen and (max-width: 1180px) and (min-width:600px) {
+       .progress_box {
+           width: 33.33%;
+       }
+   }*/
+   
+   .content {
+       min-width: 600px;
+   }
+   
+   .progress_box {
+       /*height: 98px;*/
+       width: 33.33%;
+       /*border: 1px solid red;*/
+       position: absolute;
+   }
+   
+   .progress_menu {
+       background: grey;
+   }
+   
+   .progress_con {
+       cursor: crosshair;
+       background: url('../img/progress_page/pro_background.png') no-repeat;
+   }
+   
+   .clear_float:after {
+       content: '';
+       clear: both;
+       display: block;
+   }
+   
+   .progress {
+       height: 14px;
+       margin-bottom: 0px;
+       background: url('../img/progress_page/pro_bar.png') no-repeat;
+       background-size: 100% 100%;
+   }
+   
+   .progress-bar {
+       line-height: 14px;
+       background-color: #fb523f;
+   }
+   
+   .progress-bar-green {
+       background-color: #49b570;
+   }
+   
+   .pro_com {
+       color: #f1f1f1;
+       font-size: 24px;
+   }
+   
+   .pro_com:after {
+       content: '';
+       clear: both;
+       display: block;
+   }
+   
+   .pro_com span:nth-child(1) {
+       float: left;
+   }
+   
+   .pro_com span:nth-child(2) {
+       float: right;
+   }
+   
+   .big_btn {
+       float: left;
+       border-radius: 3px;
+       margin: 0px 3px;
+       border: 1px solid red;
+       cursor: pointer;
+   }
+   
+   .little_btn {
+       float: left;
+       cursor: pointer;
+       border-radius: 3px;
+       border: 1px solid red;
+   }
+   
+   .remove_btn {
+       cursor: pointer;
+       margin-right: 3px;
+       float: right;
+   }
+   /*以下是status*/
+   
+   .status_box {
+       width: 565px;
+       /*background: black;*/
+       background: url('../img/progress_page/pro_background.png') no-repeat;
+       background-size: 100% 100%;
+       color: #f1f1f1;
+       /*border: 1px solid grey;*/
+       display: inline-block;
+       padding-left: 28px;
+       padding-bottom: 20px;
+       /*padding: 10px 20px;*/
+       /*margin-top: 10px;*/
+   }
+   
+   .status_title {
+       font-size: 30px;
+       font-family: SimHei;
+   }
+   
+   .con_row {
+       margin: 5px auto;
+   }
+   
+   .row_cont {
+       width: 20px;
+       height: 20px;
+       display: inline-block;
+       background: url("../img/progress_page/grey_block.png") no-repeat;
+       background-size: 100% 100%;
+       text-align: center;
+       color: black;
+       line-height: 20px;
+       font-family: SimHei;
+       font-size: 18px;
+   }
+   
+   .row_Name {
+       font-family: SimHei;
+       font-size: 18px;
+       margin-left: 8px;
+   }

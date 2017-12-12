@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="./css/indexheader.css">
+    <link rel="stylesheet" type="text/css" href="./css/index.css">
+    <!--<link href="css/bootstrap-3.3.7.min.css" rel="stylesheet">-->
+</head>
+
+<body>
+    <div class="wrap">
+        <header>
+            <div class="header clearfloat">
+                <div class="header_left">
+                    <img src="./img/index/logo.png" alt="">
+                </div>
+                <div class="header_content header_left">
+                    <a href="./index.html">
+                        <div class="box box_icon_active">
+                            <div class="box_icon">
+                                <img src="./img/index/home.png " alt="">
+                            </div>
+                            <p class="box_text">
+                                首页
+                            </p>
+                        </div>
+                    </a>
+                    <a href="./html/data.html">
+                        <div class="box">
+                            <div class="box_icon">
+                                <img src="./img/index/data.png " alt="">
+                            </div>
+                            <p class="box_text">
+                                数据
+                            </p>
+                        </div>
+                    </a>
+                    <a href="./html/config.html">
+                        <div class="box">
+                            <div class="box_icon">
+                                <img src="./img/index/config.png " alt="">
+                            </div>
+                            <p class="box_text">
+                                配置
+                            </p>
+                        </div>
+                    </a>
+                    <a href="./html/terminal.html">
+                        <div class="box">
+                            <div class="box_icon">
+                                <img src="./img/index/terminal.png " alt="">
+                            </div>
+                            <p class="box_text">
+                                终端
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <div class="header_right">
+                    <div class="close_btn">
+                        <img src="./img/index/close.png" alt="重启">
+                        <p class="close_btn_tags">重启</p>
+                    </div>
+                    <div class="user_btn">
+                        <img src="./img/index/user.png" alt="管理员设置">
+                        <p class="user_btn_tags">管理员设置</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="categories">
+            <div class="imgs">
+                <img src="./img/index/categories1.png" alt="">
+                <img src="./img/index/categories2.png" alt="">
+                <img src="./img/index/categories3.png" alt="">
+            </div>
+        </div>
+        <div class="menus">
+            <div class="menus_img">
+                <div class="menus_img_box">
+                    <img src="./img/index/agreement.png" alt="">
+                    <p>协议</p>
+                </div>
+                <div class="menus_img_box">
+                    <img src="./img/index/import.png" alt="">
+                    <p>脚本导入</p>
+                </div>
+                <div class="menus_img_box menus_img_border">
+                    <img src="./img/index/current_data.png" alt="">
+                    <p>实时数据</p>
+                </div>
+                <div class="menus_box_line">
+
+                </div>
+
+                <div class="menus_img_box">
+                    <img src="./img/index/before_data.png" alt="">
+                    <p>历史数据</p>
+                </div>
+                <div class="menus_img_box">
+                    <img src="./img/index/terminal_config.png" alt="">
+                    <p>终端配置</p>
+                </div>
+                <div class="menus_img_box menus_img_border">
+                    <img src="./img/index/terminal_info.png" alt="">
+                    <p>终端信息</p>
+                </div>
+            </div>
+
+        </div>
+        <div class="footer">
+
+        </div>
+    </div>
+</body>
+<script src="./js/jquery.min.js">
+</script>
+<script src="./js/index.js">
+</script>
+<script>
+    console.log(sessionStorage.getItem("LoginStatus"));
+    var islogin = sessionStorage.getItem("LoginStatus");
+    if (islogin == "true") {
+        console.log("已经登录成功");
+        //     location.href = "login.html";
+    } else {
+        console.log(islogin);
+        console.log("没有登录");
+        location.href = "./html/login.html";
+    }
+</script>
+
+</html>
