@@ -51,6 +51,7 @@ body {
     vertical-align: middle;
     width: 11px;
     margin-right: 12px;
+    cursor: pointer
 }
 
 .content {
