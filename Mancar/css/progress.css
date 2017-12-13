@@ -1,107 +1,3 @@
-* {
-    margin: 0px;
-    padding: 0px;
-    /*border: 1px solid hotpink;*/
-}
-
-body {
-    background: #D7D8DA;
-}
-
-.wrap {
-    width: 100%;
-    height: 100%;
-    min-width: 960px;
-    /*border-bottom: 1px solid #80C2E0;*/
-}
-
-.clear_float::after {
-    content: "";
-    clear: both;
-    display: block;
-}
-
-.header {
-    width: 100%;
-    height: 25px;
-    background: #B6BEC6;
-    border: none;
-    border-bottom: 2px solid #80C2E0;
-}
-
-.header_left {
-    float: left;
-    margin-left: 30px;
-    font-size: 12px;
-    font-family: SimHei;
-    color: #1E1E1E;
-    line-height: 25px;
-}
-
-.content_left img {
-    cursor: pointer;
-}
-
-.header_right {
-    float: right;
-    margin-right: 20px;
-}
-
-.header_right img {
-    vertical-align: middle;
-    width: 11px;
-    margin-right: 12px;
-    cursor: pointer;
-}
-
-.content {
-    width: 100%;
-    height: 733px;
-    /*_height: 905px;*/
-    /*border: 1px solid hotpink;*/
-}
-
-.content_left {
-    width: 3%;
-    height: 100%;
-    float: left;
-}
-
-.content_center {
-    width: 82%;
-    height: 100%;
-    border-right: 1px solid #80C2E0;
-    border-left: 1px solid #80C2E0;
-    float: left;
-    box-sizing: border-box;
-}
-
-.content_right {
-    width: 15%;
-    height: 100%;
-    float: left;
-}
-
-.content_left ul li {
-    /*width: 19px;*/
-    text-align: center;
-    /*border: 1px solid red;*/
-    margin: 5px 0px;
-    /*height: 20px;*/
-}
-
-.pitch_off {
-    width: 15px;
-    height: 15px;
-}
-
-.blow,
-.reduce,
-.translate {
-    width: 19px;
-    height: 20px;
-}
-
 .right_part1 {
     width: 100%;
     height: 50%;
@@ -110,16 +6,16 @@ body {
 
 .part_title {
     width: 140px;
-    height: 22px;
-    line-height: 22px;
-    background: #DCDDDF;
+    height: 30px;
+    line-height: 30px;
+    /*background: #DCDDDF;*/
     font-size: 16px;
     margin-top: 10px;
     text-indent: 15px;
     margin-left: 12px;
     font-family: SimHei;
-    border: 1.1px solid #A8A9AA;
-    /*box-shadow: 1px 1px 4px #A8A9AA;*/
+    background: url("../img/progress/title-bg.png") no-repeat;
+    background-size: 100% 100%;
 }
 
 .part2_content ul {
