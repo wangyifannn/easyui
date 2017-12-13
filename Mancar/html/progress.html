@@ -99,6 +99,18 @@
 <script src="../js/dropdown.js">
 </script>
 <script>
+    var content = document.getElementsByClassName("content")[0];
+
+    function getHeight() {
+        var conHeight = document.documentElement.clientHeight || document.body.clientHeight - 27;
+        if (conHeight < 703) {
+            conHeight = 703;
+        }
+        content.style.height = conHeight + "px";
+        console.log(conHeight);
+    }
+    getHeight();
+    window.onresize = getHeight;
 </script>
 
 </html>
