@@ -98,8 +98,8 @@
             var jsonHtml = "";
             console.log(res.length);
             for (var i = 0; i < res.length; i++) {
-                jsonHtml += '<tr><td>' + res[i].id + '</td>' +
-                    '<td>' + res[i].name + '</td>' +
+                jsonHtml += '<tr><td><span class="idcolor"></span><span class="idname">' + res[i].name + '</span></td>' +
+                    '<td>' + res[i].id + '</td>' +
                     '<td>' + res[i].price + '</td></tr>'
             }
             console.log(jsonHtml);

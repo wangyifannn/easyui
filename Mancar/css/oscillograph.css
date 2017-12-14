@@ -80,6 +80,16 @@
     text-align: center;
     border-right: 1px solid #BDBEBF;
     border-top: 1px solid #BDBEBF;
+    height: 28px;
+}
+
+.idname {
+    margin-left: 4px;
+}
+
+.osctable tr td:first-child {
+    text-align: left;
+    width: 95px;
 }
 
 .osctable tr td:last-child {
@@ -88,4 +98,18 @@
 
 .osctable tr th:last-child {
     border-right: none;
+}
+
+.idcolor {
+    display: inline-block;
+    vertical-align: middle;
+    /*mar-gin*/
+    text-align: left;
+    margin-left: 18px;
+    /*text-indent: 12px;*/
+    width: 18px;
+    height: 18px;
+    margin-top: -3px;
+    /*margin-right: 3px;*/
+    background: #122BE6;
 }
