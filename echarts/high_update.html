@@ -2,113 +2,22 @@
 <html lang="en">
 
 <head>
-    <title>示波器页面</title>
+    <title></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="../css/common.css" rel="stylesheet">
-    <link href="../css/oscillograph.css" rel="stylesheet">
+    <style>
+        body {
+            background: #142431;
+        }
+    </style>
+
 </head>
 
 <body>
-    <div class="wrap">
-        <!--header-->
-        <div class="header clear_float">
-            <div class="header_left">
-                <span>采集-new</span>
-                <span>工程</span>
-                <span>操作</span>
-                <span>帮助</span>
-            </div>
-            <div class="header_right">
-                <span class="minus"><img src="../img/progress/reduce-1.png" alt=""></span>
-                <span class="fullscreen"><img src="../img/progress/full_screen.png" alt=""></span>
-                <span class="retweet"><img src="../img/progress/restore.png" alt=""></span>
-                <span class="remove"><img src="../img/progress/close.png" alt=""></span>
-            </div>
-        </div>
-        <!--content-->
-        <div class="content clear_float">
-            <div class="content_left">
-                <ul>
-                    <li><img class="pitch_off" src="../img/osc/document.png" alt=""></li>
-                    <li><img class="blow" src="../img/osc/folder.png" alt=""></li>
-                    <li><img class="reduce" src="../img/osc/mail---incoming.png" alt=""></li>
-                    <li><img class="translate" src="../img/osc/printer.png" alt=""></li>
-                </ul>
-            </div>
-            <div class="content_center">
-                <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-            </div>
-            <div class="content_right">
-                <div class="right_part1">
-                    <div class="part1_title part_title">
-                        <img src="../img/osc/pause.png" alt=""> <span>采集间隔&nbsp;(ms)</span>
-                        <select>
-                            <option value="05" selected="selected">05</option>
-                            <option value="10">10</option>
-                            <option value="15">15</option>
-                            <option value="20">20</option>
-                            <option value="25">25</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="right_part2">
-                    <table class="osctable" cellspacing="0">
-                        <tr>
-                            <th>变量名称</th>
-                            <th>当前值</th>
-                            <th>单位</th>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="footer">
-            <span><img src="../img/osc/footer-tips.png" alt=""></span>
-            <span>无配置文件</span>
-            <span>无连接</span>
-            <span>NODEVICE</span>
-        </div>
-    </div>
+    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
 </body>
-<script src="../js/jquery.min.1.js">
-</script>
-<script src="../js/dropdown.js">
-</script>
-<script>
-    var content = document.getElementsByClassName("content")[0];
-
-    function getHeight() {
-        var conHeight = document.documentElement.clientHeight || document.body.clientHeight;
-        conHeight = conHeight - 44;
-        if (conHeight < 690) {
-            conHeight = 690;
-        }
-        console.log(conHeight);
-        content.style.height = conHeight + "px";
-        console.log(conHeight);
-    }
-    getHeight();
-    window.onresize = getHeight;
-    $.ajax({
-        "url": "../../carManga/json/datatable.json",
-        "type": "get",
-        "success": function(res) {
-            console.log(res);
-            var jsonHtml = "";
-            console.log(res.length);
-            for (var i = 0; i < res.length; i++) {
-                jsonHtml += '<tr><td><span class="idcolor"></span><span class="idname">' + res[i].name + '</span></td>' +
-                    '<td>' + res[i].id + '</td>' +
-                    '<td>' + res[i].price + '</td></tr>'
-            }
-            console.log(jsonHtml);
-            $(".osctable").append(jsonHtml);
-        }
-
-    })
-</script>
-<!--<script src="./js/jquery.min.js"></script>-->
+<script src="./js/jquery.min.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script>
@@ -117,14 +26,16 @@
             useUTC: false
         },
         colors: ['#d61718', '#50B432', '#f1c41d'], //定义运动线条的颜色，第i条线使用数组中第i个值
+
     });
 
     Highcharts.chart('container', {
+
         chart: {
+
             marginLeft: 100,
             marginRight: 70,
-            // backgroundColor: "#142431", //画布背景色
-            backgroundColor: "#E8E8E8", //画布背景色
+            backgroundColor: "#142431", //画布背景色
             plotBackgroundColor: "#0d0918", //主图表区背景色，即X轴与Y轴围成的区域的背景色
             // plotBorderColor: "46d6d7",
             animation: Highcharts.svg, // don't animate in old IE 折线出来时的动画
@@ -287,6 +198,7 @@
                     var data = [],
                         time = (new Date()).getTime(),
                         i;
+
                     for (i = -19; i <= 0; i += 1) {
                         data.push({
                             x: time + i * 1000 + 1,
