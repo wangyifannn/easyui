@@ -114,3 +114,16 @@ body {
     margin-top: 6px;
     /*vertical-align: middle;*/
 }
+
+a {
+    color: #122BE6;
+    text-decoration: none;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+.content_center {
+    position: relative;
+}
