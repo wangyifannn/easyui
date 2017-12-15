@@ -6,8 +6,8 @@
           console.log(res);
           var htmlpro = '';
           for (var i = 0; i < res.length; i++) {
-              if (res[i].id > 10) {
-                  htmlpro += '<div class="progress_box progress_box' + i + ' clear_float"><div class="progress_menu clearfix"><span class="big_btn">放大</span><span class="little_btn">缩小</span><span class="remove_btn glyphicon glyphicon-remove"></span></div>' +
+              if (res[i].id > 15) {
+                  htmlpro += '<div class="progress_box progress_box' + i + ' clear_float">' +
                       '<div class="progress_con"><div class = "progress_top pro_com"><span> DTC - CNT </span> <span > ' + res[i].price +
                       ' </span >' +
                       '</div> <div class = "progress progress-striped active" >' +
@@ -15,7 +15,7 @@
                       '<span id="proglabel">' + res[i].id + '%</span> </div> </div> <div class = "progress_bottom pro_com">' +
                       '<span> 0 </span> <span> 100 </span> </div> </div></div>';
               } else {
-                  htmlpro += '<div class="progress_box progress_box' + i + ' clear_float"><div class="progress_menu clearfix"><span class="big_btn">放大</span><span class="little_btn">缩小</span><span class="remove_btn glyphicon glyphicon-remove"></span></div>' +
+                  htmlpro += '<div class="progress_box progress_box' + i + ' clear_float">' +
                       '<div class="progress_con"><div class = "progress_top pro_com"><span> DTC - CNT </span> <span > ' + res[i].price +
                       ' </span >' +
                       '</div> <div class = "progress progress-striped active" >' +
@@ -44,47 +44,47 @@
                       // 进度条点击事件
                       // 放大
 
-                      bigBtn[i].onclick = function() {
-                          j += 10;
-                          if (j >= 120) {
-                              j = 120;
-                          }
-                          console.log(this);
-                          console.log(this.parentNode.parentNode);
-                          var obj = this.parentNode.parentNode;
-                          obj.style.width = 250 + j + "px";
-                          obj.style.height = 25 + j + "px";
-                          // removeByValue(jsonProgressArr, i);
-                          // jsonProgressArr.splice(i - 1, i);
-                          // this.
-                      };
-                      // 缩小
-                      littleBtn[i].onclick = function() {
-                          j -= 10;
-                          if (j <= -10) {
-                              j = -10;
-                          }
-                          console.log(this);
-                          console.log(this.parentNode.parentNode);
-                          var obj = this.parentNode.parentNode;
-                          obj.style.width = 250 + j + "px";
-                          obj.style.height = 25 + j + "px";
-                          // removeByValue(jsonProgressArr, i);
-                          // jsonProgressArr.splice(i - 1, i);
-                          // this.
-                      };
-                      // 移除
+                      //   bigBtn[i].onclick = function() {
+                      //       j += 10;
+                      //       if (j >= 120) {
+                      //           j = 120;
+                      //       }
+                      //       console.log(this);
+                      //       console.log(this.parentNode.parentNode);
+                      //       var obj = this.parentNode.parentNode;
+                      //       obj.style.width = 250 + j + "px";
+                      //       obj.style.height = 25 + j + "px";
+                      //       // removeByValue(jsonProgressArr, i);
+                      //       // jsonProgressArr.splice(i - 1, i);
+                      //       // this.
+                      //   };
+                      //   // 缩小
+                      //   littleBtn[i].onclick = function() {
+                      //       j -= 10;
+                      //       if (j <= -10) {
+                      //           j = -10;
+                      //       }
+                      //       console.log(this);
+                      //       console.log(this.parentNode.parentNode);
+                      //       var obj = this.parentNode.parentNode;
+                      //       obj.style.width = 250 + j + "px";
+                      //       obj.style.height = 25 + j + "px";
+                      //       // removeByValue(jsonProgressArr, i);
+                      //       // jsonProgressArr.splice(i - 1, i);
+                      //       // this.
+                      //   };
+                      //   // 移除
 
-                      removeBtn[i].onclick = function() {
-                          console.log(this);
-                          console.log(this.parentNode.parentNode);
-                          this.parentNode.parentNode.style.display = "none";
-                          // tabPanBottom.removeChild(this.parentNode.parentNode);
+                      //   removeBtn[i].onclick = function() {
+                      //       console.log(this);
+                      //       console.log(this.parentNode.parentNode);
+                      //       this.parentNode.parentNode.style.display = "none";
+                      //       // tabPanBottom.removeChild(this.parentNode.parentNode);
 
-                          // removeByValue(jsonProgressArr, i);
-                          // jsonProgressArr.splice(i - 1, i);
-                          // this.
-                      };
+                      //       // removeByValue(jsonProgressArr, i);
+                      //       // jsonProgressArr.splice(i - 1, i);
+                      //       // this.
+                      //   };
                       // 初始化进度条的位置
                       // 相对值从数据库请求或者存储在浏览器端，如果有值则用这个设置的值，如果没有则初始化排版
                       // oP[i].style.
@@ -98,6 +98,22 @@
                       // console.log(jsonProgressArr[i]);
                       // console.log(jsonop);
                       // console.log(oP[i].className.split(" ")[1]);
+                      var oleft;
+                      var otop;
+                      oleft = (i % 3) * 410;
+                      otop = (i / 3) * 69;
+
+                      if (i % 3 == 1) {
+                          oleft = (i % 3) * 410;
+                          otop = (i / 3) * 69 - 23;
+                      }
+                      if (i % 3 == 2) {
+                          oleft = (i % 3) * 410;
+                          otop = (i / 3) * 69 - 45;
+                      }
+                      console.log(oleft, otop);
+                      oP[i].style.left = oleft + "px";
+                      oP[i].style.top = otop + "px";
                       if (jsonop) {
                           if (jsonop[i].className == oP[i].className.split(" ")[1]) {
                               oP[i].style.left = jsonop[i].x + "px";
