@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link href="css/style.css" rel="stylesheet">-->
+</head>
+
+<body>
+    <div style="position:absolute; top:100px; left:100px; width:100px; height:100px; background-color:#FF0000; z-index:1;" onclick="changeZindex(this);">1</div>
+    <div style="position:absolute; top:100px; left:150px; width:100px; height:100px; background-color:#3333FF; z-index:2;" onclick="changeZindex(this);">2</div>
+    <div style="position:absolute; top:150px; left:100px; width:100px; height:100px; background-color:#990099; z-index:3;" onclick="changeZindex(this);">3</div>
+    <div style="position:absolute; top:150px; left:150px; width:100px; height:100px; background-color:#336600; z-index:4;" onclick="changeZindex(this);">4</div>
+    <script language="javascript">
+        function changeZindex(obj) {
+            var divs = document.getElementsByTagName("DIV");
+            var maxNum = 0;
+            for (var i = 0; i < divs.length; i++) {
+                var tempNum = divs[i].style.zIndex;
+                tempNum = (tempNum) ? parseInt(tempNum) : 0;
+                if (tempNum > maxNum) maxNum = tempNum;
+            }
+            obj.style.zIndex = maxNum + 1;
+        }
+    </script>
+</body>
+
+</html>

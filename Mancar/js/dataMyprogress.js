@@ -1,3 +1,13 @@
+  function changeZindex(obj, name) {
+      var divs = document.getElementsByClassName(name);
+      var maxNum = 0;
+      for (var i = 0; i < divs.length; i++) {
+          var tempNum = divs[i].style.zIndex;
+          tempNum = (tempNum) ? parseInt(tempNum) : 0;
+          if (tempNum > maxNum) maxNum = tempNum;
+      }
+      obj.style.zIndex = maxNum + 1;
+  }
   // 进度条绘制
   $.ajax({
       url: "../json/datatable.json",
@@ -126,10 +136,11 @@
                           }
                       }
                       jsonProgressArr[i] = jsonProgressorigin;
-
                       oP[i].onmousedown = function(e) {
+                          changeZindex(this, "progress_box");
+                          // $(this).css("zIndex", "9999").siblings().css("zIndex", "1000");
                           e = e || window.event;
-                          console.log(i);
+                          //   console.log(i);
                           //增量，这个是当前鼠标的视口位置-p标签相对于父亲的位置
                           //所以减出来的结果，就是把oDiv的相对视口位置给的出来了
                           // console.log(oP[i]);
@@ -137,7 +148,7 @@
                           var disX = e.clientX - oP[i].offsetLeft;
                           var disY = e.clientY - oP[i].offsetTop;
                           console.log(disX);
-                          oDiv.onmousemove = function(e) {
+                          oP[i].onmousemove = function(e) {
                               e = e || window.event;
                               var x = e.clientX - disX;
                               var y = e.clientY - disY;
@@ -168,15 +179,11 @@
                               // window.sessionStorage.setItem("progress_boxs", JSON.stringify(jsonProgressi))
                               window.sessionStorage.setItem("progress_boxs", JSON.stringify(jsonProgressArr));
                           }
-                          oDiv.onmouseup = function() {
-                              oDiv.onmousemove = null;
-
+                          document.onmouseup = function() {
+                              oP[i].onmousemove = null;
+                              changeZindex(this, "progress_box");
                           }
                       }
-
-                      // removeBtn[i].click(function() {
-                      //     console.log(this);
-                      // })
 
                   }
               )(i)
