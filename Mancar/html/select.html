@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link href="css/style.css" rel="stylesheet">-->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        li {
+            list-style: none;
+        }
+        
+        .box {
+            width: 60px;
+            height: 17px;
+            border: 1px solid black;
+            border-right: none;
+            position: relative;
+            background: #122BE6;
+        }
+        
+        .problem {
+            width: 35%;
+            height: 101%;
+            background: url("../img/osc/select.png") no-repeat;
+            background-position: 5px -10%;
+            /*background-size: 100% 100%;*/
+            background-color: #122BE6;
+            position: absolute;
+            /*border: 2px solid green;*/
+            top: 0;
+            right: 0;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .item-wrap {
+            width: 100%;
+            text-align: center;
+            /*background: #013768;*/
+            color: red;
+            line-height: 25px;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            display: none;
+            background-color: #122BE6;
+        }
+        
+        .item-wrap li {
+            cursor: pointer;
+            font-size: 12px;
+            color: black;
+            border: 1px solid black;
+        }
+        
+        .item-wrap li:hover {
+            background: #269ABC;
+        }
+        
+        .item-wrap li:nth-of-type(even) {
+            /*background: #013796;*/
+        }
+        
+        .showMsg {
+            width: 60%;
+            font-size: 12px;
+            position: absolute;
+            top: 0px;
+            text-align: center;
+            left: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="showMsg"></div>
+        <div class="problem"></div>
+        <ul class="item-wrap">
+            <li>201</li>
+            <li>202</li>
+            <li>203</li>
+            <li>204</li>
+            <li>205</li>
+        </ul>
+    </div>
+</body>
+<script src="../js/jquery.min.1.js">
+</script>
+<script>
+    $(".problem").click(function(e) {
+        console.log("aa");
+        $(".item-wrap").slideToggle();
+        e.stopPropagation();
+    });
+
+    //下拉框功能实现
+    $(".showMsg").html(2001);
+    $(".item-wrap").on("click", "li", function(e) {
+
+        var checkVal = $(this).text();
+        $(".showMsg").html(checkVal);
+        $(".item-wrap").fadeOut();
+        e.stopPropagation();
+    });
+</script>
+
+</html>

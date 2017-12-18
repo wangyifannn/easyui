@@ -7,6 +7,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="../css/common.css" rel="stylesheet">
     <link href="../css/oscillograph.css" rel="stylesheet">
+    <style>
+        HTML,
+        body,
+        div,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        ul,
+        ol,
+        dl,
+        li,
+        dt,
+        dd,
+        p,
+        blockquote,
+        pre,
+        form,
+        fieldset,
+        table,
+        th,
+        td {
+            border: none;
+            /*font-family: "微软雅黑", "黑体", "宋体";*/
+            font-size: 14px;
+            margin: 0px;
+            padding: 0px;
+        }
+        
+        img {
+            border: 0;
+        }
+    </style>
 </head>
 
 <body>
@@ -44,13 +79,17 @@
                 <div class="right_part1">
                     <div class="part1_title part_title">
                         <img src="../img/osc/pause.png" alt=""> <span>采集间隔&nbsp;(ms)</span>
-                        <select>
-                            <option value="05" selected="selected">05</option>
-                            <option value="10">10</option>
-                            <option value="15">15</option>
-                            <option value="20">20</option>
-                            <option value="25">25</option>
-                        </select>
+                        <div class="box">
+                            <div class="showMsg"></div>
+                            <div class="problem"></div>
+                            <ul class="item-wrap">
+                                <li>5</li>
+                                <li>10</li>
+                                <li>15</li>
+                                <li>20</li>
+                                <li>25</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <div class="right_part2">
@@ -92,24 +131,39 @@
     getHeight();
     window.onresize = getHeight;
     $.ajax({
-        "url": "../../carManga/json/datatable.json",
-        "type": "get",
-        "success": function(res) {
-            console.log(res);
-            var jsonHtml = "";
-            console.log(res.length);
-            for (var i = 0; i < res.length; i++) {
-                jsonHtml += '<tr><td><span class="idcolor"></span><span class="idname">' + res[i].name + '</span></td>' +
-                    '<td>' + res[i].id + '</td>' +
-                    '<td>' + res[i].price + '</td></tr>'
+            "url": "../../carManga/json/datatable.json",
+            "type": "get",
+            "success": function(res) {
+                console.log(res);
+                var jsonHtml = "";
+                console.log(res.length);
+                for (var i = 0; i < res.length; i++) {
+                    jsonHtml += '<tr><td><span class="idcolor"></span><span class="idname">' + res[i].name + '</span></td>' +
+                        '<td>' + res[i].id + '</td>' +
+                        '<td>' + res[i].price + '</td></tr>'
+                }
+                console.log(jsonHtml);
+                $(".osctable").append(jsonHtml);
             }
-            console.log(jsonHtml);
-            $(".osctable").append(jsonHtml);
-        }
 
-    })
+        })
+        // selected
+    $(".problem").click(function(e) {
+        console.log("aa");
+        $(".item-wrap").slideToggle();
+        e.stopPropagation();
+    });
+
+    //下拉框功能实现
+    $(".showMsg").html(05);
+    $(".item-wrap").on("click", "li", function(e) {
+
+        var checkVal = $(this).text();
+        $(".showMsg").html(checkVal);
+        $(".item-wrap").fadeOut();
+        e.stopPropagation();
+    });
 </script>
-<!--<script src="./js/jquery.min.js"></script>-->
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script>
@@ -134,18 +188,41 @@
                     // set up the updating of the chart each second
                     var series = this.series[0];
                     var series1 = this.series[1];
+                    // 加入当前数组有5个元素
+                    var data1x = [];
+                    var data1y = [];
+                    var data2x = [];
+                    var data2y = [];
+                    // 随机创建一个数字，或从服务器获取一个数字
+                    // var now = Math.random() * 10;
+                    // 最后设置数据，即可实现曲线、趋势线从右向左的动态效果
+                    // exSeries.setData(data, true, false, false);
                     // var series2 = this.series[2];
-                    setInterval(function() {
+                    var interval1 = setInterval(function() {
                         var x = (new Date()).getTime(), // current time
                             y = Math.random();
-                        series.addPoint([x, y], true, true);
+                        // 把获取到的数据压入尾部
+                        data1x.push(x);
+                        data1y.push(y);
+                        series.addPoint([data1x[0], data1y[0]], true, true);
+                        // 从头部弹出一个数字
+                        data1x.shift();
+                        data1y.shift();
                     }, 1000);
+                    var interval2 = setInterval(function() {
+                        var x = (new Date()).getTime(), // current time
+                            y = Math.random();
+                        // 把获取到的数据压入尾部
+                        data2x.push(x);
+                        data2y.push(y);
+                        series1.addPoint([data2x[0], data2y[0]], true, true);
+                        // 从头部弹出一个数字
+                        data2x.shift();
+                        data2y.shift();
+                    }, 1000);
+                    // clearInterval(interval1, 5000);
+                    // clearInterval(interval2, 5000);
 
-                    setInterval(function() {
-                        var x = (new Date()).getTime(), // current time
-                            y = Math.random();
-                        series1.addPoint([x, y], true, true);
-                    }, 1000);
                     // setInterval(function() {
                     //     var x = (new Date()).getTime(), // current time
                     //         y = Math.random();
