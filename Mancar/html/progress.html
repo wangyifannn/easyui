@@ -97,23 +97,25 @@
 
     </div>
 </body>
+
+<script src="../js/zoom.js"></script>
 <script src="../js/jquery.min.1.js"></script>
 <script src="../js/dropdown.js"></script>
 <script src="../js/dataMyprogress.js"></script>
 <script>
-    var content = document.getElementsByClassName("content")[0];
+    // var content = document.getElementsByClassName("content")[0];
 
-    function getHeight() {
-        var conHeight = document.documentElement.clientHeight || document.body.clientHeight - 107;
-        if (conHeight < 693) {
-            conHeight = 693;
-        }
-        console.log(conHeight);
-        content.style.height = conHeight + "px";
-        console.log(conHeight);
-    }
-    getHeight();
-    window.onresize = getHeight;
+    // function getHeight() {
+    //     var conHeight = document.documentElement.clientHeight || document.body.clientHeight - 107;
+    //     if (conHeight < 693) {
+    //         conHeight = 693;
+    //     }
+    //     console.log(conHeight);
+    //     content.style.height = conHeight + "px";
+    //     console.log(conHeight);
+    // }
+    // getHeight();
+    // window.onresize = getHeight;
 </script>
 
 </html>
