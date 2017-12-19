@@ -227,6 +227,8 @@
     var body = document.getElementsByTagName("body")[0];
 
     function detectZoom() {
+        body.style.zoom = "0";
+        currentMain.style.zoom = "0";
         var ratio = 0,
             screen = window.screen,
             ua = navigator.userAgent.toLowerCase();
