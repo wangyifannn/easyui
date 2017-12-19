@@ -128,7 +128,8 @@
                         <div class="tab-pane active" id="currentlinechart">
                             <div class="tab_pane_content">
                                 <h3>实时数据线图</h3>
-                                <div id="current_line_main" style="width:750px;height:500px;"></div>
+                                <div id="current_line_main" style="width:800px;height:600px;"></div>
+                                <!--<div id="current_line_main"></div>-->
                             </div>
                         </div>
                         <div class="tab-pane fade" id="currentcolumnchart">
@@ -204,6 +205,86 @@
         <!--e footer-->
     </div>
 </body>
+<script>
+    var content = document.getElementsByClassName("content")[0];
+
+    function getHeight() {
+        var conHeight = document.documentElement.clientHeight || document.body.clientHeight - 107;
+        if (conHeight < 693) {
+            conHeight = 693;
+        }
+        console.log(conHeight);
+        content.style.height = conHeight + "px";
+        console.log(conHeight);
+    }
+    getHeight();
+    window.onresize = getHeight;
+    var currentMain = document.getElementById("current_line_main");
+    console.log(currentMain);
+    // currentMain.style.width = "100%";
+    // currentMain.style.height = "100%";
+    // 检测浏览器是否缩放
+    // var obj = {
+    //     'window.devicePixelRatio': window.devicePixelRatio,
+    //     'screen.deviceXDPI / screen.logicalXDPI': screen.deviceXDPI / screen.logicalXDPI,
+
+    //     'window.outerWidth / window.innerWidth': window.outerWidth / window.innerWidth,
+    //     'document.documentElement.offsetHeight / window.innerHeight': document.documentElement.offsetHeight / window.innerHeight,
+
+    //     'window.top.outerWidth / window.top.innerWidth': window.top.outerWidth / window.top.innerWidth
+    // }
+
+    // function print(obj) {
+    //     var s = '';
+    //     for (var key in obj) {
+    //         s += key;
+    //         s += ' : ';
+    //         s += obj[key];
+    //         s += '\n\r'
+    //     }
+    //     console.log(s);
+    //     document.write(s)
+
+    // }
+    // print(obj)
+    var body = document.getElementsByTagName("body")[0];
+
+    function detectZoom() {
+        var ratio = 0,
+            screen = window.screen,
+            ua = navigator.userAgent.toLowerCase();
+
+        if (window.devicePixelRatio !== undefined) {
+            ratio = window.devicePixelRatio;
+        } else if (~ua.indexOf('msie')) {
+            if (screen.deviceXDPI && screen.logicalXDPI) {
+                ratio = screen.deviceXDPI / screen.logicalXDPI;
+            }
+        } else if (window.outerWidth !== undefined && window.innerWidth !== undefined) {
+            ratio = window.outerWidth / window.innerWidth;
+        }
+
+        if (ratio) {
+            ratio = Math.round(ratio * 100);
+        }
+        // 判断浏览器缩放比例，改变页面 的缩放比例
+        if (ratio < 125 && ratio >= 113) {
+            body.style.zoom = "1.2";
+        } else if (ratio < 113 && ratio >= 100) {
+            body.style.zoom = "1.4";
+        } else if (ratio < 100 && ratio >= 94) {
+            body.style.zoom = "1.6";
+        } else if (ratio < 94 && ratio >= 83) {
+            body.style.zoom = "1.8";
+        } else if (ratio < 83 && ratio >= 63) {
+            body.style.zoom = "2.0";
+        }
+        console.log(ratio);
+        return ratio;
+    };
+    detectZoom();
+    window.onresize = detectZoom;
+</script>
 <script type="text/javascript" src="../js/jquery.min.1.js"></script>
 <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../js/FileSaver.min.js"></script>

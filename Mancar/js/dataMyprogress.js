@@ -157,7 +157,6 @@
                               //在大盒子中拖拽，范围设置
                               if (x < 0) x = 0;
                               if (y < 0) y = 0;
-
                               if (x > oDiv.clientWidth - oP[i].clientWidth) {
                                   x = oDiv.clientWidth - oP[i].clientWidth;
                               }

@@ -27,7 +27,8 @@ a {
     box-shadow: 1px 2px 35px #074587;
     width: 80%;
     margin: 0 auto;
-    height: 600px;
+    height: 90%;
+    /*height: 600px;*/
     min-width: 1000px;
 }
 
