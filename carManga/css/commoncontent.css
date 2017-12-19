@@ -92,12 +92,16 @@ a {
     border: none;
     display: inline-block;
     width: 60%;
+    /*height: 100%;*/
+    /*line-height: 100%;*/
+    /*line-height: 25px;*/
     /*border: 1px solid red;*/
     font-size: 16px;
     color: #F1F1F1;
     font-family: MicrosoftYaHei;
     margin-right: 8px;
     text-decoration: none;
+    /*margin-top: -30px;*/
 }
 
 a {
@@ -147,6 +151,10 @@ a:visited {
 .icon_left2 {
     width: 22px;
     height: 13.5px;
+}
+
+.icon_left2 {
+    height: 20px;
 }
 
 .icon_left3 {

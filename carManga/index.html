@@ -4,7 +4,7 @@
 <head>
     <title></title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="./css/indexheader.css">
     <link rel="stylesheet" type="text/css" href="./css/index.css">
     <!--<link href="css/bootstrap-3.3.7.min.css" rel="stylesheet">-->
@@ -66,12 +66,11 @@
                     </div>
                     <div class="user_btn">
                         <img src="./img/index/user.png" alt="管理员设置">
-                        <p class="user_btn_tags">管理员设置</p>
+                        <p class="user_btn_tags"><a href="./html/manageConfig.html">管理员设置</a></p>
                     </div>
                 </div>
             </div>
         </header>
-
         <div class="categories">
             <div class="imgs">
                 <img src="./img/index/categories1.png" alt="">
@@ -132,6 +131,31 @@
         console.log("没有登录");
         location.href = "./html/login.html";
     }
+    // 检测浏览器缩放
+    function detectZoom() {
+        var ratio = 0,
+            screen = window.screen,
+            ua = navigator.userAgent.toLowerCase();
+
+        if (window.devicePixelRatio !== undefined) {
+            ratio = window.devicePixelRatio;
+        } else if (~ua.indexOf('msie')) {
+            if (screen.deviceXDPI && screen.logicalXDPI) {
+                ratio = screen.deviceXDPI / screen.logicalXDPI;
+            }
+        } else if (window.outerWidth !== undefined && window.innerWidth !== undefined) {
+            ratio = window.outerWidth / window.innerWidth;
+        }
+
+        if (ratio) {
+            ratio = Math.round(ratio * 100);
+        }
+
+        return ratio;
+        console.log(ratio);
+    };
+    detectZoom();
+    // console.log(ratio);
 </script>
 
 </html>

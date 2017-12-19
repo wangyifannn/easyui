@@ -8,6 +8,10 @@ body {
     background: #092F69;
 }
 
+* {
+    /*border: 1px solid red;*/
+}
+
 
 /*header css*/
 
@@ -17,37 +21,45 @@ body {
 .categories {
     width: 100%;
     background: #092F69;
-    margin-top: 30px;
+    margin-top: 50px;
     margin-bottom: 60px;
 }
 
 .imgs {
     padding-top: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 50px;
     width: 70%;
     /*border: 1px solid red;*/
     margin: 0 auto;
-    min-width: 1035px;
+    min-width: 1285px;
     text-align: center;
 }
 
+
+/*.imgs img{
+
+} */
+
 .imgs img:first-child {
-    width: 101px;
-    height: 95px;
+    width: 15%;
+    min-width: 101px;
+    min-height: 95px;
     cursor: pointer;
     margin-right: 230px;
 }
 
 .imgs img:nth-child(2) {
-    width: 184px;
-    height: 98px;
+    width: 15%;
+    min-width: 184px;
+    min-height: 98px;
     cursor: pointer;
     margin-right: 230px;
 }
 
 .imgs img:last-child {
-    width: 105px;
-    height: 104px;
+    width: 15%;
+    min-width: 105px;
+    min-height: 104px;
     cursor: pointer;
 }
 
@@ -56,17 +68,23 @@ body {
 }
 
 .menus_img {
-    width: 52%;
+    width: 62%;
     margin: 0 auto;
-    min-width: 865px;
+    min-width: 1298px;
     /*margin-top: 30px;*/
-    /*border: 1px solid red;*/
 }
 
 .menus_img_box {
     display: inline-block;
     border: none;
+    text-align: center;
+    /*border: 1px solid red;*/
     border-right: 1.5px solid #074587;
+    width: 14%;
+    /*padding: 25px 118px 25px;*/
+    padding: 5% 9% 5%;
+    /*padd-*/
+    height: 40%;
 }
 
 .menus_img_border {
@@ -81,9 +99,14 @@ body {
 }
 
 .menus_img_box img {
-    width: 60px;
-    height: 50px;
-    margin: 25px 112px 25px;
+    /*width: 60px;*/
+    width: 60%;
+    /*text-align: center;*/
+    /*padding-left: 20%;*/
+    /*height: 80px;*/
+    /*margin: 25px 30% 25px;*/
+    /*margin: 0 auto;*/
+    /*margin-left: 220%;*/
     cursor: pointer;
     -webkit-transition: 1s;
     -moz-transition: 1s;
@@ -100,8 +123,15 @@ body {
 }
 
 .menus_img_box p {
+    width: 100%;
     font-size: 18px;
     font-family: MicrosoftYaHei;
     color: #F1F1F1;
+    margin-top: 20px;
     text-align: center;
+}
+
+.menus_img_box:last-child img {
+    width: 60%;
+    height: 120px;
 }
