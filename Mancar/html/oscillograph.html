@@ -111,25 +111,26 @@
         </div>
     </div>
 </body>
-<script src="../js/jquery.min.1.js">
-</script>
+
+<script src="../js/zoom.js"></script>
+<script src="../js/jquery.min.1.js"></script>
 <script src="../js/dropdown.js">
 </script>
 <script>
     var content = document.getElementsByClassName("content")[0];
 
-    function getHeight() {
-        var conHeight = document.documentElement.clientHeight || document.body.clientHeight;
-        conHeight = conHeight - 44;
-        if (conHeight < 690) {
-            conHeight = 690;
-        }
-        console.log(conHeight);
-        content.style.height = conHeight + "px";
-        console.log(conHeight);
-    }
-    getHeight();
-    window.onresize = getHeight;
+    // function getHeight() {
+    //     var conHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    //     conHeight = conHeight - 44;
+    //     if (conHeight < 690) {
+    //         conHeight = 690;
+    //     }
+    //     console.log(conHeight);
+    //     content.style.height = conHeight + "px";
+    //     console.log(conHeight);
+    // }
+    // getHeight();
+    // window.onresize = getHeight;
     $.ajax({
             "url": "../../carManga/json/datatable.json",
             "type": "get",
@@ -142,10 +143,9 @@
                         '<td>' + res[i].id + '</td>' +
                         '<td>' + res[i].price + '</td></tr>'
                 }
-                console.log(jsonHtml);
+                // console.log(jsonHtml);
                 $(".osctable").append(jsonHtml);
             }
-
         })
         // selected
     $(".problem").click(function(e) {
