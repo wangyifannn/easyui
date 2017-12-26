@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>示波器页面</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../css/common.css" rel="stylesheet">
+    <link href="../css/oscillograph.css" rel="stylesheet">
+    <style>
+        HTML,
+        body,
+        div,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        ul,
+        ol,
+        dl,
+        li,
+        dt,
+        dd,
+        p,
+        blockquote,
+        pre,
+        form,
+        fieldset,
+        table,
+        th,
+        td {
+            border: none;
+            /*font-family: "微软雅黑", "黑体", "宋体";*/
+            font-size: 14px;
+            margin: 0px;
+            padding: 0px;
+        }
+        
+        img {
+            border: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <!--header-->
+        <div class="header clear_float">
+            <div class="header_left">
+                <a href="../html/progress.html">进度条</a>
+                <span>采集-new</span>
+                <span>工程</span>
+                <span>操作</span>
+                <span>帮助</span>
+            </div>
+            <div class="header_right">
+                <span class="minus"><img src="../img/progress/reduce-1.png" alt=""></span>
+                <span class="fullscreen"><img src="../img/progress/full_screen.png" alt=""></span>
+                <span class="retweet"><img src="../img/progress/restore.png" alt=""></span>
+                <span class="remove"><img src="../img/progress/close.png" alt=""></span>
+            </div>
+        </div>
+        <!--content-->
+        <div class="content clear_float">
+            <div class="content_left">
+                <ul>
+                    <li><img class="pitch_off" src="../img/osc/document.png" alt=""></li>
+                    <li><img class="blow" src="../img/osc/folder.png" alt=""></li>
+                    <li><img class="reduce" src="../img/osc/mail---incoming.png" alt=""></li>
+                    <li><img class="translate" src="../img/osc/printer.png" alt=""></li>
+                </ul>
+            </div>
+            <div class="content_center">
+                <div id="current_line_main" style="min-width: 310px;height:650px;margin: 0 auto;margin-top:50px"></div>
+                <!--<div id="container" style="min-width: 310px; height: 650px; margin: 0 auto"></div>-->
+            </div>
+            <div class="content_right">
+                <div class="right_part1">
+                    <div class="part1_title part_title">
+                        <img src="../img/osc/pause.png" alt=""> <span>采集间隔&nbsp;(ms)</span>
+                        <div class="box">
+                            <div class="showMsg"></div>
+                            <div class="problem"></div>
+                            <ul class="item-wrap">
+                                <li>5</li>
+                                <li>10</li>
+                                <li>15</li>
+                                <li>20</li>
+                                <li>25</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="right_part2">
+                    <table class="osctable" cellspacing="0">
+                        <tr>
+                            <th>变量名称</th>
+                            <th>当前值</th>
+                            <th>单位</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <span><img src="../img/osc/footer-tips.png" alt=""></span>
+            <span>无配置文件</span>
+            <span>无连接</span>
+            <span>NODEVICE</span>
+        </div>
+    </div>
+</body>
+
+<script src="../js/zoom.js"></script>
+<script src="../js/jquery.min.1.js"></script>
+<script src="../js/dropdown.js">
+</script>
+<script>
+    var content = document.getElementsByClassName("content")[0];
+    $.ajax({
+            "url": "../../carManga/json/datatable.json",
+            "type": "get",
+            "success": function(res) {
+                console.log(res);
+                var jsonHtml = "";
+                console.log(res.length);
+                for (var i = 0; i < res.length; i++) {
+                    jsonHtml += '<tr><td><span class="idcolor"></span><span class="idname">' + res[i].name + '</span></td>' +
+                        '<td>' + res[i].id + '</td>' +
+                        '<td>' + res[i].price + '</td></tr>'
+                }
+                // console.log(jsonHtml);
+                $(".osctable").append(jsonHtml);
+            }
+        })
+        // selected
+    $(".problem").click(function(e) {
+        console.log("aa");
+        $(".item-wrap").slideToggle();
+        e.stopPropagation();
+    });
+
+    //下拉框功能实现
+    $(".showMsg").html(05);
+    $(".item-wrap").on("click", "li", function(e) {
+
+        var checkVal = $(this).text();
+        $(".showMsg").html(checkVal);
+        $(".item-wrap").fadeOut();
+        e.stopPropagation();
+    });
+</script>
+<!--<script src="https://code.highcharts.com/highcharts.js"></script>-->
+<!--<script src="https://code.highcharts.com/modules/exporting.js"></script>-->
+<!--<script type="text/javascript" src="https://cdn.bootcss.com/echarts/2.2.7/echarts-all.js"></script>
+<script>
+    $.ajax({
+        url: "../json/mystyle.project.json",
+        type: "get",
+        success: function(ress) {
+            // ress = JSON.parse(ress);
+            console.log(ress);
+            var myobj = ress;
+            echarts.registerTheme('mystyle', myobj);
+            // echarts.init(dom, 'mystyle') 创建图表， 第二个参数即为刚才注册的主题名字。
+
+        }
+    })
+</script>-->
+
+<script src="../mystyle.js">
+</script>
+<script type="text/javascript" src="https://cdn.bootcss.com/echarts/2.2.7/echarts-all.js"></script>
+<script>
+    var app = {};
+    var myChart = echarts.init(document.getElementById('current_line_main'), e_macarons);
+    var option = null;
+    option = {
+
+        title: {
+            text: 'APP-R'
+        },
+        tooltip: { //鼠标悬浮到线上，会出现具体的信息。提示组件
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#84FEBF'
+                }
+            }
+        },
+        legend: {
+            // data: [,],
+            data: [{
+                name: '最新成交价',
+                textStyle: {
+                    color: "#25c36c"
+                }
+            }, {
+                name: '预购队列',
+                textStyle: {
+                    color: "#25c36c"
+                }
+            }],
+            // borderColor: "#44A238"
+        },
+        toolbox: { //工具组件
+            show: true,
+            feature: {
+                dataView: {
+                    readOnly: false
+                },
+                restore: {}, //刷新
+                saveAsImage: {} //保存为图片
+            }
+        },
+        grid: { //网格组件
+            show: true,
+            backgroundColor: "#023A5F",
+            borderWidth: 0,
+            color: ["#44A238", "#44A238", "#44A238", "#44A238"]
+        },
+
+        dataZoom: { //区域缩放组件
+            show: false,
+            start: 0,
+            end: 100
+        },
+        xAxis: [ //直角坐标系 grid 中的 x 轴
+            {
+                type: 'category',
+                // 类目轴，适用于离散的类目数据，为该类型时必须通过 data 设置类目数据。
+                boundaryGap: false,
+                name: "时间",
+                // 最后实际显示的段数会在这个基础上根据分割后坐标轴刻度显示的易读程度作调整。在类目轴中无效。
+                // nameGap: 35,
+                // nameRotate: 133,
+                // scale: true,8
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: 'white' //x轴标签字体颜色
+                    }
+                },
+                data: (function() {
+                    var now = new Date();
+                    var res = [];
+                    var len = 10;
+                    while (len--) {
+                        res.unshift(now.toLocaleTimeString().replace(/^\D*/, ''));
+                        now = new Date(now - 2000);
+                    }
+                    return res;
+                })()
+            }, {
+                type: 'category',
+                // splitNumber: 10, //坐标轴的分割段数，需要注意的是这个分割段数只是个预估值，
+                boundaryGap: false,
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: 'white' //x轴标签字体颜色
+                    }
+                },
+                data: (function() {
+                    var res = [];
+                    var len = 10;
+                    while (len--) {
+                        res.push(len + 1);
+                    }
+                    return res;
+                })()
+            }
+        ],
+        yAxis: [ //直角坐标系 grid 中的 y
+            {
+                type: 'value',
+                scale: true,
+                name: '价格',
+                max: 30,
+                min: 0,
+                splitNumber: 10,
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: 'white' //x轴标签字体颜色
+                    }
+                },
+                boundaryGap: [0.2, 0.2]
+            }, {
+                type: 'value',
+                scale: true,
+                name: '预购量',
+                max: 1200,
+                min: 0,
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: 'white' //x轴标签字体颜色
+                    }
+                },
+                boundaryGap: [0.2, 0.2]
+            }
+        ],
+        series: [{
+            name: '预购队列',
+            type: 'line',
+            symbol: 'none', //这句就是去掉点的  
+            smooth: true, //这句就是让曲线变平滑的 
+            xAxisIndex: 1,
+            yAxisIndex: 1,
+            data: (function() {
+                var res = [];
+                var len = 10;
+                while (len--) {
+                    res.push(Math.round(Math.random() * 1000));
+                }
+                return res;
+            })()
+        }, {
+            name: '最新成交价',
+            type: 'line',
+            symbol: 'none', //这句就是去掉点的  
+            smooth: true, //这句就是让曲线变平滑的 
+            data: (function() {
+                var res = [];
+                var len = 0;
+                while (len < 10) {
+                    res.push((Math.random() * 10 + 5).toFixed(1) - 0);
+                    len++;
+                }
+                return res;
+            })()
+        }]
+    };
+
+    app.count = 21;
+    setInterval(function() {
+        axisData = (new Date()).toLocaleTimeString().replace(/^\D*/, '');
+
+        var data0 = option.series[0].data;
+        var data1 = option.series[1].data;
+        data0.shift();
+        data0.push(Math.round(Math.random() * 1000));
+        data1.shift();
+        data1.push((Math.random() * 10 + 5).toFixed(1) - 0);
+
+        option.xAxis[0].data.shift();
+        option.xAxis[0].data.push(axisData);
+        option.xAxis[1].data.shift();
+        option.xAxis[1].data.push(app.count++);
+
+        myChart.setOption(option);
+    }, 50);
+</script>
+
+</html>

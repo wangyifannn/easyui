@@ -348,22 +348,30 @@
         series: [{
                 name: '波形data',
                 type: 'spline',
-                data: (function() {
-                    // generate an array of random data
-                    var data = [],
-                        time = (new Date()).getTime(),
-                        i;
-                    for (i = -19; i <= 0; i += 1) {
-                        // data.remove()
-                        data.push({
-                            x: time + i * 1000 + 1,
-                            y: Math.random()
-                        });
+                // data: (function() {
+                //     // generate an array of random data
+                //     var data = [],
+                //         time = (new Date()).getTime(),
+                //         i;
+                //     for (i = -19; i <= 0; i += 1) {
+                //         // data.remove()
+                //         data.push({
+                //             x: time + i * 1000 + 1,
+                //             y: Math.random()
+                //         });
 
+                //     }
+                //     console.log(data);
+                //     return data;
+                // }())
+                data: (function() {
+                    var res = [];
+                    var len = 10;
+                    while (len--) {
+                        res.push(Math.round(Math.random() * 1000));
                     }
-                    console.log(data);
-                    return data;
-                }())
+                    return res;
+                })()
             }, {
                 name: 'data',
                 type: 'spline',
@@ -402,7 +410,24 @@
             // }
         ]
     });
+    app.count = 21;
+    setInterval(function() {
+        axisData = (new Date()).toLocaleTimeString().replace(/^\D*/, '');
 
+        var data0 = option.series[0].data;
+        var data1 = option.series[1].data;
+        data0.shift();
+        data0.push(Math.round(Math.random() * 1000));
+        data1.shift();
+        data1.push((Math.random() * 10 + 5).toFixed(1) - 0);
+
+        option.xAxis[0].data.shift();
+        option.xAxis[0].data.push(axisData);
+        option.xAxis[1].data.shift();
+        option.xAxis[1].data.push(app.count++);
+
+        myChart.setOption(option);
+    }, 30);
     // clearInterval(mytimeTicket);
     // mytimeTicket = setInterval(function() {
     //     // lastData += Math.random() * ((Math.round(Math.random() * 10) % 2) == 0 ? 1 : -1);
