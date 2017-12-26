@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>ZheXian</title>
+    <script type="text/javascript" src="./js/d3.v3.js"></script>
+    <!--<link rel="stylesheet" type="text/css" href="bee.css" />-->
+    <style>
+        body {
+            height: 100%;
+        }
+        
+        .title {
+            font-family: Arial, 微软雅黑;
+            font-size: 18px;
+            text-anchor: middle;
+        }
+        
+        .subTitle {
+            font-family: Arial, 宋体;
+            font-size: 12px;
+            text-anchor: middle;
+            fill: #666
+        }
+        
+        .axis path {
+            fill: none;
+            stroke: black;
+            shape-rendering: crispEdges;
+        }
+        
+        .axis line {
+            fill: none;
+            stroke: red;
+            shape-rendering: crispEdges;
+        }
+        
+        .axis .tick:nth-child(5n+1) line {
+            fill: none;
+            stroke: green;
+            stroke-width: 2;
+            /*height: 13px;*/
+            shape-rendering: crispEdges;
+        }
+        
+        .axis text {
+            font-family: sans-serif;
+            font-size: 11px;
+            fill: #999;
+            opacity: 0;
+        }
+        
+        .axis .tick:nth-child(5n+1) text {
+            opacity: 1;
+        }
+        
+        .inner_line path,
+        .inner_line line {
+            fill: none;
+            stroke: #E7E7E7;
+            shape-rendering: crispEdges;
+        }
+        
+        #part3 {
+            width: 600px;
+            height: 400px;
+            border: 1px solid salmon;
+        }
+        /*        
+        .axis:nth-child(2) .tick:nth-child(5n+1) line {
+            /*color: red;
+            */
+        /*stroke: red;*/
+        /*}*/
+    </style>
+</head>
+
+<body>
+    <div id="part3">
+    </div>
+    <script type="text/javascript">
+        var dataset = [];
+        var dataset = [2, 3, 4, 5, 6, 1, 2, 7, 22];
+        var id = 0,
+            duration = 500;
+        var xMarks = ['Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'];
+        var w = 600;
+        var h = 400;
+        var title = "APP-R";
+        var subTitle = "temperature";
+        var Numlength = 7;
+        // var line = "";
+
+        function creatLine() {
+            //定义画布 
+            var svg = d3.select("#part3").append("svg").attr("width", w).attr("height", h);
+            //添加标题 
+            svg.append("g")
+                .append("text").text(title).attr("class", "title").attr("x", 220).attr("y", 20);
+            //添加副标题 
+            svg.append("g").append("text").text(subTitle).attr("class", "subTitle").attr("x", 220).attr("y", 40);
+
+            //横坐标轴比例尺 
+            var xScale = d3.scale.linear().domain([0, dataset.length - 1]) //domain定义输入范围,最小为0，最大为数组dataset的最后一个
+                .range([60, 540]); //range（）定义输出范围，最小为60（x轴起点距离svg画布左边60px），最大为540(svg容器宽600-60=540)
+            //这个range相当于横轴的左右平移 
+            //纵坐标轴比例尺
+            var yScale = d3.scale.linear().domain([0, d3.max(dataset)])
+                .range([340, 60]); //x轴输出的范围最小为60（x轴起点距离svg容器顶部60），最大为，400-60=340
+            //定义横轴网格线 
+            var xInner = d3.svg.axis().scale(xScale).tickSize(-280, 0, 0) //调整网格线长度
+                .orient("bottom").ticks(dataset.length);
+
+            //添加横轴网格线 
+            svg.append("g").attr("class", "inner_line").attr("transform", "translate(0," + 340 + ")") //用来把纵的网格线上移的
+                .call(xInner).selectAll("text").text(""); //定义纵轴网格线 
+            var yInner = d3.svg.axis().scale(yScale).tickSize(-480, 0, 0).tickFormat("") //-480调横向网格线
+                .orient("left").ticks(5); //添加纵轴网格线 
+
+            var yBar = svg.append("g").attr("class", "inner_line").attr("transform", "translate(" + 60 + ",0)").call(yInner); //定义横轴 //添加横坐标轴并通过编号获取对应的横轴标签
+            var xAxis = d3.svg.axis().scale(xScale).orient("bottom").ticks(dataset.length)
+                .ticks(25)
+                .innerTickSize([6])
+                .tickPadding(7); //定义x轴刻度线与刻度标注之间的距离，默认3px
+            var xBar = svg.append("g").attr("class", "axis").attr("transform", "translate(0," + 340 + ")") //用来上下平移横轴位置 
+                .call(xAxis).selectAll("text").text(function(d) {
+                    return xMarks[d];
+                });
+            //定义纵轴
+            var yAxis = d3.svg.axis().scale(yScale).orient("left").ticks(25) //这个是细分度
+                .innerTickSize([6]) //innerTickSize([10])设置内部刻度线长度
+                .tickPadding(7); //定义y轴刻度线与刻度标注之间的距离，默认3px
+            //添加纵轴
+            var yBar = svg.append("g").attr("class", "axis").attr("transform", "translate(" + 60 + ",0)").call(yAxis);
+            //添加折线 
+            var line = d3.svg.line().x(function(d, i) {
+                    return xScale(i);
+                }).y(function(d) {
+                    return yScale(d);
+                }).interpolate("cardinal") //让线条变得光滑，不是折线而是光滑的曲线
+
+            var path = svg.append("path")
+                .attr("d", line(dataset))
+                .style("fill", "#F00")
+                .style("fill", "none")
+                .style("stroke-width", 1)
+                .style("stroke", "#09F")
+                .style("stroke-opacity", 0.9);
+
+            //添加系列的小圆点
+            svg.selectAll("circle").data(dataset).enter().append("circle")
+                .attr("cx", function(d, i) {
+                    return xScale(i);
+                })
+                .attr("cy", function(d) {
+                    return yScale(d);
+                })
+                .attr("r", 5).attr("fill", "#09F");
+
+            // js设置刻度线 的长短，每5个刻度线较长
+            var xAxismy = document.getElementsByClassName("axis")[0];
+            var yAxismy = document.getElementsByClassName("axis")[1];
+            // console.log(yAxismy);
+            var ylineAll = yAxismy.getElementsByTagName("line");
+            var xlineAll = xAxismy.getElementsByTagName("line");
+            // x轴line
+            for (var i = 0; i < xlineAll.length; i++) {
+                (
+                    function(i) {
+                        if (i % 5 == 0) {
+                            xlineAll[i].setAttribute("y2", "10");
+                        }
+                    }
+                )(i)
+
+            }
+            // y轴line
+            for (var i = 0; i < ylineAll.length; i++) {
+                (
+                    function(i) {
+                        if (i % 5 == 0) {
+                            ylineAll[i].setAttribute("x2", "-10");
+                        }
+                    }
+                )(i)
+
+            }
+        }
+        // 调用初始化绘制函数
+        creatLine();
+        var path = document.getElementsByTagName("path")[0];
+        setInterval(function() {
+            var rad = Math.floor(Math.random() * 10);
+            // console.log(rad);
+            dataset.shift();
+            dataset.push(rad);
+            // path.setAttribute("d", d3.svg.line(dataset));
+            // 调用重绘函数
+            // render(dataset);
+            // console.log(dataset);
+            // creatLine();
+        }, 1000)
+
+        // for (var i = 0; i < Numlength; i++) push(dataset);
+
+        // function push() {
+        //     dataset.push({
+        //         id: ++id,
+        //         value: Math.round(Math.random() * h)
+        //     });
+        // }
+        // // 重绘函数
+        // function render(data) {
+        //     var svg = d3.select("body")
+        //         .selectAll("path")
+        //         .data(data, function(d) {
+        //             // console.log(d);
+        //             return d.id
+        //         });
+        // }
+    </script>
+</body>
+
+</html>

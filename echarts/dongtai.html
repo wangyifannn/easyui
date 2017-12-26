@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <title>话务预测分析-折线图</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
+    <!--<link href="../ssjk/css/style.css" rel="stylesheet" type="text/css">-->
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="all allpep">
+        <div class="header"></div>
+        <div class="content">
+            <div id="main" style="height:400px;width: 100%;"></div>
+        </div>
+        <div class="foot">
+            <div class="first">
+                <table style="border-collapse: collapse;width:100%;">
+                    <tr>
+                        <td style="width: 25%" rowspan="2">实际话务量</td>
+                        <td style="width: 25%"><span id="shiJiCount" style="color: black;"></span></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 25%"><span id="shiJiTime" style="color: black;font-size: 10pt;"></span></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="last">
+                <table style="border-collapse: collapse;width:100%;">
+                    <tr>
+                        <td style="width: 25%" rowspan="2">预测话务量</td>
+                        <td style="width: 25%"><span id="yuCeCount" style="color: black;"></span></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 25%"><span id="yuCeTime" style="color: black;font-size: 10pt;"></span></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="./js/echarts.js"></script>
+    <!--<script src="./js/macarons.js"></script>-->
+    <script type="text/javascript">
+        $(function() {
+            initChart();
+            getData(); //动态获取数据
+        });
+
+        var app = {};
+        app.timeTicket = setInterval(function() { //定时刷新图表
+            getData();
+        }, 1000);
+
+        var myChart;
+        var xAxisData = []; //x轴数据
+        var hwData = []; //实际话务量
+        var idData = []; //预测话务量
+        var jieTongData = []; //实际接通量
+        var option = {};
+
+        function initChart() { //初始化图表 
+            // 基于准备好的dom，初始化echarts图表
+            myChart = echarts.init(document.getElementById('main'));
+            myChart.showLoading({
+                text: "正在努力加载图表数据..."
+            });
+
+            option = {
+                title: {
+                    text: ''
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    formatter: function(params, ticket, callback) {
+                        $("#shiJiCount").html(params[0].value);
+                        $("#shiJiTime").html(params[0].name);
+                        // $("#yuCeCount").html(params[1].value);
+                        // $("#yuCeTime").html(params[0].name);
+                        var res = "时间：" + params[0].name;
+                        for (var i = 0, l = params.length; i < l; i++) {
+                            res += "<br/>" + params[i].seriesName + ' : ' + params[i].value;
+                        }
+                        return res;
+                    }
+                },
+                legend: {
+                    x: 'center', // 'center' | 'left' | {number},
+                    y: 'bottom', // 'center' | 'bottom' | {number}
+                    data: ['实际话务量', '预测话务量', '实际接通量'],
+                    selected: {
+                        '实际话务量': true,
+                        '预测话务量': true,
+                        '实际接通量': true,
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '6%', //图例离上边距离
+                    containLabel: true
+                },
+                toolbox: {
+                    show: true,
+                    feature: {
+                        dataView: {
+                            show: true,
+                            readOnly: false
+                        },
+                        magicType: {
+                            show: true,
+                            type: ['line', 'bar']
+                        },
+                        restore: {
+                            show: true
+                        },
+                        saveAsImage: {
+                            show: true
+                        }
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: xAxisData
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [{
+                    name: '实际话务量',
+                    type: 'line',
+                    itemStyle: {
+                        normal: {
+                            color: '#4572a7',
+                            borderWidth: 3
+                        } //折线颜色和粗细
+                    },
+                    lineStyle: {
+                        normal: {
+                            width: 3 //连线粗细
+                        }
+                    },
+                    data: hwData
+                }, {
+                    name: '预测话务量',
+                    type: 'line',
+                    itemStyle: {
+                        normal: {
+                            color: '#aa4643',
+                            borderWidth: 3
+                        } //折线颜色和粗细
+                    },
+                    lineStyle: {
+                        normal: {
+                            width: 3 //连线粗细
+                        }
+                    },
+                    data: idData
+                }, {
+                    name: '实际接通量',
+                    type: 'line',
+                    itemStyle: {
+                        normal: {
+                            color: '#89a54e',
+                            borderWidth: 3
+                        } //折线颜色和粗细
+                    },
+                    lineStyle: {
+                        normal: {
+                            width: 3 //连线粗细
+                        }
+                    },
+                    data: jieTongData
+                }]
+            };
+        }
+
+        function clearData() { //清空后台数据
+            if (xAxisData != null && xAxisData.length != 0) xAxisData = []; //x轴数据
+            if (hwData != null && hwData.length != 0) hwData = [];
+            if (idData != null && idData.length != 0) idData = [];
+            if (jieTongData != null && jieTongData.length != 0) jieTongData = [];
+        }
+
+        function getData() {
+            clearData(); //刷新数据时，先清空历史数据
+            var url = "../carManga/json/datatable.json";
+            var paramData = {};
+            $.ajax({
+                url: url,
+                type: 'post',
+                data: paramData,
+                dataType: 'json',
+                async: false,
+                error: function() {
+                    // window.location.href = "../index.jsp";
+                },
+                success: function(result) {
+                    if (result != null) {
+                        $(result).each(function(i) {
+                            xAxisData.push(result[i].id);
+                            hwData.push(result[i].actualHw);
+                            idData.push(result[i].id);
+                            jieTongData.push(result[i].actualNeed);
+                        });
+                    }
+                    myChart.clear();
+                    myChart.setOption(option);
+                    myChart.hideLoading();
+                }
+            });
+            window.onresize = myChart.resize;
+        }
+    </script>
+</body>

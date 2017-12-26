@@ -21,3 +21,15 @@ path {
     stroke: gray;
     stroke-width: 1;
 }
+
+
+/*栅格样式，也就是折现图的背景表格样式*/
+
+.grid .tick {
+    stroke: lightgrey;
+    opacity: 0.7;
+}
+
+.grid path {
+    stroke-width: 0;
+}

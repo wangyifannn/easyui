@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link href="css/style.css" rel="stylesheet">-->
+</head>
+
+<body>
+    <div class="container">
+        <div id="current_line_main" style="width:850px;height:600px;"></div>
+    </div>
+
+</body>
+<script type="text/javascript" src="https://cdn.bootcss.com/echarts/2.2.7/echarts-all.js"></script>
+<!--<script type="text/javascript" src="../js/dataMyprogress.js"></script>-->
+<script>
+    // 实时数据线图绘制
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('current_line_main'));
+    var timeTicket = '';
+    // 指定图表的配置项和数据
+    var option = {
+        backgroundColor: "#EFF0F2", //画布背景色
+        title: {
+            text: 'APP-R',
+            textStyle: {
+                color: 'red' // 主标题文字颜色
+            },
+            // subtext: '纯属虚构'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: ['最新成交价', '预购队列']
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                mark: {
+                    show: true
+                },
+                dataView: {
+                    show: true,
+                    readOnly: false
+                },
+                magicType: {
+                    show: true,
+                    type: ['line', 'bar']
+                },
+                restore: {
+                    show: true
+                },
+                saveAsImage: {
+                    show: true
+                }
+            }
+        },
+        dataZoom: {
+            show: false,
+            start: 0,
+            end: 100
+        },
+        grid: {
+            show: true,
+            backgroundColor: "#023A5F",
+        },
+        xAxis: [{
+            type: 'category', //类值
+            boundaryGap: true,
+            axisTick: {
+                axisTick: true,
+                interval: 2,
+                inside: true,
+                length: 10,
+                lineStyle: {
+                    width: 2,
+                    color: "blue"
+                }
+            },
+            axisLine: {
+                lineStyle: {
+                    color: '#0000ff', //y轴线条颜色
+                }
+            },
+            axisLabel: {
+                inside: true,
+                color: "red"
+            },
+            splitLine: {
+                lineStyle: {
+                    color: 'red'
+                }
+            },
+            data: (function() {
+                var now = new Date();
+                var res = [];
+                var len = 10;
+                while (len--) {
+                    res.unshift(now.toLocaleTimeString().replace(/^\D*/, ''));
+                    now = new Date(now - 2000);
+                }
+                return res;
+            })()
+        }, {
+            type: 'category',
+            boundaryGap: true,
+            data: (function() {
+                var res = [];
+                var len = 10;
+                while (len--) {
+                    res.push(len + 1);
+                }
+                return res;
+            })()
+        }],
+        yAxis: [{
+            type: 'value',
+            scale: true,
+            name: '价格',
+            boundaryGap: [0.2, 0.2],
+            axisLine: {
+                lineStyle: {
+                    color: '#0000ff', //y轴线条颜色
+                }
+            }
+        }, {
+            type: 'value',
+            scale: true,
+            name: '预购量',
+            boundaryGap: [0.2, 0.2],
+            axisLine: {
+                lineStyle: {
+                    color: '#0000ff', //y轴线条颜色
+                }
+            }
+        }],
+        series: [{
+            name: '预购队列',
+            type: 'bar',
+            xAxisIndex: 1,
+            yAxisIndex: 1,
+            color: ['red'],
+
+            data: (function() {
+                var res = [];
+                var len = 10;
+                while (len--) {
+                    res.push(Math.round(Math.random() * 1000));
+                }
+                return res;
+            })()
+        }, {
+            name: '最新成交价',
+            type: 'line',
+            data: (function() {
+                var res = [];
+                var len = 10;
+                while (len--) {
+                    res.push((Math.random() * 10 + 5).toFixed(1) - 0);
+                }
+                return res;
+            })()
+        }]
+    };
+    var lastData = 11;
+    var axisData;
+    clearInterval(timeTicket);
+    timeTicket = setInterval(function() {
+        lastData += Math.random() * ((Math.round(Math.random() * 10) % 2) == 0 ? 1 : -1);
+        lastData = lastData.toFixed(1) - 0;
+        axisData = (new Date()).toLocaleTimeString().replace(/^\D*/, '');
+
+        // 动态数据接口 addData
+        myChart.addData([
+            [
+                0, // 系列索引
+                Math.round(Math.random() * 1000), // 新增数据
+                true, // 新增数据是否从队列头部插入
+                false // 是否增加队列长度，false则自定删除原有数据，队头插入删队尾，队尾插入删队头
+            ],
+            [
+                1, // 系列索引
+                lastData, // 新增数据
+                false, // 新增数据是否从队列头部插入
+                false, // 是否增加队列长度，false则自定删除原有数据，队头插入删队尾，队尾插入删队头
+                axisData // 坐标轴标签
+            ]
+        ]);
+    }, 2100);
+
+    myChart.setOption(option);
+    // 实时数据线图绘制完毕
+</script>
+
+</html>

@@ -171,9 +171,11 @@
         global: {
             useUTC: false
         },
-        colors: ['#d61718', '#50B432', '#f1c41d'], //定义运动线条的颜色，第i条线使用数组中第i个值
+        colors: ['red', '#50B432', '#f1c41d'], //定义运动线条的颜色，第i条线使用数组中第i个值
     });
-
+    var mytimeTicket1 = "";
+    var mytimeTicket2 = "";
+    var dx;
     Highcharts.chart('container', {
         chart: {
             marginLeft: 100,
@@ -186,48 +188,34 @@
             events: {
                 load: function() {
                     // set up the updating of the chart each second
-                    var series = this.series[0];
-                    var series1 = this.series[1];
+                    var series = this.series;
+                    var series1 = this.series[0];
+                    var series2 = this.series[1];
                     // 加入当前数组有5个元素
                     var data1x = [];
                     var data1y = [];
-                    var data2x = [];
-                    var data2y = [];
+                    // var data2x = [];
+                    // var data2y = [];
                     // 随机创建一个数字，或从服务器获取一个数字
                     // var now = Math.random() * 10;
                     // 最后设置数据，即可实现曲线、趋势线从右向左的动态效果
-                    // exSeries.setData(data, true, false, false);
-                    // var series2 = this.series[2];
-                    var interval1 = setInterval(function() {
+                    clearInterval(mytimeTicket1);
+                    clearInterval(mytimeTicket2);
+                    mytimeTicket1 = setInterval(function() {
                         var x = (new Date()).getTime(), // current time
-                            y = Math.random();
-                        // 把获取到的数据压入尾部
+                            y = Math.random()
                         data1x.push(x);
-                        data1y.push(y);
-                        series.addPoint([data1x[0], data1y[0]], true, true);
-                        // 从头部弹出一个数字
-                        data1x.shift();
-                        data1y.shift();
-                    }, 1000);
-                    var interval2 = setInterval(function() {
+                        dx = data1x[0];
+                        console.log(data1x);
+                        series1.addPoint([data1x[0], y], false, true);
+                        data1x.length = 0;
+                    }, 1500);
+                    mytimeTicket2 = setInterval(function() {
                         var x = (new Date()).getTime(), // current time
-                            y = Math.random();
-                        // 把获取到的数据压入尾部
-                        data2x.push(x);
-                        data2y.push(y);
-                        series1.addPoint([data2x[0], data2y[0]], true, true);
-                        // 从头部弹出一个数字
-                        data2x.shift();
-                        data2y.shift();
-                    }, 1000);
-                    // clearInterval(interval1, 5000);
-                    // clearInterval(interval2, 5000);
+                            y = Math.random()
+                        series2.addPoint([x, y], true, true);
+                    }, 1500);
 
-                    // setInterval(function() {
-                    //     var x = (new Date()).getTime(), // current time
-                    //         y = Math.random();
-                    //     series2.addPoint([x, y], true, true);
-                    // }, 1000);
                 }
             }
         },
@@ -366,11 +354,14 @@
                         time = (new Date()).getTime(),
                         i;
                     for (i = -19; i <= 0; i += 1) {
+                        // data.remove()
                         data.push({
                             x: time + i * 1000 + 1,
                             y: Math.random()
                         });
+
                     }
+                    console.log(data);
                     return data;
                 }())
             }, {
@@ -411,6 +402,30 @@
             // }
         ]
     });
+
+    // clearInterval(mytimeTicket);
+    // mytimeTicket = setInterval(function() {
+    //     // lastData += Math.random() * ((Math.round(Math.random() * 10) % 2) == 0 ? 1 : -1);
+    //     // lastData = lastData.toFixed(1) - 0;
+    //     // axisData = (new Date()).toLocaleTimeString().replace(/^\D*/, '');
+
+    //     // 动态数据接口 addData
+    //     Highcharts.addData([
+    //         [
+    //             0, // 系列索引
+    //             Math.round(Math.random() * 1000), // 新增数据
+    //             true, // 新增数据是否从队列头部插入
+    //             false // 是否增加队列长度，false则自定删除原有数据，队头插入删队尾，队尾插入删队头
+    //         ],
+    //         [
+    //             1, // 系列索引
+    //             lastData, // 新增数据
+    //             false, // 新增数据是否从队列头部插入
+    //             false, // 是否增加队列长度，false则自定删除原有数据，队头插入删队尾，队尾插入删队头
+    //             axisData // 坐标轴标签
+    //         ]
+    //     ]);
+    // }, 2100);
 </script>
 
 </html>
