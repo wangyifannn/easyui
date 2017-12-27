@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>电流</title>
+    <meta charset="UTF-8">
+    <link rel="icon" href="../Mancar/img/html_logo.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link href="css/style.css" rel="stylesheet">-->
+</head>
+
+<body>
+    <div id="main" style="width: 500px;height:480px;"></div>
+</body>
+<script src="./js/echarts.js"></script>
+<script>
+    var myChart = echarts.init(document.getElementById('main'));
+
+    option = {
+        backgroundColor: '#333333',
+        title: {
+            text: "A",
+            left: 'center',
+            textStyle: {
+                //文字颜色
+                color: '#B3232D',
+                fontStyle: 'normal',
+                //字体系列
+                fontFamily: 'sans-serif',
+                //字体大小
+                fontSize: 28
+            }
+        },
+        tooltip: {
+            formatter: "{a} <br/>{b} : {c}%"
+        },
+        grid: {
+            width: 200,
+            height: 95
+        },
+        series: [{ //红色长刻度
+            name: '外围刻度',
+            type: 'gauge',
+            radius: '90%',
+            z: 10,
+            min: 0,
+            max: 1,
+            center: ['50%', '55%'],
+            startAngle: 160,
+            endAngle: 20,
+            axisLine: { //最外层的圆圈
+                lineStyle: {
+                    width: 11,
+                    opacity: 0,
+                    color: [
+                        [1, '#B3232D']
+                    ]
+                },
+            },
+            splitLine: {
+                length: 25,
+                lineStyle: {
+                    color: 'white',
+                    width: 4
+                }
+            },
+            axisLabel: {
+                show: false
+            },
+            axisTick: {
+                splitNumber: 1,
+                lineStyle: {
+                    opacity: 0,
+                }
+            },
+            detail: {
+                show: false
+            },
+            pointer: {
+                show: false
+            }
+
+        }, { //白色短刻度
+            name: '内层数据刻度',
+            type: 'gauge',
+            radius: '90%',
+            z: 4,
+            min: 0,
+            max: 1,
+            center: ['50%', '55%'],
+            startAngle: 160,
+            endAngle: 20,
+            axisLine: {
+                lineStyle: {
+                    opacity: 0
+                },
+            },
+            axisTick: { // 坐标轴小标记
+                show: true, //小刻度显示与否
+                length: 15, // 属性length控制线长
+                splitNumber: 3, //每一份分为3份
+                lineStyle: { // 属性lineStyle控制线条样式
+                    color: '#B3232D',
+                    // color: 'auto',
+                    width: 3,
+                    opacity: 1
+                }
+            },
+            splitLine: {
+                length: 20,
+                lineStyle: {
+                    color: '#A9222B',
+                    width: 4
+                }
+            },
+            axisLabel: { // 0,50,100 三个数组标记
+                distance: 10,
+                color: '#B3232D',
+                fontSize: 20,
+                formatter: function(param) {
+                    console.log(param);
+                    if ((param * 10 % 2) == 0) {
+                        return param
+                    }
+                }
+            },
+            detail: {
+                show: true,
+                formatter: '{value}%',
+                // backgroundColor:'#fff'
+            },
+            itemStyle: {
+                normal: {
+                    color: '#A9222B'
+                }
+            },
+            pointer: {
+                width: 3,
+                length: '80%',
+                color: "#A9222B"
+            },
+            data: [{
+                value: '60',
+                name: 'xxx'
+            }]
+        }]
+    }
+    var timeTicket = '';
+    clearInterval(timeTicket);
+    console.log(option.series);
+    timeTicket = setInterval(function() {
+        // option.series[1].data[0].value = parseInt(Math.random() * 1 + 0);
+        // myChart.setOption(option, true);
+    }, 200)
+    myChart.setOption(option);
+</script>
+
+</html>
