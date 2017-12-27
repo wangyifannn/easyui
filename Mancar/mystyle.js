@@ -1,10 +1,10 @@
 var e_macarons = {
     // 默认色板
     color: ['#3E993B', '#EE0306'], //动态折线的线条颜色
-    "backgroundColor": "#023a5f", //整体画布的背景色
-
+    backgroundColor: "#023a5f", //整体画布的背景色
     // 图表标题
     title: {
+        show: false,
         itemGap: 8,
         padding: [290, 0],
         textStyle: {
@@ -53,7 +53,7 @@ var e_macarons = {
     },
     // 网格
     grid: {
-        // borderColor: '#ee0306'
+        borderColor: 'gold'
     },
     // 类目轴
     categoryAxis: {
@@ -70,9 +70,21 @@ var e_macarons = {
             }
         },
         axisLabel: {
-            color: "red"
+            // interval: 2,//坐标轴刻度标签的显示间隔，在类目轴中有效。
+            margin: 15, //刻度标签与轴线之间的距离,默认8
+            show: true,
+            textStyle: {
+                color: 'white' //x轴标签字体颜色
+            }
+        },
+        axisTick: { //坐标轴刻度线长度和颜色
+            length: 8,
+            lineStyle: { // 属性lineStyle控制线条样式
+                width: 2,
+                color: '#224fca'
+                    // color: 'red'
+            }
         }
-
     },
 
     // 数值型坐标轴默认参数
@@ -80,6 +92,13 @@ var e_macarons = {
         axisLine: { // 坐标轴线
             lineStyle: { // 属性lineStyle控制线条样式
                 color: '#224fca'
+            }
+        },
+        axisLabel: {
+            margin: 15, //刻度标签与轴线之间的距离,默认8
+            show: true,
+            textStyle: {
+                color: 'white' //y轴标签字体颜色
             }
         },
         splitArea: {
@@ -95,6 +114,15 @@ var e_macarons = {
             lineStyle: { // 属性lineStyle（详见lineStyle）控制线条样式
                 color: ['#1c768d']
                     // color: ['green']
+            }
+        },
+        axisTick: {
+            show: true,
+            length: 8,
+            lineStyle: { // 属性lineStyle控制线条样式
+                color: '#224fca',
+                width: 2
+                    // color: 'red'
             }
         }
     },
@@ -191,7 +219,7 @@ var e_macarons = {
             splitNumber: 10, // 每份split细分多少段
             length: 15, // 属性length控制线长
             lineStyle: { // 属性lineStyle控制线条样式
-                color: 'auto'
+                color: 'red'
             }
         },
         axisLabel: { // 坐标轴文本标签，详见axis.axisLabel
