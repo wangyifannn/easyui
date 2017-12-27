@@ -22,23 +22,17 @@
 
 .line_title {
     width: auto;
-    /*height: 100%;*/
     color: red;
     margin-top: 25%;
     font-size: 20px;
     /*border: 1px solid red;*/
     float: left;
-    /*line-height: 100%;*/
     transform: rotate(-90deg);
     position: absolute;
-    /*transform: translate(20px, 0px);*/
     /*display: inline-block;*/
 }
 
-#current_line_main {
-    /*float: left;*/
-    /*border: 1px solid gold;*/
-}
+#current_line_main {}
 
 .part1_title img {
     width: 12px;
