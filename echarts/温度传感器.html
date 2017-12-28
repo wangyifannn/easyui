@@ -38,117 +38,120 @@
             width: 200,
             height: 95
         },
-        series: [{ //红色长刻度
-            name: '℃',
-            type: 'gauge',
-            radius: '90%',
-            z: 10,
-            min: 0,
-            max: 80,
-            splitNumber: 4,
-            center: ['50%', '55%'],
-            startAngle: 150,
-            endAngle: 30,
-            axisLine: { //最外层的圆圈
-                lineStyle: {
-                    width: 11,
-                    opacity: 0,
-                    color: [
-                        [1, '#B3232D']
-                    ]
+        series: [
+            //红色长刻度
+            {
+                name: '℃',
+                type: 'gauge',
+                radius: '90%',
+                z: 10,
+                min: 0,
+                max: 80,
+                splitNumber: 4,
+                center: ['50%', '55%'],
+                startAngle: 150,
+                endAngle: 30,
+                axisLine: { //最外层的圆圈
+                    lineStyle: {
+                        width: 11,
+                        opacity: 0,
+                        color: [
+                            [1, '#B3232D']
+                        ]
+                    },
                 },
-            },
-            splitLine: {
-                length: 25,
-                lineStyle: {
-                    color: 'white',
-                    width: 4
-                }
-            },
-            axisLabel: {
-                show: false
-            },
-            axisTick: {
-                splitNumber: 1,
-                lineStyle: {
-                    opacity: 0,
-                }
-            },
-            detail: {
-                show: false
-            },
-            pointer: {
-                show: false
-            }
-
-        }, { //白色短刻度
-            name: '温度传感器',
-            type: 'gauge',
-            radius: '90%',
-            z: 4,
-            min: 0,
-            max: 80,
-            splitNumber: 4,
-            center: ['50%', '55%'],
-            startAngle: 150,
-            endAngle: 30,
-            axisLine: {
-                lineStyle: {
-                    opacity: 0
-                },
-            },
-            axisTick: { // 坐标轴小标记
-                show: true, //小刻度显示与否
-                length: 15, // 属性length控制线长
-                // splitNumber: 3, //每一份分为3份
-                lineStyle: { // 属性lineStyle控制线条样式
-                    color: '#B3232D',
-                    // color: 'auto',
-                    width: 3,
-                    opacity: 1
-                }
-            },
-            splitLine: {
-                length: 20,
-                lineStyle: {
-                    color: '#A9222B',
-                    width: 4
-                }
-            },
-            axisLabel: { // 0,50,100 三个数组标记
-                distance: 10,
-                color: '#B3232D',
-                fontSize: 20,
-                formatter: function(param) {
-                    // console.log(param);
-                    if ((param % 20) == 0) {
-                        return param
+                splitLine: {
+                    length: 25,
+                    lineStyle: {
+                        color: 'white',
+                        width: 4
                     }
+                },
+                axisLabel: {
+                    show: false
+                },
+                axisTick: {
+                    splitNumber: 1,
+                    lineStyle: {
+                        opacity: 0,
+                    }
+                },
+                detail: {
+                    show: false
+                },
+                pointer: {
+                    show: false
                 }
-            },
-            detail: {
-                show: true,
-                formatter: '{value}℃',
-                color: "#A9222B",
-                offsetCenter: ['0%', '-30%']
-                    // backgroundColor:'#fff'
-            },
-            itemStyle: {
-                normal: {
-                    color: '#A9222B' //指针的颜色
-                }
-            },
-            pointer: {
-                width: 3,
-                length: '80%',
-                // formatter: '{value}℃',
-                color: "#A9222B"
-            },
-            data: [{
-                value: '60℃',
-                name: '温度'
-            }]
-        }]
+
+            }, { //白色短刻度
+                name: '温度传感器',
+                type: 'gauge',
+                radius: '90%',
+                z: 4,
+                min: 0,
+                max: 80,
+                splitNumber: 4,
+                center: ['50%', '55%'],
+                startAngle: 150,
+                endAngle: 30,
+                axisLine: {
+                    lineStyle: {
+                        opacity: 0
+                    },
+                },
+                axisTick: { // 坐标轴小标记
+                    show: true, //小刻度显示与否
+                    length: 15, // 属性length控制线长
+                    // splitNumber: 3, //每一份分为3份
+                    lineStyle: { // 属性lineStyle控制线条样式
+                        color: '#B3232D',
+                        // color: 'auto',
+                        width: 3,
+                        opacity: 1
+                    }
+                },
+                splitLine: {
+                    length: 20,
+                    lineStyle: {
+                        color: '#A9222B',
+                        width: 4
+                    }
+                },
+                axisLabel: { // 0,50,100 三个数组标记
+                    distance: 10,
+                    color: '#B3232D',
+                    fontSize: 20,
+                    formatter: function(param) {
+                        // console.log(param);
+                        if ((param % 20) == 0) {
+                            return param
+                        }
+                    }
+                },
+                detail: {
+                    show: true,
+                    formatter: '{value}℃',
+                    color: "#A9222B",
+                    offsetCenter: ['0%', '-30%']
+                        // backgroundColor:'#fff'
+                },
+                itemStyle: {
+                    normal: {
+                        color: '#A9222B' //指针的颜色
+                    }
+                },
+                pointer: {
+                    width: 3,
+                    length: '80%',
+                    // formatter: '{value}℃',
+                    color: "#A9222B"
+                },
+                data: [{
+                    value: '60℃',
+                    name: '温度'
+                }]
+            }
+        ]
     }
     var timeTicket = '';
     clearInterval(timeTicket);

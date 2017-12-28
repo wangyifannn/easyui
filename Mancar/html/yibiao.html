@@ -2,33 +2,24 @@
 <html lang="en">
 
 <head>
-    <title>示波器页面</title>
+    <title>示波器页面-仪表</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="../img/html_logo.png" type="image/x-icon">
     <link href="../css/common.css" rel="stylesheet">
     <link href="../css/oscillograph.css" rel="stylesheet">
     <style>
         .content_center {
             background: #0D0918;
+            position: relative;
         }
         /*仪表*/
-        
-        .dian {
-            width: 50px;
-            height: 50px;
-            position: absolute;
-            top: 300px;
-            left: 282px;
-            /*z-index: -1;*/
-        }
-        
-        img {
+        /*img {
             /*border: 1px solid red;*/
-            width: 150px;
+        /*width: 150px;
             height: 100px;
-        }
-        
-        .imgs {
+        }*/
+        /*.imgs {
             width: 500px;
             height: 1px;
             border: 1px solid red;
@@ -37,18 +28,21 @@
             z-index: 3;
             top: 50%;
             display: none;
-        }
+        }*/
         
         .content_center * {
-            border: 1px solid red;
-            overflow: auto;
+            /*border: 1px solid red;*/
+            /*overflow: auto;*/
+            overflow: hidden;
         }
         
-        .content_wrap {
-            width: 47%;
-            height: 450px;
-            border: 1px solid gold;
-            display: inline-block;
+        .charts_logo {
+            z-index: 20;
+            position: absolute;
+            top: 10px;
+            left: 40%;
+            width: 230px;
+            height: 130px;
         }
     </style>
 </head>
@@ -87,27 +81,11 @@
                     仪表
                 </div>-->
                 <!--速度表-->
-                <div class="speed content_wrap">
-                    <div id="speed_main" style="min-width: 310px;height:450px;"></div>
-                </div>
-                <!--温度表-->
-                <div class="temp_box content_wrap">
-                    <!--冷却液温度-->
-                    <div class="tempBox" id="tempBox">
-                    </div>
-                    <!--温度传感器-->
-                    <div class="temperature_sensor" id="temperature_sensor">
+                <!--<div class="speed content_wrap">-->
+                <img class="charts_logo" src="../img/charts_logo.png" alt="">
+                <div id="speed_main" style="min-width: 310px;min-height:730px;"></div>
+                <!--</div>-->
 
-                    </div>
-                </div>
-                <!--转速表-->
-                <div class="tachometer content_wrap">
-                </div>
-
-                <!--油压-->
-                <div class="oil_pressure content_wrap">
-
-                </div>
                 <!--<div id="container" style="min-width: 310px; height: 650px; margin: 0 auto"></div>-->
             </div>
             <div class="content_right">
@@ -191,564 +169,957 @@
 <!--<script type="text/javascript" src="https://cdn.bootcss.com/echarts/2.2.7/echarts-all.js"></script>-->
 <script type="text/javascript" src="../../echarts/js/echarts.js"></script>
 <script>
+    // ---------------------------------------------------------------------
+    /**
+    可以设置多个 target value
+    简单配置一下就可以变成横向
+    */
+    //config
+    var config = {
+        min: 0,
+        max: 100,
+        targetValue: {
+            color: 'gold',
+            value: 60
+        }
+    }
+
+    //根据target value ，生成相应位置的 graphic
+    function _settingVerticalGraphic(config) {
+        var graphic = [];
+        var left = myChart.convertToPixel({
+            xAxisIndex: 0
+        }, 0);
+        left = parseFloat(left, 10).toFixed(2);
+        left -= 26;
+        var targetValue = config.targetValue.value;
+        var min = config.min || 0;
+        var max = config.max || 100;
+        if (targetValue > max || targetValue < min) {
+            return;
+        }
+        var top = _getyAxisValueTop(targetValue);
+        graphic.push({
+            z: 10,
+            type: 'line',
+            left: left,
+            shape: {
+                x1: 0,
+                x2: 35
+            },
+            style: {
+                stroke: 'red',
+                lineWidth: 1
+            },
+            silent: true,
+            top: top
+        });
+        return {
+            graphic: graphic
+        };
+    }
+
+    function _getyAxisValueTop(value) {
+        var top = myChart.convertToPixel({
+            yAxisIndex: 0
+        }, value);
+        return parseFloat(top, 10).toFixed(2) - 2;
+    }
+    // ---------------------------------------------------------------------
+
     //s -------------------------------------------速度表
     var myChart = echarts.init(document.getElementById('speed_main'));
-    var option = null;
-    // 基于准备好的dom，初始化echarts实例
-    // var myChart = echarts.init(document.getElementById('main'));
+    option = {
+            //zhuzhuang ----------------------------------------
+            "yAxis": {
+                "show": true,
+                "offset": -70, //y轴的偏移量
+                "type": "value",
+                "interval": 1,
+                "axisTick": {
+                    "show": false
+                },
+                "axisLine": {
+                    "show": false
+                },
+                "axisLabel": {
+                    "show": false,
+                    "textStyle": {
+                        "color": "red"
+                    },
+                    "showMinLabel": false,
+                    "showMaxLabel": false,
+                },
+                "splitLine": {
+                    "show": false
+                },
+                "max": config.max,
+                "min": config.min
+            },
+            "xAxis": {
+                "show": false,
+                "type": "category"
+            },
+            //zhuzhuang ----------------------------------------
+            // backgroundColor: '#333333',
+            backgroundColor: '#0D0918',
+            title: {
+                text: "DELPHI",
+                show: false,
+                left: 'center',
+                textStyle: {
+                    //文字颜色
+                    color: '#B3232D',
+                    fontStyle: 'normal',
+                    //字体系列
+                    fontFamily: 'sans-serif',
+                    //字体大小
+                    fontSize: 28
+                }
+            },
+            tooltip: {
+                formatter: "{a} <br/>{b} : {c}%"
+            },
+            grid: {
+                width: 200,
+                height: 275,
+                left: "70%", //组件离容器左侧的距离,百分比字符串或整型数字
+                top: "60%", //组件离容器上侧的距离，百分比字符串或整型数字
+                right: "auto", //组件离容器右侧的距离,百分比字符串或整型数字
+                bottom: "auto", //组件离容器下侧的距离,百分比字符串或整型数字
+            },
+            series: [
+                // 电流表
+                //红色长刻度
+                {
+                    name: '外围刻度',
+                    type: 'gauge',
+                    radius: '60%',
+                    z: 10,
+                    min: 0,
+                    max: 1,
+                    center: ['18%', '45%'],
+                    startAngle: 160,
+                    endAngle: 20,
+                    axisLine: { //最外层的圆圈
+                        lineStyle: {
+                            width: 11,
+                            opacity: 0,
+                            color: [
+                                [1, '#B3232D']
+                            ]
+                        },
+                    },
+                    splitLine: {
+                        length: 25,
+                        lineStyle: {
+                            color: 'white',
+                            width: 4
+                        }
+                    },
+                    axisLabel: {
+                        show: false
+                    },
+                    axisTick: {
+                        splitNumber: 1,
+                        lineStyle: {
+                            opacity: 0,
+                        }
+                    },
+                    detail: {
+                        show: false
+                    },
+                    pointer: {
+                        show: false
+                    }
+
+                }, { //白色短刻度
+                    name: '内层数据刻度',
+                    type: 'gauge',
+                    radius: '60%',
+                    z: 4,
+                    min: 0,
+                    max: 1,
+                    center: ['18%', '45%'],
+                    startAngle: 160,
+                    endAngle: 20,
+                    axisLine: {
+                        lineStyle: {
+                            opacity: 0
+                        },
+                    },
+                    axisTick: { // 坐标轴小标记
+                        show: true, //小刻度显示与否
+                        length: 15, // 属性length控制线长
+                        splitNumber: 3, //每一份分为3份
+                        lineStyle: { // 属性lineStyle控制线条样式
+                            color: '#B3232D',
+                            width: 3,
+                            opacity: 1
+                        }
+                    },
+                    splitLine: {
+                        length: 20,
+                        lineStyle: {
+                            color: '#A9222B',
+                            width: 4
+                        }
+                    },
+                    axisLabel: { // 0,50,100 三个数组标记
+                        distance: 10,
+                        color: '#B3232D',
+                        fontSize: 20,
+                        formatter: function(param) {
+                            if ((param * 10 % 2) == 0) {
+                                return param
+                            }
+                        }
+                    },
+                    detail: {
+                        show: true,
+                        formatter: '{value}A',
+                        offsetCenter: ['0%', '-30%']
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: '#A9222B'
+                        }
+                    },
+                    pointer: {
+                        width: 3,
+                        length: '80%',
+                        color: "#A9222B"
+                    },
+                    title: {
+                        offsetCenter: [0, '-115%'], // x, y，单位px
+                        fontWeight: 'bolder',
+                        fontSize: 30,
+                        color: "#B3232D",
+                        show: true
+                    },
+                    data: [{
+                        value: '60',
+                        name: 'A'
+                    }]
+                },
+
+                // 温度传感器
+                //红色长刻度
+                {
+                    name: '℃',
+                    type: 'gauge',
+                    radius: '60%',
+                    z: 10,
+                    min: 0,
+                    max: 80,
+                    splitNumber: 4,
+                    center: ['50%', '60%'],
+                    startAngle: 150,
+                    endAngle: 30,
+                    axisLine: { //最外层的圆圈
+                        lineStyle: {
+                            width: 11,
+                            opacity: 0,
+                            color: [
+                                [1, '#B3232D']
+                            ]
+                        },
+                    },
+                    splitLine: {
+                        length: 25,
+                        lineStyle: {
+                            color: 'white',
+                            width: 4
+                        }
+                    },
+                    axisLabel: {
+                        show: false
+                    },
+                    axisTick: {
+                        splitNumber: 1,
+                        lineStyle: {
+                            opacity: 0,
+                        }
+                    },
+                    detail: {
+                        show: false,
+                        // formatter: '{value}℃',
+                        // color: "#A9222B",
+
+                    },
+                    pointer: {
+                        show: false
+                    }
+
+                }, { //白色短刻度
+                    name: '温度传感器',
+                    type: 'gauge',
+                    radius: '60%',
+                    z: 4,
+                    min: 0,
+                    max: 80,
+                    splitNumber: 4,
+                    center: ['50%', '60%'],
+                    startAngle: 150,
+                    endAngle: 30,
+                    axisLine: {
+                        lineStyle: {
+                            opacity: 0
+                        },
+                    },
+                    axisTick: { // 坐标轴小标记
+                        show: true, //小刻度显示与否
+                        length: 15, // 属性length控制线长
+                        // splitNumber: 3, //每一份分为3份
+                        lineStyle: { // 属性lineStyle控制线条样式
+                            color: '#B3232D',
+                            // color: 'auto',
+                            width: 3,
+                            opacity: 1
+                        }
+                    },
+                    splitLine: {
+                        length: 20,
+                        lineStyle: {
+                            color: '#A9222B',
+                            width: 4
+                        }
+                    },
+                    axisLabel: { // 0,50,100 三个数组标记
+                        distance: 10,
+                        color: '#B3232D',
+                        fontSize: 20,
+                        formatter: function(param) {
+                            // console.log(param);
+                            if ((param % 20) == 0) {
+                                return param
+                            }
+                        }
+                    },
+                    detail: {
+                        show: true,
+                        formatter: '{value}℃',
+                        color: "#A9222B",
+                        offsetCenter: ['0%', '-30%']
+                            // backgroundColor:'#fff'
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: '#A9222B' //指针的颜色
+                        }
+                    },
+                    pointer: {
+                        width: 2,
+                        length: '80%',
+                        // formatter: '{value}℃',
+                        color: "#A9222B"
+                    },
+                    title: {
+                        offsetCenter: [0, '-115%'], // x, y，单位px
+                        fontWeight: 'bolder',
+                        fontSize: 30,
+                        color: "#B3232D",
+                        show: true
+                    },
+                    data: [{
+                        value: '60℃',
+                        name: '温度'
+                    }]
+                },
+                // 电压表
+                //红色长刻度
+                {
+                    name: '电压外围刻度',
+                    type: 'gauge',
+                    radius: '60%',
+                    z: 10,
+                    min: 0,
+                    max: 450,
+                    splitNumber: 6,
+                    center: ['80%', '45%'],
+                    startAngle: 160,
+                    endAngle: 20,
+                    axisLine: { //最外层的圆圈
+                        lineStyle: {
+                            width: 11,
+                            opacity: 0,
+                            color: [
+                                [1, '#B3232D']
+                            ]
+                        },
+                    },
+                    splitLine: {
+                        length: 25,
+                        lineStyle: {
+                            color: 'white',
+                            width: 4
+                        }
+                    },
+                    axisLabel: {
+                        show: false
+                    },
+                    axisTick: {
+                        splitNumber: 1,
+                        lineStyle: {
+                            opacity: 0,
+                        }
+                    },
+                    detail: {
+                        show: false
+                    },
+                    pointer: {
+                        show: false
+                    }
+
+                }, { //白色短刻度
+                    name: '内层数据刻度',
+                    type: 'gauge',
+                    radius: '60%',
+                    z: 4,
+                    min: 0,
+                    max: 450,
+                    splitNumber: 6,
+
+                    center: ['80%', '45%'],
+                    startAngle: 160,
+                    endAngle: 20,
+                    axisLine: {
+                        lineStyle: {
+                            opacity: 0
+                        },
+                    },
+                    axisTick: { // 坐标轴小标记
+                        show: true, //小刻度显示与否
+                        length: 15, // 属性length控制线长
+                        // splitNumber: 3, //每一份分为3份
+                        lineStyle: { // 属性lineStyle控制线条样式
+                            color: '#B3232D',
+                            // color: 'auto',
+                            width: 3,
+                            opacity: 1
+                        }
+                    },
+                    splitLine: {
+                        length: 20,
+                        lineStyle: {
+                            color: '#A9222B',
+                            width: 4
+                        }
+                    },
+                    axisLabel: { // 0,50,100 三个数组标记
+                        distance: 10,
+                        color: '#B3232D',
+                        fontSize: 20,
+                        formatter: function(param) {
+                            // console.log(param);
+                            if ((param * 10 % 2) == 0) {
+                                return param
+                            }
+                        }
+                    },
+                    detail: {
+                        show: true,
+                        formatter: '{value}V',
+                        color: "#B3232D",
+                        offsetCenter: ['0%', '-30%']
+                            // backgroundColor:'#fff'
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: '#A9222B'
+                        }
+                    },
+                    pointer: {
+                        width: 3,
+                        length: '80%',
+                        color: "#A9222B"
+                    },
+                    title: {
+                        offsetCenter: [0, '-115%'], // x, y，单位px
+                        fontWeight: 'bolder',
+                        fontSize: 30,
+                        color: "#B3232D",
+                        show: true
+                    },
+                    data: [{
+                        value: '60',
+                        name: 'I'
+                    }]
+                },
+                // 油压
+                //红色长刻度
+                {
+                    name: '油压',
+                    type: 'gauge',
+                    radius: '60%',
+                    z: 10,
+                    min: 0,
+                    max: 5,
+                    // splitNumber: 4,
+                    center: ['17%', '88%'],
+                    startAngle: 150,
+                    endAngle: 30,
+                    axisLine: { //最外层的圆圈
+                        lineStyle: {
+                            width: 11,
+                            opacity: 0,
+                            color: [
+                                [1, '#B3232D']
+                            ]
+                        },
+                    },
+                    splitLine: {
+                        length: 25,
+                        lineStyle: {
+                            color: 'white',
+                            width: 4
+                        }
+                    },
+                    axisLabel: {
+                        show: false
+                    },
+                    axisTick: {
+                        splitNumber: 1,
+                        lineStyle: {
+                            opacity: 0,
+                        }
+                    },
+                    detail: {
+                        show: false
+                    },
+                    pointer: {
+                        show: false
+                    }
+
+                }, { //白色短刻度
+                    name: '油压',
+                    type: 'gauge',
+                    radius: '60%',
+                    z: 4,
+                    min: 0,
+                    max: 5,
+                    // splitNumber: 4,
+                    center: ['17%', '88%'],
+                    startAngle: 150,
+                    endAngle: 30,
+                    axisLine: {
+                        lineStyle: {
+                            opacity: 0
+                        },
+                    },
+                    axisTick: { // 坐标轴小标记
+                        show: true, //小刻度显示与否
+                        length: 15, // 属性length控制线长
+                        splitNumber: 3, //每一份分为3份
+                        lineStyle: { // 属性lineStyle控制线条样式
+                            color: '#B3232D',
+                            // color: 'auto',
+                            width: 3,
+                            opacity: 1
+                        }
+                    },
+                    splitLine: {
+                        length: 20,
+                        lineStyle: {
+                            color: '#A9222B',
+                            width: 4
+                        }
+                    },
+                    axisLabel: { // 0,50,100 三个数组标记
+                        distance: 10,
+                        color: '#B3232D',
+                        fontSize: 20,
+                        formatter: function(param) {
+                            // console.log(param);
+                            if ((param % 1) == 0) {
+                                return param
+                            }
+                        }
+                    },
+                    detail: {
+                        show: true,
+                        formatter: 'bar',
+                        color: "#A9222B",
+                        offsetCenter: ['0%', '-30%']
+                            // backgroundColor:'#fff'
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: '#A9222B' //指针的颜色
+                        }
+                    },
+                    pointer: {
+                        width: 3,
+                        length: '80%',
+                        // formatter: '{value}℃',
+                        color: "#A9222B"
+                    },
+                    title: {
+                        offsetCenter: [0, '-115%'], // x, y，单位px
+                        fontWeight: 'bolder',
+                        fontSize: 30,
+                        color: "#B3232D",
+                        show: true
+                    },
+                    data: [{
+                        value: '5',
+                        name: '油压'
+                    }]
+                },
+
+                // 冷却液温度
+                //红色长刻度
+                {
+                    name: '℃',
+                    type: 'gauge',
+                    radius: '30%',
+                    z: 10,
+                    min: 0,
+                    max: 100,
+                    splitNumber: 2,
+                    center: ['40%', '93%'],
+                    startAngle: 120,
+                    endAngle: 60,
+                    axisLine: { //最外层的圆圈
+                        lineStyle: {
+                            width: 11,
+                            opacity: 0,
+                            color: [
+                                [1, '#B3232D']
+                            ]
+                        },
+                    },
+                    splitLine: {
+                        length: 19,
+                        lineStyle: {
+                            color: 'white',
+                            width: 3
+                        }
+                    },
+                    axisLabel: {
+                        show: false
+                    },
+                    axisTick: {
+                        splitNumber: 1,
+                        lineStyle: {
+                            opacity: 0,
+                        }
+                    },
+                    detail: {
+                        show: false
+                    },
+                    pointer: {
+                        show: false
+                    }
+
+                }, { //白色短刻度
+                    name: '冷却液温度',
+                    type: 'gauge',
+                    radius: '30%',
+                    z: 4,
+                    min: 0,
+                    max: 100,
+                    splitNumber: 2,
+                    center: ['40%', '93%'],
+                    startAngle: 120,
+                    endAngle: 60,
+                    axisLine: {
+                        lineStyle: {
+                            opacity: 0
+                        },
+                    },
+                    axisTick: { // 坐标轴小标记
+                        show: true, //小刻度显示与否
+                        length: 15, // 属性length控制线长
+                        splitNumber: 3, //每一份分为3份
+                        lineStyle: { // 属性lineStyle控制线条样式
+                            color: '#B3232D',
+                            // color: 'auto',
+                            width: 3,
+                            opacity: 1
+                        }
+                    },
+                    splitLine: {
+                        length: 10,
+                        lineStyle: {
+                            color: '#A9222B',
+                            width: 3
+                        }
+                    },
+                    axisLabel: { // 0,50,100 三个数组标记
+                        distance: 10,
+                        color: '#B3232D',
+                        fontSize: 16,
+                        formatter: function(param) {
+                            // console.log(param);
+                            if ((param % 1) == 0) {
+                                return param
+                            }
+                        }
+                    },
+                    detail: {
+                        show: true,
+                        formatter: '℃',
+                        fontSize: 14,
+                        color: "#A9222B",
+                        offsetCenter: ['0%', '-30%']
+                            // backgroundColor:'#fff'
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: '#A9222B' //指针的颜色
+                        }
+                    },
+                    pointer: {
+                        width: 1,
+                        length: '70%',
+                        // formatter: '{value}℃',
+                        color: "#A9222B"
+                    },
+                    title: {
+                        offsetCenter: [0, '-115%'], // x, y，单位px
+                        fontWeight: 'bolder',
+                        fontSize: 20,
+                        color: "#B3232D",
+                        show: true
+                    },
+                    data: [{
+                        value: '5',
+                        name: '冷却液温度'
+                    }]
+                },
+                // 转速表
+                //白色长刻度
+                {
+                    name: '转速表',
+                    type: 'gauge',
+                    radius: '40%',
+                    z: 10,
+                    min: 0,
+                    max: 10,
+                    splitNumber: 10,
+                    center: ['60%', '80%'],
+                    startAngle: 210,
+                    endAngle: -30,
+                    axisLine: { //最外层的圆圈
+                        lineStyle: {
+                            width: 4,
+                            opacity: 1,
+                            color: [
+                                [0, '#0D0918'],
+                                [0.3, '#0D0918'],
+                                // [0.7, 'gold'],
+                                [0.65, '#0D0918'],
+                                [1, '#B3232D']
+                                // [0, 'white'],
+                                // [0.3, 'white'],
+                                // // [0.7, 'gold'],
+                                // [0.7, 'white'],
+                                // [1, '#B3232D']
+                            ]
+                        },
+                    },
+                    splitLine: {
+                        length: 17,
+                        lineStyle: {
+                            color: 'white',
+                            // color: 'auto',
+                            width: 5
+                        }
+                    },
+                    axisLabel: {
+                        show: false
+                    },
+                    axisTick: {
+                        splitNumber: 1,
+                        lineStyle: {
+                            opacity: 0,
+                        }
+                    },
+                    detail: {
+                        show: true,
+                        formatter: 'X 1000',
+                        fontSize: 14,
+                        color: "#A9222B",
+                        offsetCenter: ['0%', '-19%']
+                    },
+                    pointer: {
+                        show: false
+                    }
+
+                }, { //红色短刻度
+                    name: '转速表',
+                    type: 'gauge',
+                    radius: '40%',
+                    z: 4,
+                    min: 0,
+                    max: 10,
+                    splitNumber: 10,
+                    center: ['60%', '80%'],
+                    startAngle: 210,
+                    endAngle: -30,
+                    axisLine: {
+                        lineStyle: {
+                            opacity: 0,
+                            color: [
+                                [0, 'white'],
+                                [0.3, 'white'],
+                                [0.7, 'white'],
+                                [1, '#B3232D']
+                            ]
+                        },
+                    },
+                    axisTick: { // 坐标轴小标记
+                        show: true, //小刻度显示与否
+                        length: 13, // 属性length控制线长
+                        splitNumber: 2, //每一份分为3份
+                        lineStyle: { // 属性lineStyle控制线条样式
+                            // color: '#B3232D',
+
+                            color: 'auto',
+                            width: 3,
+                            opacity: 1
+                        }
+                    },
+                    splitLine: {
+                        length: 7,
+                        lineStyle: {
+                            color: '#A9222B',
+                            width: 3
+                        }
+                    },
+                    axisLabel: { // 0,50,100 三个数组标记
+                        distance: 20,
+                        color: '#B3232D',
+                        fontSize: 16,
+                        formatter: function(param) {
+                            // console.log(param);
+                            if ((param % 1) == 0) {
+                                return param
+                            }
+                        }
+                    },
+                    detail: {
+                        show: true,
+                        formatter: '1/min',
+                        fontSize: 14,
+                        color: "#A9222B",
+                        offsetCenter: ['0%', '-30%']
+                            // backgroundColor:'#fff'
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: '#A9222B' //指针的颜色
+                        }
+                    },
+                    pointer: {
+                        width: 2,
+                        length: '70%',
+                        // formatter: '{value}℃',
+                        color: "#A9222B"
+                    },
+                    title: {
+                        offsetCenter: [0, '-115%'], // x, y，单位px
+                        fontWeight: 'bolder',
+                        fontSize: 20,
+                        color: "#B3232D",
+                        show: true
+                    },
+                    data: [{
+                        value: '5',
+                        name: '转速表'
+                    }]
+                },
+
+                // --------------------------------------------------
+                // 柱状图
+                {
+                    "name": "柱状图",
+                    "type": "bar",
+                    "barWidth": 35,
+                    "silent": true,
+                    "animation": false,
+                    "label": {
+                        "normal": {
+                            "show": true,
+                            "position": "top",
+                            "offset": [0, 0], //距离柱状的距离
+                            "textStyle": {
+                                "color": "#B3232D",
+                                "fontSize": 20
+                            }
+                        }
+                    },
+                    "barGap": "-100%",
+                    "data": [{
+                        "value": "100",
+                        "itemStyle": {
+                            "normal": {
+                                "color": "#444"
+                            }
+                        },
+                        "name": "value"
+                    }]
+                }, {
+                    "name": "Torque",
+                    "type": "bar",
+                    "barWidth": 35,
+                    "label": {
+                        "normal": {
+                            "show": true,
+                            "position": "insideTopRight",
+                            "offset": [30, 0], //距离柱状的距离
+                            "textStyle": {
+                                "color": "white"
+                            }
+                        }
+                    },
+                    "data": [{
+                        "value": "50",
+                        "itemStyle": {
+                            "normal": {
+                                "color": "red"
+                            }
+                        },
+                        "name": "value"
+                    }]
+
+                },
+                // --------------------------------------------------
+
+            ]
+        }
+        // ------------------------------------
+    function handleColor(option, config) {
+        if (option.series[13].data[0].value >= config.targetValue.value) {
+            option.series[13].data[0].itemStyle.normal.color = config.targetValue.color;
+            option.series[13].label.normal.textStyle.color = config.targetValue.color;
+        }
+        return option;
+    }
+    myChart.setOption(handleColor(option, config));
+    // ------------------------------------
+
     var timeTicket = '';
-    // 指定图表的配置项和数据
-    var option = {
-        title: {
-            text: "MHP",
-            left: 'center',
-            itemGap: 50,
-            textStyle: {
-                //文字颜色
-                color: '#B3232D',
-                //字体风格,'normal','italic','oblique'
-                fontStyle: 'normal',
-                //字体粗细 'normal','bold','bolder','lighter',100 | 200 | 300 | 400...
-                // fontWeight: 'bold',
-                //字体系列
-                fontFamily: 'sans-serif',
-                //字体大小
-                fontSize: 28
-                    // textAlign: 'center'
-            }
-        },
-        backgroundColor: '#0d0918', //仪表盘的背景色
-        tooltip: {
-            formatter: "{a} <br/>{c} {b}"
-        },
-        toolbox: {
-            show: true,
-            feature: {
-                mark: {
-                    show: true
-                },
-                restore: {
-                    show: true //重置
-                },
-                saveAsImage: { //保存图片
-                    show: true
-                }
-            }
-        },
-
-        series: [{
-            name: 'MPH',
-            center: ['50%', '58%'],
-            //类型
-            type: 'gauge',
-            //半径
-            radius: 230,
-            //起始角度。圆心 正右手侧为0度，正上方为90度，正左手侧为180度。
-            // startAngle: 180,
-            //结束角度。
-            // endAngle: 0,
-            min: 10,
-            max: 140,
-            splitNumber: 26,
-            axisLine: { // 坐标轴线
-                lineStyle: { // 属性lineStyle控制线条样式
-                    color: [
-                        [0.01, 'white'],
-                        [0.02, '#B3232D'],
-                        [0.03, '#B3232D'],
-                        [0.04, 'white'],
-                        [0.05, '#B3232D'],
-                        // [0.055, 'red'],
-                        [0.06, '#B3232D'],
-                        [0.07, '#B3232D'],
-                        [0.08, 'white'],
-                        [0.09, '#B3232D'],
-
-                        [0.1, '#B3232D'],
-                        [0.11, '#B3232D'],
-
-                        [0.12, 'white'],
-                        [0.13, '#B3232D'],
-                        [0.14, '#B3232D'],
-                        [0.15, '#B3232D'],
-                        [0.16, 'white'],
-                        [0.17, '#B3232D'],
-                        [0.18, '#B3232D'],
-                        [0.19, 'white'],
-                        [0.2, 'white'],
-                        [0.21, '#B3232D'],
-                        [0.22, '#B3232D'],
-                        [0.23, 'white'],
-                        [0.24, 'white'],
-                        [0.25, '#B3232D'],
-                        [0.26, '#B3232D'],
-                        [0.27, 'white'],
-                        [0.28, '#B3232D'],
-                        [0.29, '#B3232D'],
-                        [0.3, '#B3232D'],
-                        [0.32, 'white'],
-                        [0.33, '#B3232D'],
-                        [0.34, '#B3232D'],
-                        [0.35, 'white'],
-                        [0.36, '#B3232D'],
-                        [0.37, '#B3232D'],
-                        [0.38, '#B3232D'],
-                        [0.39, 'white'],
-                        [0.4, '#B3232D'],
-                        [0.41, '#B3232D'],
-                        [0.42, '#B3232D'],
-                        [0.43, 'white'],
-                        [0.44, '#B3232D'],
-                        [0.45, '#B3232D'],
-                        [0.46, 'white'],
-                        [0.47, 'white'],
-                        [0.48, '#B3232D'],
-                        [0.49, '#B3232D'],
-                        [0.50, 'white'],
-                        [0.51, '#B3232D'],
-                        [0.52, '#B3232D'],
-                        [0.53, '#B3232D'],
-                        [0.54, 'white'],
-                        [0.55, '#B3232D'],
-                        [0.57, '#B3232D'],
-                        [0.58, 'white'],
-                        [0.59, '#B3232D'],
-                        [0.61, '#B3232D'],
-                        [0.62, 'white'],
-                        [0.63, '#B3232D'],
-                        [0.64, '#B3232D'],
-                        [0.65, '#B3232D'],
-                        [0.66, 'white'],
-                        [0.67, '#B3232D'],
-                        [0.68, '#B3232D'],
-
-                        [0.69, 'white'],
-                        [0.70, 'white'],
-
-                        [0.71, '#B3232D'],
-                        [0.72, '#B3232D'],
-                        [0.73, 'white'],
-
-                        [0.74, 'white'],
-                        [0.75, '#B3232D'],
-                        [0.76, '#B3232D'],
-                        [0.77, 'white'],
-                        [0.78, '#B3232D'],
-                        [0.80, '#B3232D'],
-                        [0.81, 'white'],
-                        [0.82, '#B3232D'],
-                        [0.84, '#B3232D'],
-                        [0.85, 'white'],
-                        [0.86, '#B3232D'],
-                        [0.88, '#B3232D'],
-                        [0.89, 'white'],
-                        [0.90, '#B3232D'],
-                        [0.92, '#B3232D'],
-                        [0.93, 'white'],
-                        [0.94, '#B3232D'],
-                        [0.96, '#B3232D'],
-                        [0.97, 'white'],
-                        [0.98, '#B3232D'],
-                        [0.99, '#B3232D'],
-                        [0.999, 'white'],
-                    ],
-                    // color: 'white',
-                    width: 5, //外圆的轴线的宽度
-                    opacity: 0
-                }
-            },
-            axisTick: { // 坐标轴小标记
-                show: true, //小刻度显示与否
-                splitNumber: 3, //每一份分为3份
-                // width: 3,
-                length: 15, // 属性length控制线长
-                lineStyle: { // 属性lineStyle控制线条样式
-                    // color: '#B3232D',
-                    color: 'auto',
-                    width: 3,
-                    opacity: 1
-                }
-            },
-            splitLine: { // 分隔线
-                show: true,
-                length: 25, // 属性length控制线长
-                lineStyle: { // 属性lineStyle（详见lineStyle）控制线条样式
-                    width: 3,
-                    option: 1,
-                    color: "auto",
-                }
-            },
-            title: {
-                textStyle: { // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-                    fontSize: 27,
-                    color: '#B3232D',
-                    shadowColor: '#fff', //默认透明
-                }
-            },
-            axisLabel: { // 坐标轴小标记
-                // show: false,
-                textStyle: { // 属性lineStyle控制线条样式
-                    // fontWeight: 'solid',
-                    color: '#B3232D',
-                    fontSize: 26,
-                },
-                formatter: function(v) {
-                    switch (v + '') {
-                        case '10':
-                            return '10';
-                        case '20':
-                            return '20';
-                        case '30':
-                            return '30';
-                        case '40':
-                            return '40';
-                        case '50':
-                            return '50';
-                        case '60':
-                            return '60';
-                        case '70':
-                            return '70';
-                        case '80':
-                            return '80';
-                        case '90':
-                            return '90';
-                        case '100':
-                            return '100';
-                        case '110':
-                            return '110';
-                        case '120':
-                            return '120';
-                        case '130':
-                            return '130';
-                        case '140':
-                            return '140';
-                    }
-                }
-            },
-            pointer: { // 分隔线
-                length: '78%',
-                width: 6,
-                color: 'yellow',
-                transition: "1s",
-                z: 22,
-                backgroundColor: {
-                    // image: 'xxx/xxx.png'
-                    // 这里可以是图片的 URL，
-                    // 或者图片的 dataURI，
-                    // 或者 HTMLImageElement 对象，
-                    // 或者 HTMLCanvasElement 对象。
-                }
-            },
-            itemStyle: {
-                normal: {
-                    // 阴影的大小
-                    shadowBlur: 200,
-                    // 阴影水平方向上的偏移
-                    shadowOffsetX: 0,
-                    // 阴影垂直方向上的偏移
-                    shadowOffsetY: 0,
-                    // 阴影颜色
-                    shadowColor: 'rgba(0, 0, 255, 0.5)'
-                }
-            },
-            data: [{
-                value: 20,
-                textStyle: {
-                    color: "#25c36c"
-                },
-                name: 'km/h'
-            }]
-        }]
-    };
-
     clearInterval(timeTicket);
+    console.log(option.series);
+
+
     timeTicket = setInterval(function() {
-        option.series[0].data[0].value = parseInt(Math.random() * 130 + 10);
-        myChart.setOption(option, true);
-    }, 2000)
+            option.series[1].data[0].value = 0.1 * parseInt(Math.random() * 10);
+            option.series[3].data[0].value = parseInt(Math.random() * 80 + 0);
+            option.series[5].data[0].value = parseInt(Math.random() * 80 + 0);
+            option.series[7].data[0].value = parseInt(Math.random() * 5 + 0);
+            option.series[9].data[0].value = parseInt(Math.random() * 100 + 0);
+            option.series[11].data[0].value = parseInt(Math.random() * 10 + 0);
+            option.series[13].data[0].value = parseInt(Math.random() * 100 + 0);
+            myChart.setOption(option);
 
-    // 使用刚指定的配置项和数据显示图表。
-    myChart.setOption(option);
-
-    //s -------------------------------------------温度表
-    //冷却液温度
-    var mytempChart = echarts.init(document.getElementById('tempBox'));
-    // var tempoption = null;
-    // 基于准备好的dom，初始化echarts实例
-    // var myChart = echarts.init(document.getElementById('main'));
-    var temptimeTicket = '';
-    // 指定图表的配置项和数据
-    var tempoption = {
-        title: {
-            text: "MHP",
-            left: 'center',
-            itemGap: 50,
-            textStyle: {
-                //文字颜色
-                color: '#B3232D',
-                //字体风格,'normal','italic','oblique'
-                fontStyle: 'normal',
-                //字体粗细 'normal','bold','bolder','lighter',100 | 200 | 300 | 400...
-                // fontWeight: 'bold',
-                //字体系列
-                fontFamily: 'sans-serif',
-                //字体大小
-                fontSize: 28
-                    // textAlign: 'center'
-            }
-        },
-        backgroundColor: '#0d0918', //仪表盘的背景色
-        tooltip: {
-            formatter: "{a} <br/>{c} {b}"
-        },
-        toolbox: {
-            show: true,
-            feature: {
-                mark: {
-                    show: true
-                },
-                restore: {
-                    show: true //重置
-                },
-                saveAsImage: { //保存图片
-                    show: true
-                }
-            }
-        },
-
-        series: [{
-            name: 'MPH',
-            center: ['50%', '58%'],
-            //类型
-            type: 'gauge',
-            //半径
-            radius: 230,
-            //起始角度。圆心 正右手侧为0度，正上方为90度，正左手侧为180度。
-            // startAngle: 180,
-            //结束角度。
-            // endAngle: 0,
-            min: 10,
-            max: 140,
-            splitNumber: 26,
-            axisLine: { // 坐标轴线
-                lineStyle: { // 属性lineStyle控制线条样式
-                    color: [
-                        [0.01, 'white'],
-                        [0.02, '#B3232D'],
-                        [0.03, '#B3232D'],
-                        [0.04, 'white'],
-                        [0.05, '#B3232D'],
-                        // [0.055, 'red'],
-                        [0.06, '#B3232D'],
-                        [0.07, '#B3232D'],
-                        [0.08, 'white'],
-                        [0.09, '#B3232D'],
-
-                        [0.1, '#B3232D'],
-                        [0.11, '#B3232D'],
-
-                        [0.12, 'white'],
-                        [0.13, '#B3232D'],
-                        [0.14, '#B3232D'],
-                        [0.15, '#B3232D'],
-                        [0.16, 'white'],
-                        [0.17, '#B3232D'],
-                        [0.18, '#B3232D'],
-                        [0.19, 'white'],
-                        [0.2, 'white'],
-                        [0.21, '#B3232D'],
-                        [0.22, '#B3232D'],
-                        [0.23, 'white'],
-                        [0.24, 'white'],
-                        [0.25, '#B3232D'],
-                        [0.26, '#B3232D'],
-                        [0.27, 'white'],
-                        [0.28, '#B3232D'],
-                        [0.29, '#B3232D'],
-                        [0.3, '#B3232D'],
-                        [0.32, 'white'],
-                        [0.33, '#B3232D'],
-                        [0.34, '#B3232D'],
-                        [0.35, 'white'],
-                        [0.36, '#B3232D'],
-                        [0.37, '#B3232D'],
-                        [0.38, '#B3232D'],
-                        [0.39, 'white'],
-                        [0.4, '#B3232D'],
-                        [0.41, '#B3232D'],
-                        [0.42, '#B3232D'],
-                        [0.43, 'white'],
-                        [0.44, '#B3232D'],
-                        [0.45, '#B3232D'],
-                        [0.46, 'white'],
-                        [0.47, 'white'],
-                        [0.48, '#B3232D'],
-                        [0.49, '#B3232D'],
-                        [0.50, 'white'],
-                        [0.51, '#B3232D'],
-                        [0.52, '#B3232D'],
-                        [0.53, '#B3232D'],
-                        [0.54, 'white'],
-                        [0.55, '#B3232D'],
-                        [0.57, '#B3232D'],
-                        [0.58, 'white'],
-                        [0.59, '#B3232D'],
-                        [0.61, '#B3232D'],
-                        [0.62, 'white'],
-                        [0.63, '#B3232D'],
-                        [0.64, '#B3232D'],
-                        [0.65, '#B3232D'],
-                        [0.66, 'white'],
-                        [0.67, '#B3232D'],
-                        [0.68, '#B3232D'],
-
-                        [0.69, 'white'],
-                        [0.70, 'white'],
-
-                        [0.71, '#B3232D'],
-                        [0.72, '#B3232D'],
-                        [0.73, 'white'],
-
-                        [0.74, 'white'],
-                        [0.75, '#B3232D'],
-                        [0.76, '#B3232D'],
-                        [0.77, 'white'],
-                        [0.78, '#B3232D'],
-                        [0.80, '#B3232D'],
-                        [0.81, 'white'],
-                        [0.82, '#B3232D'],
-                        [0.84, '#B3232D'],
-                        [0.85, 'white'],
-                        [0.86, '#B3232D'],
-                        [0.88, '#B3232D'],
-                        [0.89, 'white'],
-                        [0.90, '#B3232D'],
-                        [0.92, '#B3232D'],
-                        [0.93, 'white'],
-                        [0.94, '#B3232D'],
-                        [0.96, '#B3232D'],
-                        [0.97, 'white'],
-                        [0.98, '#B3232D'],
-                        [0.99, '#B3232D'],
-                        [0.999, 'white'],
-                    ],
-                    // color: 'white',
-                    width: 5, //外圆的轴线的宽度
-                    opacity: 0
-                }
-            },
-            axisTick: { // 坐标轴小标记
-                show: true, //小刻度显示与否
-                splitNumber: 3, //每一份分为3份
-                // width: 3,
-                length: 15, // 属性length控制线长
-                lineStyle: { // 属性lineStyle控制线条样式
-                    // color: '#B3232D',
-                    color: 'auto',
-                    width: 3,
-                    opacity: 1
-                }
-            },
-            splitLine: { // 分隔线
-                show: true,
-                length: 25, // 属性length控制线长
-                lineStyle: { // 属性lineStyle（详见lineStyle）控制线条样式
-                    width: 3,
-                    option: 1,
-                    color: "auto",
-                }
-            },
-            title: {
-                textStyle: { // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-                    fontSize: 27,
-                    color: '#B3232D',
-                    shadowColor: '#fff', //默认透明
-                }
-            },
-            axisLabel: { // 坐标轴小标记
-                // show: false,
-                textStyle: { // 属性lineStyle控制线条样式
-                    // fontWeight: 'solid',
-                    color: '#B3232D',
-                    fontSize: 26,
-                },
-                formatter: function(v) {
-                    switch (v + '') {
-                        case '10':
-                            return '10';
-                        case '20':
-                            return '20';
-                        case '30':
-                            return '30';
-                        case '40':
-                            return '40';
-                        case '50':
-                            return '50';
-                        case '60':
-                            return '60';
-                        case '70':
-                            return '70';
-                        case '80':
-                            return '80';
-                        case '90':
-                            return '90';
-                        case '100':
-                            return '100';
-                        case '110':
-                            return '110';
-                        case '120':
-                            return '120';
-                        case '130':
-                            return '130';
-                        case '140':
-                            return '140';
-                    }
-                }
-            },
-            pointer: { // 分隔线
-                length: '78%',
-                width: 6,
-                color: 'yellow',
-                transition: "1s",
-                z: 22,
-                backgroundColor: {
-                    // image: 'xxx/xxx.png'
-                    // 这里可以是图片的 URL，
-                    // 或者图片的 dataURI，
-                    // 或者 HTMLImageElement 对象，
-                    // 或者 HTMLCanvasElement 对象。
-                }
-            },
-            itemStyle: {
-                normal: {
-                    // 阴影的大小
-                    shadowBlur: 200,
-                    // 阴影水平方向上的偏移
-                    shadowOffsetX: 0,
-                    // 阴影垂直方向上的偏移
-                    shadowOffsetY: 0,
-                    // 阴影颜色
-                    shadowColor: 'rgba(0, 0, 255, 0.5)'
-                }
-            },
-            data: [{
-                value: 20,
-                textStyle: {
-                    color: "#25c36c"
-                },
-                name: 'km/h'
-            }]
-        }]
-    };
-
-    clearInterval(temptimeTicket);
-    temptimeTicket = setInterval(function() {
-        tempoption.series[0].data[0].value = parseInt(Math.random() * 130 + 10);
-        mytempChart.setOption(tempoption, true);
-    }, 2000)
-
-    // 使用刚指定的配置项和数据显示图表。
-    mytempChart.setOption(tempoption);
+            // myChart.setOption(handleColor(option, config));
+        }, 200)
+        // myChart.setOption(option);
+        //标记红线
+        // myChart.setOption(_settingVerticalGraphic(config), false);
 </script>
 
 </html>
