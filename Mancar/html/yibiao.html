@@ -13,26 +13,8 @@
             background: #0D0918;
             position: relative;
         }
-        /*仪表*/
-        /*img {
-            /*border: 1px solid red;*/
-        /*width: 150px;
-            height: 100px;
-        }*/
-        /*.imgs {
-            width: 500px;
-            height: 1px;
-            border: 1px solid red;
-            position: absolute;
-            left: 0px;
-            z-index: 3;
-            top: 50%;
-            display: none;
-        }*/
         
         .content_center * {
-            /*border: 1px solid red;*/
-            /*overflow: auto;*/
             overflow: hidden;
         }
         
@@ -40,8 +22,8 @@
             z-index: 20;
             position: absolute;
             top: 10px;
-            left: 40%;
-            width: 230px;
+            left: 39%;
+            width: 267px;
             height: 130px;
         }
     </style>
@@ -82,11 +64,9 @@
                 </div>-->
                 <!--速度表-->
                 <!--<div class="speed content_wrap">-->
-                <img class="charts_logo" src="../img/charts_logo.png" alt="">
+                <img class="charts_logo" src="../img/charts_logo1.png" alt="">
                 <div id="speed_main" style="min-width: 310px;min-height:730px;"></div>
                 <!--</div>-->
-
-                <!--<div id="container" style="min-width: 310px; height: 650px; margin: 0 auto"></div>-->
             </div>
             <div class="content_right">
                 <div class="right_part1">
@@ -170,62 +150,16 @@
 <script type="text/javascript" src="../../echarts/js/echarts.js"></script>
 <script>
     // ---------------------------------------------------------------------
-    /**
-    可以设置多个 target value
-    简单配置一下就可以变成横向
-    */
-    //config
+    //转速表config
     var config = {
-        min: 0,
-        max: 100,
-        targetValue: {
-            color: 'gold',
-            value: 60
+            min: 0,
+            max: 100,
+            targetValue: {
+                color: 'gold',
+                value: 60
+            }
         }
-    }
-
-    //根据target value ，生成相应位置的 graphic
-    function _settingVerticalGraphic(config) {
-        var graphic = [];
-        var left = myChart.convertToPixel({
-            xAxisIndex: 0
-        }, 0);
-        left = parseFloat(left, 10).toFixed(2);
-        left -= 26;
-        var targetValue = config.targetValue.value;
-        var min = config.min || 0;
-        var max = config.max || 100;
-        if (targetValue > max || targetValue < min) {
-            return;
-        }
-        var top = _getyAxisValueTop(targetValue);
-        graphic.push({
-            z: 10,
-            type: 'line',
-            left: left,
-            shape: {
-                x1: 0,
-                x2: 35
-            },
-            style: {
-                stroke: 'red',
-                lineWidth: 1
-            },
-            silent: true,
-            top: top
-        });
-        return {
-            graphic: graphic
-        };
-    }
-
-    function _getyAxisValueTop(value) {
-        var top = myChart.convertToPixel({
-            yAxisIndex: 0
-        }, value);
-        return parseFloat(top, 10).toFixed(2) - 2;
-    }
-    // ---------------------------------------------------------------------
+        // ---------------------------------------------------------------------
 
     //s -------------------------------------------速度表
     var myChart = echarts.init(document.getElementById('speed_main'));
@@ -233,7 +167,7 @@
             //zhuzhuang ----------------------------------------
             "yAxis": {
                 "show": true,
-                "offset": -70, //y轴的偏移量
+                // "offset": -70, //y轴的偏移量
                 "type": "value",
                 "interval": 1,
                 "axisTick": {
@@ -256,10 +190,17 @@
                 "max": config.max,
                 "min": config.min
             },
-            "xAxis": {
-                "show": false,
-                "type": "category"
-            },
+            xAxis: [{
+                show: false,
+                type: 'category',
+                data: ['1', '2', '3']
+            }, {
+                show: false,
+                type: 'category',
+                data: ['1', '2', '3']
+            }],
+            // calculable: false,
+
             //zhuzhuang ----------------------------------------
             // backgroundColor: '#333333',
             backgroundColor: '#0D0918',
@@ -278,12 +219,13 @@
                 }
             },
             tooltip: {
+                show: true,
                 formatter: "{a} <br/>{b} : {c}%"
             },
             grid: {
-                width: 200,
-                height: 275,
-                left: "70%", //组件离容器左侧的距离,百分比字符串或整型数字
+                width: 310,
+                height: 250,
+                left: "74%", //组件离容器左侧的距离,百分比字符串或整型数字
                 top: "60%", //组件离容器上侧的距离，百分比字符串或整型数字
                 right: "auto", //组件离容器右侧的距离,百分比字符串或整型数字
                 bottom: "auto", //组件离容器下侧的距离,百分比字符串或整型数字
@@ -332,7 +274,6 @@
                     pointer: {
                         show: false
                     }
-
                 }, { //白色短刻度
                     name: '内层数据刻度',
                     type: 'gauge',
@@ -378,6 +319,7 @@
                     detail: {
                         show: true,
                         formatter: '{value}A',
+                        color: "#A9222B", //中间变化的值颜色
                         offsetCenter: ['0%', '-30%']
                     },
                     itemStyle: {
@@ -473,7 +415,6 @@
                         // splitNumber: 3, //每一份分为3份
                         lineStyle: { // 属性lineStyle控制线条样式
                             color: '#B3232D',
-                            // color: 'auto',
                             width: 3,
                             opacity: 1
                         }
@@ -594,7 +535,6 @@
                         // splitNumber: 3, //每一份分为3份
                         lineStyle: { // 属性lineStyle控制线条样式
                             color: '#B3232D',
-                            // color: 'auto',
                             width: 3,
                             opacity: 1
                         }
@@ -713,7 +653,6 @@
                         splitNumber: 3, //每一份分为3份
                         lineStyle: { // 属性lineStyle控制线条样式
                             color: '#B3232D',
-                            // color: 'auto',
                             width: 3,
                             opacity: 1
                         }
@@ -834,7 +773,6 @@
                         splitNumber: 3, //每一份分为3份
                         lineStyle: { // 属性lineStyle控制线条样式
                             color: '#B3232D',
-                            // color: 'auto',
                             width: 3,
                             opacity: 1
                         }
@@ -923,7 +861,6 @@
                         length: 17,
                         lineStyle: {
                             color: 'white',
-                            // color: 'auto',
                             width: 5
                         }
                     },
@@ -1030,94 +967,94 @@
                         name: '转速表'
                     }]
                 },
-
                 // --------------------------------------------------
-                // 柱状图
                 {
-                    "name": "柱状图",
-                    "type": "bar",
-                    "barWidth": 35,
-                    "silent": true,
-                    "animation": false,
-                    "label": {
+                    name: 'Torque Nm',
+                    type: 'bar',
+                    barWidth: 40,
+                    animation: false,
+                    itemStyle: {
+                        normal: {
+                            color: '#444',
+                            label: {
+                                show: true,
+                                textStyle: {
+                                    color: '#27727B'
+                                }
+                            }
+                        }
+                    },
+                    data: [100, 100, 100],
+                    label: {
                         "normal": {
                             "show": true,
                             "position": "top",
                             "offset": [0, 0], //距离柱状的距离
                             "textStyle": {
                                 "color": "#B3232D",
-                                "fontSize": 20
+                                "fontSize": 18
                             }
                         }
                     },
-                    "barGap": "-100%",
-                    "data": [{
-                        "value": "100",
-                        "itemStyle": {
-                            "normal": {
-                                "color": "#444"
-                            }
-                        },
-                        "name": "value"
-                    }]
                 }, {
-                    "name": "Torque",
-                    "type": "bar",
-                    "barWidth": 35,
-                    "label": {
+                    name: '所占比例',
+                    type: 'bar',
+                    barWidth: 40,
+                    xAxisIndex: 1,
+                    itemStyle: {
+                        normal: {
+                            color: '#B3232D',
+                            label: {
+                                show: true
+                            }
+                        }
+                    },
+                    data: [51, 39, 37],
+                    label: {
                         "normal": {
                             "show": true,
                             "position": "insideTopRight",
                             "offset": [30, 0], //距离柱状的距离
                             "textStyle": {
-                                "color": "white"
+                                "color": "#B3232D",
+                                "fontSize": 14
                             }
                         }
                     },
-                    "data": [{
-                        "value": "50",
-                        "itemStyle": {
-                            "normal": {
-                                "color": "red"
-                            }
-                        },
-                        "name": "value"
-                    }]
-
-                },
+                }
                 // --------------------------------------------------
 
             ]
         }
         // ------------------------------------
-    function handleColor(option, config) {
-        if (option.series[13].data[0].value >= config.targetValue.value) {
-            option.series[13].data[0].itemStyle.normal.color = config.targetValue.color;
-            option.series[13].label.normal.textStyle.color = config.targetValue.color;
-        }
-        return option;
-    }
-    myChart.setOption(handleColor(option, config));
+        // function handleColor(option, config) {
+        //     if (option.series[13].data[0].value >= config.targetValue.value) {
+        //         option.series[13].data[0].itemStyle.normal.color = config.targetValue.color;
+        //         option.series[13].label.normal.textStyle.color = config.targetValue.color;
+        //     }
+        //     return option;
+        // }
+        // myChart.setOption(handleColor(option, config));
+    myChart.setOption(option);
     // ------------------------------------
 
     var timeTicket = '';
     clearInterval(timeTicket);
     console.log(option.series);
-
-
     timeTicket = setInterval(function() {
-            option.series[1].data[0].value = 0.1 * parseInt(Math.random() * 10);
+            var a1 = parseInt(Math.random() * 10)
+            option.series[1].data[0].value = a1 / 10;
             option.series[3].data[0].value = parseInt(Math.random() * 80 + 0);
             option.series[5].data[0].value = parseInt(Math.random() * 80 + 0);
             option.series[7].data[0].value = parseInt(Math.random() * 5 + 0);
             option.series[9].data[0].value = parseInt(Math.random() * 100 + 0);
             option.series[11].data[0].value = parseInt(Math.random() * 10 + 0);
-            option.series[13].data[0].value = parseInt(Math.random() * 100 + 0);
+            option.series[13].data[0] = parseInt(Math.random() * 100 + 0);
+            option.series[13].data[1] = parseInt(Math.random() * 100 + 0);
+            option.series[13].data[2] = parseInt(Math.random() * 100 + 0);
             myChart.setOption(option);
 
-            // myChart.setOption(handleColor(option, config));
         }, 200)
-        // myChart.setOption(option);
         //标记红线
         // myChart.setOption(_settingVerticalGraphic(config), false);
 </script>
