@@ -1,7 +1,3 @@
-body {
-    background: #111111;
-}
-
 .footer {
     width: 100%;
     height: 20px;
@@ -18,11 +14,6 @@ body {
     width: 15px;
     height: 15px;
     margin-left: 20px;
-}
-
-.content_center {
-    background: #111111;
-    position: relative;
 }
 
 .line_title {
@@ -85,11 +76,8 @@ body {
     height: 101%;
     background: url("../img/osc/select.png") no-repeat;
     background-position: 5px -10%;
-    /*background-size: 100% 100%;*/
     background-color: #111111;
-    ;
     position: absolute;
-    /*border: 2px solid green;*/
     top: 0;
     right: 0;
     border: none;
@@ -122,19 +110,13 @@ body {
     background: #269ABC;
 }
 
-.item-wrap li:nth-of-type(even) {
-    /*background: #013796;*/
-}
-
 .showMsg {
     width: 60%;
     height: 100%;
     font-size: 12px;
     position: absolute;
-    /*background: pink;*/
     line-height: 17px;
     top: 0px;
-    /*text-align: center;*/
     left: 0px;
 }
 
@@ -184,16 +166,12 @@ body {
 .idcolor {
     display: inline-block;
     vertical-align: middle;
-    /*mar-gin*/
     text-align: left;
     margin-left: 18px;
-    /*text-indent: 12px;*/
     width: 18px;
     height: 18px;
     margin-top: -3px;
-    /*margin-right: 3px;*/
     background: #111111;
-    ;
 }
 
 .boxs {
@@ -205,25 +183,8 @@ body {
     display: inline-block;
     margin: 10px 10px;
     position: relative;
-    /*position: absolute;*/
     top: 0px;
     left: 0px;
-}
-
-.boxs:hover {
-    cursor: pointer;
-    background: rgba(0, 0, 0, 0.7);
-}
-
-.content_center {
-    border-right: 1px solid #2A2828;
-    border-left: 1px solid #2A2828;
-}
-
-.header,
-.footer {
-    background: #484848;
-    border: none;
 }
 
 .title_left {
@@ -247,7 +208,6 @@ body {
     margin-right: 10px;
     position: absolute;
     bottom: 3px;
-    /*right: 3px;*/
 }
 
 .boxs_con {
@@ -257,14 +217,38 @@ body {
     text-align: center;
     font-size: 3rem;
     line-height: 110px;
-    /*font-family: Square721BT-Roman;*/
     font-family: FZZQJW--GB1-0;
-    /*border: 1px solid red;*/
     position: absolute;
     top: 10px;
     left: 0px;
-    /*top: 20px;*/
-    /*left: 0px;*/
+}
+
+
+/*颜色风格变化*/
+
+body {
+    background: #111111;
+}
+
+.content_center {
+    background: #111111;
+    position: relative;
+}
+
+.header,
+.footer {
+    background: #484848;
+    border: none;
+}
+
+.boxs:hover {
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.content_center {
+    border-right: 1px solid #2A2828;
+    border-left: 1px solid #2A2828;
 }
 
 .right_part1 {
