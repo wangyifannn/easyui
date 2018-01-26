@@ -263,3 +263,7 @@ body {
     color: black !important;
     border-bottom: 1px solid black !important;
 }
+
+.header_left {
+    color: #DFDFDF;
+}
