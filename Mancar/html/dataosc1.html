@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="../css/common.css" rel="stylesheet">
-    <link href="../css/dataosc.css" rel="stylesheet">
     <link href="../css/progresspage.css" rel="stylesheet">
+    <link href="../css/dataosc.css" rel="stylesheet">
 </head>
 
 <body>
@@ -84,7 +84,7 @@
                                 <div class="dropdown">
                                     <p class="chart"><a class="" href="#linechart" tabindex="-1" data-toggle="tab">黑色</a></p>
                                     <p class="chart"><a class="" href="#columnchart" tabindex="-1" data-toggle="tab">深蓝色</a></p>
-                                    <p class="chart"><a class="" href="#chart" tabindex="-1" data-toggle="tab">灰色</a></p>
+                                    <p class="chart colorgrey"><a class="" href="#chart" tabindex="-1" data-toggle="tab">灰色</a></p>
                                 </div>
                             </li>
                             <li>
@@ -145,7 +145,6 @@
     //下拉框功能实现
     $(".showMsg").html(05);
     $(".item-wrap").on("click", "li", function(e) {
-
         var checkVal = $(this).text();
         $(".showMsg").html(checkVal);
         $(".item-wrap").fadeOut();
@@ -182,7 +181,7 @@
                 raised: '$800',
                 orientation: 'horizontal',
                 width: '280px',
-                height: '110px',
+                height: '101px',
                 barColor: "#08E252"
             });
         } else if (j == 7) {
@@ -191,14 +190,20 @@
                 raised: '$800',
                 orientation: 'horizontal',
                 width: '280px',
-                height: '110px',
+                height: '101px',
                 barColor: "#F30627"
             });
         }
     }
+    // 颜色改变
+    var link3 = "";
+    $(".colorgrey").click(function() {
+        link3 = document.getElementsByTagName("link")[1];
+        console.log(link3);
+        link3.href = "../css/greystyle.css";
+    })
 </script>
 <!--echarts波形图-->
-<script src="../mystyle.js">
-</script>
+<script src="../mystyle.js"></script>
 
 </html>

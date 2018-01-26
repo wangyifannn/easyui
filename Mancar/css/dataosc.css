@@ -270,3 +270,12 @@ body {
 .right_part1 {
     border-bottom: 1px solid #2A2828 !important;
 }
+
+.dropdown {
+    background: #DCDDDF;
+}
+
+.dropdown a {
+    color: black !important;
+    border-bottom: 1px solid black !important;
+}
