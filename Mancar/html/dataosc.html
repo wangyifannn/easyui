@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>示波器页面</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../css/common.css" rel="stylesheet">
+    <link href="../css/dataosc.css" rel="stylesheet">
+    <link href="../css/progresspage.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="wrap">
+        <!--header-->
+        <div class="header clear_float">
+            <div class="header_left">
+                <a href="../html/progress.html">进度条</a>
+                <a href="../html/yibiao.html">仪表</a>
+                <span>采集-new</span>
+                <span>工程</span>
+                <span>操作</span>
+                <span>帮助</span>
+            </div>
+            <div class="header_right">
+                <span class="minus"><img src="../img/progress/reduce-1.png" alt=""></span>
+                <span class="fullscreen"><img src="../img/progress/full_screen.png" alt=""></span>
+                <span class="retweet"><img src="../img/progress/restore.png" alt=""></span>
+                <span class="remove"><img src="../img/progress/close.png" alt=""></span>
+            </div>
+        </div>
+        <!--content-->
+        <div class="content clear_float">
+            <div class="content_left">
+                <ul>
+                    <li><img class="pitch_off" src="../img/osc/document.png" alt=""></li>
+                    <li><img class="blow" src="../img/osc/folder.png" alt=""></li>
+                    <li><img class="reduce" src="../img/osc/mail---incoming.png" alt=""></li>
+                    <li><img class="translate" src="../img/osc/printer.png" alt=""></li>
+                </ul>
+            </div>
+            <div class="content_center">
+                <!--<div id="box" style="height:400px;width:600px;border:1px solid black;"></div>-->
+
+                <!--<div class="line_title">
+                    APP-R
+                </div>-->
+
+            </div>
+            <div class="content_right">
+                <div class="right_part1">
+                    <div class="part1_title part_title">
+                        图层
+                    </div>
+                    <div class="part1_content">
+                        <P>DRT_D</P>
+                        <P>DRT_D</P>
+                        <P>DRT_D</P>
+                        <P>DRT_D</P>
+                    </div>
+                </div>
+                <div class="right_part2">
+                    <div class="part2_title part_title">
+                        属性
+                    </div>
+                    <div class="part2_content">
+                        <ul>
+                            <li>
+                                <div class="menus btndrop">
+                                    <span>样式<img src="../img/progress/pitch_on.png" alt="">
+
+                                    </span>
+                                </div>
+                                <div class="dropdown">
+                                    <p class="chart"><a class="" href="#linechart" tabindex="-1" data-toggle="tab">进度条</a></p>
+                                    <p class="chart"><a class="" href="#columnchart" tabindex="-1" data-toggle="tab">仪表盘</a></p>
+                                </div>
+                            </li>
+                            <li>
+
+                                <div class="menus btndrop">
+                                    <span>颜色<img src="../img/progress/pitch_on.png" alt=""></span>
+                                </div>
+                                <div class="dropdown">
+                                    <p class="chart"><a class="" href="#linechart" tabindex="-1" data-toggle="tab">黑色</a></p>
+                                    <p class="chart"><a class="" href="#columnchart" tabindex="-1" data-toggle="tab">深蓝色</a></p>
+                                    <p class="chart"><a class="" href="#chart" tabindex="-1" data-toggle="tab">灰色</a></p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="menus btndrop">
+                                    <span>风格<img src="../img/progress/pitch_on.png" alt=""></span>
+                                </div>
+                                <div class="dropdown">
+                                    <p class="chart"><a class="" href="#linechart" tabindex="-1" data-toggle="tab">扁平化</a></p>
+                                    <p class="chart"><a class="" href="#columnchart" tabindex="-1" data-toggle="tab">暖色系</a></p>
+                                    <p class="chart"><a class="" href="#chart" tabindex="-1" data-toggle="tab">酷黑风</a></p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <span><img src="../img/osc/footer-tips.png" alt=""></span>
+            <span>无配置文件</span>
+            <span>无连接</span>
+            <span>NODEVICE</span>
+        </div>
+    </div>
+</body>
+<script src="../js/zrender.min.js"></script>
+<script src="../js/zoom.js"></script>
+<script src="../js/jquery.min.1.js"></script>
+<script src="../js/dropdown.js">
+</script>
+<script>
+    var content = document.getElementsByClassName("content")[0];
+    $.ajax({
+            "url": "../../carManga/json/datatable.json",
+            "type": "get",
+            "success": function(res) {
+                console.log(res);
+                var jsonHtml = "";
+                console.log(res.length);
+                for (var i = 0; i < res.length; i++) {
+                    jsonHtml += '<tr><td><span class="idcolor"></span><span class="idname">' + res[i].name + '</span></td>' +
+                        '<td>' + res[i].id + '</td>' +
+                        '<td>' + res[i].price + '</td></tr>'
+                }
+                // console.log(jsonHtml);
+                $(".osctable").append(jsonHtml);
+            }
+        })
+        // selected
+    $(".problem").click(function(e) {
+        console.log("aa");
+        $(".item-wrap").slideToggle();
+        e.stopPropagation();
+    });
+
+    //下拉框功能实现
+    $(".showMsg").html(05);
+    $(".item-wrap").on("click", "li", function(e) {
+
+        var checkVal = $(this).text();
+        $(".showMsg").html(checkVal);
+        $(".item-wrap").fadeOut();
+        e.stopPropagation();
+    });
+    $.ajax({
+            "url": "../../carManga/json/datatable.json",
+            "type": "get",
+            "success": function(res) {
+                console.log(res);
+                var jsonContentHtml = "";
+                for (var j = 0; j < 16; j++) {
+                    jsonContentHtml += '<div class="boxs"><p class="clear_float"><span class="title_left">Veh Spd</span><span class="title_right">' + res[j].name + '</span></p>' +
+                        '<div class="boxs_con"><canvas id="box' + j + '" width = "280px" height = "110px"">' + '</canvas></div>' +
+                        '<p class="boxs_footer">' + res[j].price + '</p></div>';
+                    // console.log(jsonContentHtml);
+                }
+                $(".content_center").append(jsonContentHtml);
+                for (var jj = 0; jj < 16; jj++) {
+                    draw("box", jj);
+                }
+
+            }
+        })
+        // 贝塞尔曲线的绘制
+    function draw(boxid, j) {
+        // console.log(boxid);
+        var canvas = document.getElementById("box" + j);
+        // var canvas = document.getElementById("box0");
+        console.log(canvas);
+        var context = canvas.getContext('2d');
+        //绘制3次贝塞尔曲线        
+        context.beginPath();
+        context.moveTo(0, 110);
+        context.bezierCurveTo(50, 30, 100, 110, 150, 110);
+        context.bezierCurveTo(150, 110, 200, 110, 250, 60);
+        // context.bezierCurveTo(200, 130, 250, 30, 290, 200);
+        // context.bezierCurveTo(60, 80, 150, 30, 160, 130);
+        context.lineWidth = 2;
+        context.strokeStyle = "red";
+        context.stroke();
+    }
+</script>
+<!--echarts波形图-->
+<script src="../mystyle.js"></script>
+
+</html>

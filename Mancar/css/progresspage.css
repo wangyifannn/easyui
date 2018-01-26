@@ -8,7 +8,6 @@
     width: 140px;
     height: 30px;
     line-height: 30px;
-    /*background: #DCDDDF;*/
     font-size: 16px;
     margin-top: 10px;
     text-indent: 15px;
@@ -19,12 +18,10 @@
 }
 
 .part2_content ul {
-    /*border: 1px solid gold;*/
     margin-top: 10px;
 }
 
 .part2_content ul li {
-    /*border: 1px solid red;*/
     margin-left: 30px;
     margin-top: 10px;
 }
@@ -32,7 +29,6 @@
 .part1_content P {
     text-indent: 30px;
     margin: 10px 0px;
-    /*text-align: center;*/
 }
 
 .menus img {
@@ -57,14 +53,26 @@
 
 .dropdown a {
     text-decoration: none;
-    color: #494949;
+    color: grey;
     outline: none;
     font-size: 13px;
-    /*line-height: 20px;*/
-    /*margin-top: 5px;*/
     border-bottom: 1px solid #494949;
 }
 
 .dropdown p:last-child a {
     border: none;
+}
+
+.part2_content,
+.part1_content {
+    color: grey;
+}
+
+.inner-therm span {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+.content {
+    height: 750px;
 }

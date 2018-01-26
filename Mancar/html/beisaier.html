@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="box" style="height:400px;width:600px;border:1px solid black;"></div>
+
+    <script src="../js/zrender.min.js"></script>
+
+    <script>
+        var zr = zrender.init(document.getElementById('box')),
+            h = zr.getHeight(),
+            w = zr.getWidth(),
+            line = new zrender.BezierCurve({
+                shape: {
+                    x1: 0,
+                    y1: h,
+                    cpx1: w / 2,
+                    cpy1: h,
+                    cpx2: w / 2,
+                    cpy2: 0,
+                    x2: w,
+                    y2: 0
+                },
+                style: {
+                    stroke: 'green',
+                    lineWidth: 2
+                }
+            });
+        zr.add(line);
+    </script>
+</body>
+
+</html>
