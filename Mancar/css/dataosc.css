@@ -204,22 +204,21 @@
 }
 
 .boxs_footer {
-    text-align: right;
-    margin-right: 10px;
     position: absolute;
-    bottom: 3px;
+    bottom: 5px;
+    right: 10px;
 }
 
 .boxs_con {
     width: 100%;
     height: 70%;
-    color: #F30627;
+    /*color: #F30627;*/
     text-align: center;
     font-size: 3rem;
     line-height: 110px;
     font-family: FZZQJW--GB1-0;
     position: absolute;
-    top: 10px;
+    top: -25px;
     left: 0px;
 }
 
@@ -265,5 +264,10 @@ body {
 }
 
 .header_left {
-    color: #DFDFDF;
+    color: #A5A5A5;
+    margin-left: 50px !important;
+}
+
+.part1_content P {
+    font-size: 13px;
 }

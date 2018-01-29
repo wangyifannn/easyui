@@ -16,12 +16,10 @@
         <!--header-->
         <div class="header clear_float">
             <div class="header_left">
-                <a href="../html/progress.html">进度条</a>
-                <a href="../html/yibiao.html">仪表</a>
-                <span>采集-new</span>
-                <span>工程</span>
-                <span>操作</span>
-                <span>帮助</span>
+                <!--<a href="../html/progress.html">进度条</a>-->
+                <!--<a href="../html/yibiao.html">仪表</a>-->
+                <span>文件</span>
+                <span>编辑</span>
             </div>
             <div class="header_right">
                 <span class="minus"><img src="../img/progress/reduce-1.png" alt=""></span>
@@ -34,10 +32,14 @@
         <div class="content clear_float">
             <div class="content_left">
                 <ul>
-                    <li><img class="pitch_off" src="../img/osc/document.png" alt=""></li>
+                    <!--<li><img class="pitch_off" src="../img/osc/document.png" alt=""></li>
                     <li><img class="blow" src="../img/osc/folder.png" alt=""></li>
                     <li><img class="reduce" src="../img/osc/mail---incoming.png" alt=""></li>
-                    <li><img class="translate" src="../img/osc/printer.png" alt=""></li>
+                    <li><img class="translate" src="../img/osc/printer.png" alt=""></li>-->
+                    <li><img class="pitch_off" src="../img/progress/pitch_off.png" alt=""></li>
+                    <li><img class="blow" src="../img/progress/blow.png" alt=""></li>
+                    <li><img class="reduce" src="../img/progress/reduce.png" alt=""></li>
+                    <li><img class="translate" src="../img/progress/translate.png" alt=""></li>
                 </ul>
             </div>
             <div class="content_center">
@@ -68,7 +70,7 @@
                         <ul>
                             <li>
                                 <div class="menus btndrop">
-                                    <span>样式<img src="../img/progress/pitch_on.png" alt="">
+                                    <span>样式<img src="../img/progress/pitch_on_grey.png" alt="">
 
                                     </span>
                                 </div>
@@ -78,9 +80,8 @@
                                 </div>
                             </li>
                             <li>
-
                                 <div class="menus btndrop">
-                                    <span>颜色<img src="../img/progress/pitch_on.png" alt=""></span>
+                                    <span>颜色<img src="../img/progress/pitch_on_grey.png" alt=""></span>
                                 </div>
                                 <div class="dropdown">
                                     <p class="chart"><a class="" href="#linechart" tabindex="-1" data-toggle="tab">黑色</a></p>
@@ -90,7 +91,7 @@
                             </li>
                             <li>
                                 <div class="menus btndrop">
-                                    <span>风格<img src="../img/progress/pitch_on.png" alt=""></span>
+                                    <span>风格<img src="../img/progress/pitch_on_grey.png" alt=""></span>
                                 </div>
                                 <div class="dropdown">
                                     <p class="chart"><a class="" href="#linechart" tabindex="-1" data-toggle="tab">扁平化</a></p>
@@ -114,78 +115,69 @@
 <script src="../js/zrender.min.js"></script>
 <script src="../js/zoom.js"></script>
 <script src="../js/jquery.min.1.js"></script>
-<script src="../js/dropdown.js">
-</script>
+<script src="../js/dropdown.js"></script>
+<script src="../js/echarts.js"></script>
+
 <script>
     var content = document.getElementsByClassName("content")[0];
+    var datay = [7, 11, 4, 11, 4, 11, 4];
+
     $.ajax({
-            "url": "../../carManga/json/datatable.json",
-            "type": "get",
-            "success": function(res) {
-                console.log(res);
-                var jsonHtml = "";
-                console.log(res.length);
-                for (var i = 0; i < res.length; i++) {
-                    jsonHtml += '<tr><td><span class="idcolor"></span><span class="idname">' + res[i].name + '</span></td>' +
-                        '<td>' + res[i].id + '</td>' +
-                        '<td>' + res[i].price + '</td></tr>'
-                }
-                // console.log(jsonHtml);
-                $(".osctable").append(jsonHtml);
+        "url": "../../carManga/json/datatable.json",
+        "type": "get",
+        "success": function(res) {
+            console.log(res);
+            var jsonContentHtml = "";
+            for (var j = 0; j < 16; j++) {
+                jsonContentHtml += '<div class="boxs"><p class="clear_float"><span class="title_left">Veh Spd</span><span class="title_right">' + res[j].name + '</span></p>' +
+                    '<div class="boxs_con"><div id="box' + j + '" style="width:280px;height:210px">' + '</div></div>' +
+                    '<p class="boxs_footer">' + res[j].price + '</p></div>';
             }
-        })
-        // selected
-    $(".problem").click(function(e) {
-        console.log("aa");
-        $(".item-wrap").slideToggle();
-        e.stopPropagation();
-    });
-
-    //下拉框功能实现
-    $(".showMsg").html(05);
-    $(".item-wrap").on("click", "li", function(e) {
-
-        var checkVal = $(this).text();
-        $(".showMsg").html(checkVal);
-        $(".item-wrap").fadeOut();
-        e.stopPropagation();
-    });
-    $.ajax({
-            "url": "../../carManga/json/datatable.json",
-            "type": "get",
-            "success": function(res) {
-                console.log(res);
-                var jsonContentHtml = "";
-                for (var j = 0; j < 16; j++) {
-                    jsonContentHtml += '<div class="boxs"><p class="clear_float"><span class="title_left">Veh Spd</span><span class="title_right">' + res[j].name + '</span></p>' +
-                        '<div class="boxs_con"><canvas id="box' + j + '" width = "280px" height = "110px"">' + '</canvas></div>' +
-                        '<p class="boxs_footer">' + res[j].price + '</p></div>';
-                    // console.log(jsonContentHtml);
-                }
-                $(".content_center").append(jsonContentHtml);
-                for (var jj = 0; jj < 16; jj++) {
-                    draw("box", jj);
-                }
+            $(".content_center").append(jsonContentHtml);
+            for (var jj = 0; jj < 16; jj++) {
+                // var myChart = echarts.init(document.getElementById('main'));
+                echarts.init(document.getElementById("box" + jj)).setOption(createOption(1, datay));
 
             }
-        })
-        // 贝塞尔曲线的绘制
-    function draw(boxid, j) {
-        // console.log(boxid);
-        var canvas = document.getElementById("box" + j);
-        // var canvas = document.getElementById("box0");
-        console.log(canvas);
-        var context = canvas.getContext('2d');
-        //绘制3次贝塞尔曲线        
-        context.beginPath();
-        context.moveTo(0, 110);
-        context.bezierCurveTo(50, 30, 100, 110, 150, 110);
-        context.bezierCurveTo(150, 110, 200, 110, 250, 60);
-        // context.bezierCurveTo(200, 130, 250, 30, 290, 200);
-        // context.bezierCurveTo(60, 80, 150, 30, 160, 130);
-        context.lineWidth = 2;
-        context.strokeStyle = "red";
-        context.stroke();
+
+        }
+    })
+
+
+    function createOption(x, datay) {
+        option = {　
+            xAxis: [{
+                type: 'category',
+                boundaryGap: false,
+                show: false,
+                data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                    // data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日', '周一', '周二', '周三', '周四', '周五', '周六', '周日']
+            }],
+            yAxis: [{
+                type: 'value',
+                show: false,
+                splitNumber: 3,
+                axisLabel: {
+                    // formatter: '{value} °C
+                }
+            }],
+            series: [{
+                name: '最高气温',
+                type: 'line',
+                itemStyle: {
+                    normal: {
+                        lineStyle: {
+                            color: '#F30627',
+                            width: 3
+                        }
+                    }
+                },
+                smooth: true, //这句就是让曲线变平滑的 
+                symbol: 'none', //这句就是去掉点的 
+                data: datay,
+            }]
+        };
+        return option;
     }
 </script>
 <!--echarts波形图-->

@@ -1,13 +1,15 @@
    .tab-pane-bottom {
        width: 100%;
-       /*min-width: 1000px;*/
-       /*height: 550px;*/
        position: relative;
        border: 2px solid #074587;
    }
    
-   .content {
-       /*min-width: 600px;*/
+   .content_left ul li {
+       background: #B7B7B7 !important;
+   }
+   
+   .content_left ul li:hover {
+       background: #A8A9AA !important;
    }
    
    .progress_box {

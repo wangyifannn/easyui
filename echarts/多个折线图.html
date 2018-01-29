@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>多个折线图</title>
+    <meta charset="UTF-8">
+    <link rel="icon" href="../Mancar/img/html_logo.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div id="main" style="width:300px;height:210px;"></div>
+    <div id="main1" style="width:300px;height:210px;"></div>
+</body>
+<script src="./js/echarts.js"></script>
+<script>
+    // var myChart = echarts.init(document.getElementById('main'));
+    // var myChart1 = echarts.init(document.getElementById('main1'));
+
+    function createOption(x, datay) {
+        option = {　
+            xAxis: [{
+                type: 'category',
+                boundaryGap: false,
+                // show: false,
+                data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+            }],
+            yAxis: [{
+                type: 'value',
+                // show: false,
+                splitNumber: 3,
+                axisLabel: {
+                    // formatter: '{value} °C
+                }
+            }],
+            series: [{
+                name: '最高气温',
+                type: 'line',
+                itemStyle: {
+                    normal: {
+                        lineStyle: {
+                            color: 'blue',
+                            width: 10
+                        }
+                    }
+                },
+                // lineWidth: 10,
+
+                // lineStyle: {
+                //     width: 10,
+                //     color: "blue"
+                // },
+                smooth: true, //这句就是让曲线变平滑的 
+                symbol: 'none', //这句就是去掉点的 
+                data: datay,
+            }]
+        };
+        return option;
+    }
+
+
+    // var timeTicket = '';
+    // clearInterval(timeTicket);
+    // console.log(option.series);
+    // timeTicket = setInterval(function() {
+    //     option.series[1].data[0].value = parseInt(Math.random() * 5 + 0);
+    //     myChart.setOption(option, true);
+    // }, 1000)
+    var datay = [11, 11, 12, 7, 10];
+    var data1 = [4, 11, 12, 7, 10];
+    echarts.init(document.getElementById('main')).setOption(createOption(1, datay));
+    // myChart.setOption(createOption(1, data1));
+    // myChart1.setOption(createOption(1, datay));
+</script>
+
+</html>

@@ -102,12 +102,13 @@ body {
     border: 1px solid black;
     cursor: pointer;
     text-align: center;
-    background: #B7B7B7;
+    /*background: #B7B7B7;*/
     border-radius: 4px;
 }
 
 .content_left ul li:hover {
-    background: #A8A9AA;
+    /*background: #A8A9AA;*/
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .content_left img {
